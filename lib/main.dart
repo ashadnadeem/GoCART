@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gocart/signup.dart';
 import 'package:gocart/tryFile.dart';
 import 'package:gocart/utils.dart';
+import 'package:gocart/login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -63,13 +65,41 @@ class _MyHomePageState extends State<MyHomePage> {
               // Show Onboarding Screen
               : <Widget>[
                   logo(),
-                  // NetworkImage("https://www.bing.com/images/blob?bcid=TrmDGqHd4vkDqxcxoNWLuD9SqbotqVTdP7E"),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 40),
-                    child: Text(
-                        'Try what you like without leaving \nthe comfort of your home'),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 40),
+                    child: Container(
+                      height: 200,
+                      width: 400,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(
+                              // "https://somelink",
+                              "/lib/onboardingPicture.png",
+                            ),
+                            fit: BoxFit.cover),
+                      ),
+                    ),
                   ),
-                  coolButton(text: "Get Started", functionToComply: () {}),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 40),
+                    child: Text(
+                      'Try what you like without leaving \nthe comfort of your home',
+                      textAlign: TextAlign.center,
+                      style:
+                          TextStyle(fontSize: 20, color: Colors.grey.shade800),
+                    ),
+                  ),
+                  coolButton(
+                      text: "Get Started",
+                      width: 252,
+                      height: 70,
+                      functionToComply: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => signupPage()),
+                        );
+                      }),
+                  const SizedBox(height: 10),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -77,8 +107,16 @@ class _MyHomePageState extends State<MyHomePage> {
                         const Text("Already have an account? "),
                         InkWell(
                             child: const Text("Login",
-                                style: TextStyle(color: Colors.red)),
-                            onTap: () {})
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  decoration: TextDecoration.underline,
+                                )),
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => loginPage()));
+                            })
                       ]),
                 ],
         ),

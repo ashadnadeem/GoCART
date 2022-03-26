@@ -26,6 +26,7 @@ class _tryMeState extends State<tryMe> {
             logo(),
             topBar(),
             bottomBar(),
+            gocartTextField(hint: "hint", control: TextEditingController()),
             ElevatedButton(
                 onPressed: () {
                   dialogs.showDeleteConfirmationDialog(context);

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // Logo
 class logo extends StatelessWidget {
   // logo({Key? key}) : super(key: key);
   logo(
-      {this.primaryColor = Colors.black,
+      {this.primaryColor = Colors.black87,
       this.secondaryColor = Colors.redAccent,
       Key? key})
       : super(key: key);
   final Color primaryColor; //= const Color.fromARGB(255, 59, 59, 61);
   final Color secondaryColor; //= const Color.fromARGB(255, 232, 72, 85);
-  final String _fontFam = 'Poppins';
   final double _fontSize = 60;
 
   @override
@@ -20,38 +20,34 @@ class logo extends StatelessWidget {
       children: <Widget>[
         Text(
           'GO',
-          style: TextStyle(
+          style: GoogleFonts.poppins(
             fontSize: _fontSize,
-            fontWeight: FontWeight.w100,
+            fontWeight: FontWeight.w300,
             color: primaryColor,
-            fontFamily: _fontFam,
           ),
         ),
         Text(
           'C',
-          style: TextStyle(
+          style: GoogleFonts.poppins(
             fontSize: _fontSize,
             fontWeight: FontWeight.w900,
             color: primaryColor,
-            fontFamily: _fontFam,
           ),
         ),
         Text(
           'AR',
-          style: TextStyle(
+          style: GoogleFonts.poppins(
             fontSize: _fontSize,
             fontWeight: FontWeight.w900,
             color: secondaryColor,
-            fontFamily: _fontFam,
           ),
         ),
         Text(
           'T',
-          style: TextStyle(
+          style: GoogleFonts.poppins(
             fontSize: _fontSize,
             fontWeight: FontWeight.w900,
             color: primaryColor,
-            fontFamily: _fontFam,
           ),
         ),
       ],
@@ -60,8 +56,11 @@ class logo extends StatelessWidget {
 }
 
 // App Bar
-class topBar extends StatelessWidget {
+class topBar extends StatelessWidget implements PreferredSizeWidget {
   const topBar({Key? key}) : super(key: key);
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => Size.fromHeight(90);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -70,7 +69,7 @@ class topBar extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -89,8 +88,11 @@ class topBar extends StatelessWidget {
 }
 
 // Bottom App Bar
-class bottomBar extends StatelessWidget {
+class bottomBar extends StatelessWidget implements PreferredSizeWidget {
   const bottomBar({Key? key}) : super(key: key);
+  @override
+  // TODO: implement preferredSize
+  Size get preferredSize => Size.fromHeight(70);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -101,7 +103,7 @@ class bottomBar extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: const <Widget>[
             Icon(Icons.home_outlined, size: 40, color: Colors.white),
             Icon(Icons.search_outlined, size: 40, color: Colors.white),
@@ -168,23 +170,77 @@ class dialogs {
 class coolButton extends StatelessWidget {
   const coolButton({
     required this.text,
+    required this.width,
+    required this.height,
     required this.functionToComply,
     Key? key,
   }) : super(key: key);
+  final double width, height;
   final String text;
   final void Function() functionToComply;
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        primary: Colors.redAccent,
-        onPrimary: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+    return Card(
+      elevation: 5,
+      shadowColor: Colors.black,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(38),
+      ),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Colors.redAccent,
+          onPrimary: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(38),
+          ),
+          fixedSize: Size(width, height),
+          shadowColor: Colors.grey.shade900,
+        ),
+        child: Text(text,
+            style:
+                GoogleFonts.poppins(fontSize: 28, fontWeight: FontWeight.w600)),
+        onPressed: functionToComply,
+      ),
+    );
+  }
+}
+
+// GocartTextField
+class gocartTextField extends StatelessWidget {
+  const gocartTextField({
+    required this.hint,
+    required this.control,
+    this.pswd = false,
+    this.textType = TextInputType.text,
+    Key? key,
+  }) : super(key: key);
+  final String hint;
+  final TextEditingController control;
+  final bool pswd;
+  final TextInputType textType;
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      obscureText: pswd,
+      keyboardType: textType,
+      controller: control,
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Colors.grey.shade300,
+        hintText: hint,
+        hintStyle: GoogleFonts.poppins(
+          color: Colors.grey,
+          fontSize: 20,
+        ),
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          borderSide: BorderSide(width: 2.0),
         ),
       ),
-      child: Text(text, style: const TextStyle(fontWeight: FontWeight.bold)),
-      onPressed: functionToComply,
+      style: GoogleFonts.poppins(
+        color: Colors.black,
+        fontSize: 20,
+      ),
     );
   }
 }
