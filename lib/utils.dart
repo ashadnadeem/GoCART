@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gocart/accountpage.dart';
+import 'package:gocart/homepage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // Logo
@@ -7,21 +9,23 @@ class logo extends StatelessWidget {
   logo(
       {this.primaryColor = Colors.black87,
       this.secondaryColor = Colors.redAccent,
+      this.fontSize = 60,
       Key? key})
       : super(key: key);
   final Color primaryColor; //= const Color.fromARGB(255, 59, 59, 61);
   final Color secondaryColor; //= const Color.fromARGB(255, 232, 72, 85);
-  final double _fontSize = 60;
+  double fontSize;
 
   @override
   Widget build(BuildContext context) {
+    fontSize = MediaQuery.of(context).size.width * 0.13;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Text(
           'GO',
           style: GoogleFonts.poppins(
-            fontSize: _fontSize,
+            fontSize: fontSize,
             fontWeight: FontWeight.w300,
             color: primaryColor,
           ),
@@ -29,7 +33,7 @@ class logo extends StatelessWidget {
         Text(
           'C',
           style: GoogleFonts.poppins(
-            fontSize: _fontSize,
+            fontSize: fontSize,
             fontWeight: FontWeight.w900,
             color: primaryColor,
           ),
@@ -37,7 +41,7 @@ class logo extends StatelessWidget {
         Text(
           'AR',
           style: GoogleFonts.poppins(
-            fontSize: _fontSize,
+            fontSize: fontSize,
             fontWeight: FontWeight.w900,
             color: secondaryColor,
           ),
@@ -45,7 +49,7 @@ class logo extends StatelessWidget {
         Text(
           'T',
           style: GoogleFonts.poppins(
-            fontSize: _fontSize,
+            fontSize: fontSize,
             fontWeight: FontWeight.w900,
             color: primaryColor,
           ),
@@ -63,25 +67,56 @@ class topBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(90);
   @override
   Widget build(BuildContext context) {
+    double screenSizeW = MediaQuery.of(context).size.width;
+    double screenSizeH = MediaQuery.of(context).size.height;
     return Container(
+      height: screenSizeH * 0.1,
+      width: screenSizeW,
       decoration: const BoxDecoration(
-        color: const Color.fromARGB(255, 59, 59, 61),
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: Color.fromARGB(255, 59, 59, 61),
+        borderRadius: BorderRadius.all(Radius.circular(15)),
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Icon(Icons.account_circle_outlined, size: 40, color: Colors.white),
-            logo(
-              primaryColor: Colors.white,
-              secondaryColor: Colors.yellow,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          SizedBox(
+            width: screenSizeW * 0.15,
+            height: screenSizeW * 0.15,
+            child: IconButton(
+              icon: Icon(Icons.account_circle_outlined,
+                  size: screenSizeW * 0.12, color: Colors.white),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => myAccount()),
+                );
+              },
             ),
-            Icon(Icons.shopping_cart_outlined, size: 40, color: Colors.white),
-            // Icon(Icons.card_travel_outlined, size: 40, color: Colors.white),
-          ],
-        ),
+          ),
+          SizedBox(width: screenSizeW * 0.03),
+          logo(
+            primaryColor: Colors.white,
+            secondaryColor: Colors.yellow,
+            fontSize: screenSizeW * 0.1,
+          ),
+          SizedBox(width: screenSizeW * 0.03),
+          SizedBox(
+            width: screenSizeW * 0.15,
+            height: screenSizeW * 0.15,
+            child: IconButton(
+              icon: Icon(Icons.shopping_cart_outlined,
+                  size: screenSizeW * 0.12, color: Colors.white),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => myAccount()),
+                );
+              },
+            ),
+          ),
+          // Icon(Icons.card_travel_outlined, size: 40, color: Colors.white),
+        ],
       ),
     );
   }
@@ -92,27 +127,107 @@ class bottomBar extends StatelessWidget implements PreferredSizeWidget {
   const bottomBar({Key? key}) : super(key: key);
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(70);
+  Size get preferredSize => Size.fromHeight(80);
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
         color: const Color.fromARGB(255, 59, 59, 61),
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderRadius: BorderRadius.all(Radius.circular(15)),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.only(top: 10, bottom: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: const <Widget>[
-            Icon(Icons.home_outlined, size: 40, color: Colors.white),
-            Icon(Icons.search_outlined, size: 40, color: Colors.white),
-            Icon(Icons.favorite_border_outlined, size: 40, color: Colors.white),
-            Icon(Icons.shopping_cart_outlined, size: 40, color: Colors.white),
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            IconButton(
+              icon: const Icon(
+                Icons.home_outlined,
+                size: 50,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => homePage()));
+              },
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.search_outlined,
+                size: 50,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => homePage()));
+              },
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.favorite_border_outlined,
+                size: 50,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => homePage()));
+              },
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.shopping_cart_outlined,
+                size: 50,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => homePage()));
+              },
+            ),
           ],
         ),
       ),
     );
+  }
+}
+
+// Header with back button
+class headerBar extends StatelessWidget {
+  const headerBar({Key? key, required this.title}) : super(key: key);
+  final String title;
+  @override
+  Widget build(BuildContext context) {
+    double screenSizeW = MediaQuery.of(context).size.width;
+    double screenSizeH = MediaQuery.of(context).size.height;
+    // returns a container with a back button and a title
+    return Container(
+        // height: screenSizeH * 0.05,
+        width: screenSizeW,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.arrow_back_ios_new_rounded,
+                size: screenSizeW * 0.07,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            Text(
+              title,
+              style: GoogleFonts.poppins(
+                fontSize: screenSizeW * 0.08,
+                fontWeight: FontWeight.w900,
+                color: const Color.fromARGB(255, 59, 59, 61),
+              ),
+            ),
+            Container(width: screenSizeW * 0.1),
+          ],
+        ));
   }
 }
 
@@ -168,16 +283,24 @@ class dialogs {
 
 // Elevted Button Template
 class coolButton extends StatelessWidget {
-  const coolButton({
+  coolButton({
     required this.text,
     required this.width,
     required this.height,
     required this.functionToComply,
+    this.iconData,
+    this.iconSize,
+    this.textSize = 28,
+    this.primaryColor = Colors.redAccent,
     Key? key,
   }) : super(key: key);
   final double width, height;
   final String text;
   final void Function() functionToComply;
+  final IconData? iconData;
+  final double? iconSize;
+  double textSize;
+  final Color primaryColor;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -188,7 +311,7 @@ class coolButton extends StatelessWidget {
       ),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: Colors.redAccent,
+          primary: primaryColor,
           onPrimary: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(38),
@@ -196,9 +319,16 @@ class coolButton extends StatelessWidget {
           fixedSize: Size(width, height),
           shadowColor: Colors.grey.shade900,
         ),
-        child: Text(text,
-            style:
-                GoogleFonts.poppins(fontSize: 28, fontWeight: FontWeight.w600)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (iconData != null) Icon(iconData, size: iconSize),
+            Text(text,
+                style: GoogleFonts.poppins(
+                    fontSize: textSize, fontWeight: FontWeight.w600),
+                textAlign: TextAlign.center),
+          ],
+        ),
         onPressed: functionToComply,
       ),
     );
@@ -207,30 +337,37 @@ class coolButton extends StatelessWidget {
 
 // GocartTextField
 class gocartTextField extends StatelessWidget {
-  const gocartTextField({
+  gocartTextField({
     required this.hint,
     required this.control,
     this.pswd = false,
     this.textType = TextInputType.text,
+    this.editable = true,
     Key? key,
   }) : super(key: key);
   final String hint;
   final TextEditingController control;
   final bool pswd;
   final TextInputType textType;
+  final bool? editable;
   @override
   Widget build(BuildContext context) {
+    final double screenSizeW = MediaQuery.of(context).size.width;
     return TextField(
+      enabled: editable,
       obscureText: pswd,
       keyboardType: textType,
       controller: control,
       decoration: InputDecoration(
+        // set size of input field
+        contentPadding: EdgeInsets.symmetric(
+            horizontal: screenSizeW * 0.02, vertical: screenSizeW * 0.02),
         filled: true,
         fillColor: Colors.grey.shade300,
         hintText: hint,
         hintStyle: GoogleFonts.poppins(
           color: Colors.grey,
-          fontSize: 20,
+          fontSize: screenSizeW * 0.05,
         ),
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(20.0)),
@@ -239,8 +376,146 @@ class gocartTextField extends StatelessWidget {
       ),
       style: GoogleFonts.poppins(
         color: Colors.black,
-        fontSize: 20,
+        fontSize: screenSizeW * 0.04,
       ),
     );
   }
+}
+
+class addressTile extends StatelessWidget {
+  addressTile({Key? key, this.defaultAddress = false, required this.address})
+      : super(key: key);
+  bool defaultAddress;
+  final Address address;
+  @override
+  Widget build(BuildContext context) {
+    final double screenSizeW = MediaQuery.of(context).size.width;
+    final double screenSizeH = MediaQuery.of(context).size.height;
+
+    Widget editButton() {
+      return IconButton(
+        icon: Icon(Icons.edit_note_outlined, size: screenSizeW * 0.08),
+        onPressed: () {},
+      );
+    }
+
+    Widget deleteButton() {
+      return IconButton(
+        icon: Icon(Icons.delete_forever_outlined,
+            color: Colors.red, size: screenSizeW * 0.07),
+        onPressed: () {},
+      );
+    }
+
+    return InkWell(
+      onTap: () {
+        // Change the default address
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Card(
+          color: defaultAddress ? Colors.grey.shade300 : Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          elevation: 2,
+          child: Column(
+            children: [
+              Row(
+                children: <Widget>[
+                  Container(width: screenSizeW * 0.04),
+                  Text(
+                    '${address.name} ',
+                    style: GoogleFonts.poppins(
+                      fontSize: screenSizeW * 0.04,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  defaultAddress ? Container() : editButton(),
+                  Expanded(
+                    child: Container(
+                      color: Colors.black54,
+                      height: 2,
+                    ),
+                  ),
+                  defaultAddress ? editButton() : deleteButton(),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Container(width: screenSizeW * 0.04),
+                  Text(
+                    'Address:  ',
+                    style: GoogleFonts.poppins(
+                      fontSize: screenSizeW * 0.04,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  Text(
+                    address.address,
+                    style: GoogleFonts.poppins(
+                      fontSize: screenSizeW * 0.04,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Container(width: screenSizeW * 0.04),
+                  Text(
+                    'City:          ',
+                    style: GoogleFonts.poppins(
+                      fontSize: screenSizeW * 0.04,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  Text(
+                    address.city,
+                    style: GoogleFonts.poppins(
+                      fontSize: screenSizeW * 0.04,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Container(width: screenSizeW * 0.04),
+                  Text(
+                    'Phone:     ',
+                    style: GoogleFonts.poppins(
+                      fontSize: screenSizeW * 0.04,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  Text(
+                    address.phone,
+                    style: GoogleFonts.poppins(
+                      fontSize: screenSizeW * 0.04,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: screenSizeH * 0.01),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class Address {
+  Address({
+    required this.name,
+    required this.address,
+    required this.city,
+    required this.phone,
+  });
+  final String name, address, city, phone;
 }

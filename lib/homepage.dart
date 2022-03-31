@@ -12,67 +12,74 @@ class homePage extends StatefulWidget {
 class _homePageState extends State<homePage> {
   @override
   Widget build(BuildContext context) {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       // appBar: AppBar(
       //   automaticallyImplyLeading: false,
       //   titleSpacing: 0.0,
       //   title: topBar(),
       // ),
-      appBar: topBar(),
+      appBar: const topBar(),
       body: Center(
         child: Column(children: <Widget>[
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const SizedBox(width: 15),
-              Text('Recomended Brands',
+              SizedBox(width: screenWidth * 0.04),
+              Text('Recomended Brands  ',
                   style: GoogleFonts.poppins(
                       color: Colors.grey,
-                      fontSize: 20,
+                      fontSize: screenWidth * 0.05,
                       fontWeight: FontWeight.w500)),
-              Container(
-                width: MediaQuery.of(context).size.width - 226,
-                height: 2,
-                color: Colors.grey,
-              )
+              Expanded(
+                child: Container(
+                  height: 2,
+                  color: Colors.grey,
+                ),
+              ),
+              Container(width: screenWidth * 0.04),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const SizedBox(width: 15),
-              Text('Trending',
+              SizedBox(width: screenWidth * 0.04),
+              Text('Trending  ',
                   style: GoogleFonts.poppins(
                       color: Colors.grey,
-                      fontSize: 20,
+                      fontSize: screenWidth * 0.05,
                       fontWeight: FontWeight.w500)),
-              Container(
-                width: MediaQuery.of(context).size.width - 105,
-                height: 2,
-                color: Colors.grey,
-              )
+              Expanded(
+                child: Container(
+                  height: 2,
+                  color: Colors.grey,
+                ),
+              ),
+              Container(width: screenWidth * 0.04),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const SizedBox(width: 15),
-              Text('AR Compatible',
+              SizedBox(width: screenWidth * 0.04),
+              Text('AR Compatible  ',
                   style: GoogleFonts.poppins(
                       color: Colors.grey,
-                      fontSize: 20,
+                      fontSize: screenWidth * 0.05,
                       fontWeight: FontWeight.w500)),
-              Container(
-                width: MediaQuery.of(context).size.width - 165,
-                height: 2,
-                color: Colors.grey,
-              )
+              Expanded(
+                child: Container(
+                  height: 2,
+                  color: Colors.grey,
+                ),
+              ),
+              Container(width: screenWidth * 0.04),
             ],
           ),
         ]),
       ),
-      // bottomNavigationBar: BottomAppBar(),
-      bottomNavigationBar: bottomBar(),
+      bottomNavigationBar: const bottomBar(),
     );
   }
 }

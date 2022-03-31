@@ -3,6 +3,8 @@ import 'package:gocart/signup.dart';
 import 'package:gocart/tryFile.dart';
 import 'package:gocart/utils.dart';
 import 'package:gocart/login.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 
 void main() {
   runApp(const MyApp());
@@ -39,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 6), () {
       setState(() {
         _isLoading = false;
       });
@@ -53,13 +55,15 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: _isLoading
               // Show Splash Screen
               ? <Widget>[
-                  logo(),
+                  // logo(),
+                  const JumpingLogo(),
                   const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 100),
-                    child: LinearProgressIndicator(),
+                    padding: EdgeInsets.symmetric(horizontal: 150),
+                    child: LinearProgressIndicator(color: Colors.redAccent),
                   ),
                 ]
               // Show Onboarding Screen
@@ -133,5 +137,72 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Text('Try Me Page'),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+}
+
+class JumpingLogo extends StatelessWidget {
+  const JumpingLogo({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    const Color primaryColor = Colors.black87;
+    const Color secondaryColor = Colors.redAccent;
+    // Screensize / some value
+    double fontSize = MediaQuery.of(context).size.width * 0.13;
+    return CollectionSlideTransition(children: [
+      Text(
+        'G',
+        style: GoogleFonts.poppins(
+          fontSize: fontSize,
+          fontWeight: FontWeight.w300,
+          color: primaryColor,
+        ),
+      ),
+      // Text(
+      //   'O',
+      //   style: GoogleFonts.poppins(
+      //     fontSize: fontSize,
+      //     fontWeight: FontWeight.w300,
+      //     color: primaryColor,
+      //   ),
+      // ),
+      SizedBox(
+        width: fontSize / 2 + 10,
+        height: fontSize / 2 + 10,
+        child: const CircularProgressIndicator(color: primaryColor),
+      ),
+      Text(
+        'C',
+        style: GoogleFonts.poppins(
+          fontSize: fontSize,
+          fontWeight: FontWeight.w900,
+          color: primaryColor,
+        ),
+      ),
+      Text(
+        'A',
+        style: GoogleFonts.poppins(
+          fontSize: fontSize,
+          fontWeight: FontWeight.w900,
+          color: secondaryColor,
+        ),
+      ),
+      Text(
+        'R',
+        style: GoogleFonts.poppins(
+          fontSize: fontSize,
+          fontWeight: FontWeight.w900,
+          color: secondaryColor,
+        ),
+      ),
+      Text(
+        'T',
+        style: GoogleFonts.poppins(
+          fontSize: fontSize,
+          fontWeight: FontWeight.w900,
+          color: primaryColor,
+        ),
+      ),
+    ]);
   }
 }
