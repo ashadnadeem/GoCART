@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:awesome_card/awesome_card.dart';
 import 'package:flutter/material.dart';
 import 'package:gocart/accountpage.dart';
 import 'package:gocart/homepage.dart';
@@ -9,7 +12,7 @@ class logo extends StatelessWidget {
   logo(
       {this.primaryColor = Colors.black87,
       this.secondaryColor = Colors.redAccent,
-      this.fontSize = 60,
+      this.fontSize = -1,
       Key? key})
       : super(key: key);
   final Color primaryColor; //= const Color.fromARGB(255, 59, 59, 61);
@@ -18,7 +21,9 @@ class logo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    fontSize = MediaQuery.of(context).size.width * 0.13;
+    if (fontSize == -1) {
+      fontSize = MediaQuery.of(context).size.height * 0.08;
+    }
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -69,54 +74,62 @@ class topBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     double screenSizeW = MediaQuery.of(context).size.width;
     double screenSizeH = MediaQuery.of(context).size.height;
-    return Container(
-      height: screenSizeH * 0.1,
-      width: screenSizeW,
-      decoration: const BoxDecoration(
-        color: Color.fromARGB(255, 59, 59, 61),
-        borderRadius: BorderRadius.all(Radius.circular(15)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(
-            width: screenSizeW * 0.15,
-            height: screenSizeW * 0.15,
-            child: IconButton(
-              icon: Icon(Icons.account_circle_outlined,
-                  size: screenSizeW * 0.12, color: Colors.white),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => myAccount()),
-                );
-              },
-            ),
+    return SafeArea(
+      bottom: false,
+      child: Container(
+        height: screenSizeH * 0.08,
+        width: screenSizeW,
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 59, 59, 61),
+          // Border radius only for botom
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(30),
+            bottomRight: Radius.circular(30),
           ),
-          SizedBox(width: screenSizeW * 0.03),
-          logo(
-            primaryColor: Colors.white,
-            secondaryColor: Colors.yellow,
-            fontSize: screenSizeW * 0.1,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              // Profile Icon
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: IconButton(
+                  icon: Icon(Icons.account_circle_outlined,
+                      size: screenSizeH * 0.05, color: Colors.white),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => myAccount()),
+                    );
+                  },
+                ),
+              ),
+              // Logo
+              logo(
+                primaryColor: Colors.white,
+                secondaryColor: Colors.yellow,
+                fontSize: screenSizeH * 0.05,
+              ),
+              // Cart Icon
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: IconButton(
+                  icon: Icon(Icons.shopping_cart_outlined,
+                      size: screenSizeH * 0.05, color: Colors.white),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => myAccount()),
+                    );
+                  },
+                ),
+              ),
+              // Icon(Icons.card_travel_outlined, size: 40, color: Colors.white),
+            ],
           ),
-          SizedBox(width: screenSizeW * 0.03),
-          SizedBox(
-            width: screenSizeW * 0.15,
-            height: screenSizeW * 0.15,
-            child: IconButton(
-              icon: Icon(Icons.shopping_cart_outlined,
-                  size: screenSizeW * 0.12, color: Colors.white),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => myAccount()),
-                );
-              },
-            ),
-          ),
-          // Icon(Icons.card_travel_outlined, size: 40, color: Colors.white),
-        ],
+        ),
       ),
     );
   }
@@ -130,21 +143,26 @@ class bottomBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(80);
   @override
   Widget build(BuildContext context) {
+    final double iconSize = MediaQuery.of(context).size.height * 0.05;
     return Container(
+      height: MediaQuery.of(context).size.height * 0.08,
       decoration: const BoxDecoration(
-        color: const Color.fromARGB(255, 59, 59, 61),
-        borderRadius: BorderRadius.all(Radius.circular(15)),
+        color: Color.fromARGB(255, 59, 59, 61),
+        // Border radius only for botom
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
       ),
       child: Padding(
         padding: const EdgeInsets.only(top: 10, bottom: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             IconButton(
-              icon: const Icon(
+              icon: Icon(
                 Icons.home_outlined,
-                size: 50,
+                size: iconSize,
                 color: Colors.white,
               ),
               onPressed: () {
@@ -153,9 +171,9 @@ class bottomBar extends StatelessWidget implements PreferredSizeWidget {
               },
             ),
             IconButton(
-              icon: const Icon(
+              icon: Icon(
                 Icons.search_outlined,
-                size: 50,
+                size: iconSize,
                 color: Colors.white,
               ),
               onPressed: () {
@@ -164,9 +182,9 @@ class bottomBar extends StatelessWidget implements PreferredSizeWidget {
               },
             ),
             IconButton(
-              icon: const Icon(
+              icon: Icon(
                 Icons.favorite_border_outlined,
-                size: 50,
+                size: iconSize,
                 color: Colors.white,
               ),
               onPressed: () {
@@ -175,9 +193,9 @@ class bottomBar extends StatelessWidget implements PreferredSizeWidget {
               },
             ),
             IconButton(
-              icon: const Icon(
+              icon: Icon(
                 Icons.shopping_cart_outlined,
-                size: 50,
+                size: iconSize,
                 color: Colors.white,
               ),
               onPressed: () {
@@ -202,7 +220,6 @@ class headerBar extends StatelessWidget {
     double screenSizeH = MediaQuery.of(context).size.height;
     // returns a container with a back button and a title
     return Container(
-        // height: screenSizeH * 0.05,
         width: screenSizeW,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -210,7 +227,7 @@ class headerBar extends StatelessWidget {
             IconButton(
               icon: Icon(
                 Icons.arrow_back_ios_new_rounded,
-                size: screenSizeW * 0.07,
+                size: screenSizeH * 0.04,
                 color: Colors.black,
               ),
               onPressed: () {
@@ -220,7 +237,7 @@ class headerBar extends StatelessWidget {
             Text(
               title,
               style: GoogleFonts.poppins(
-                fontSize: screenSizeW * 0.08,
+                fontSize: screenSizeH * 0.03,
                 fontWeight: FontWeight.w900,
                 color: const Color.fromARGB(255, 59, 59, 61),
               ),
@@ -285,24 +302,53 @@ class dialogs {
 class coolButton extends StatelessWidget {
   coolButton({
     required this.text,
-    required this.width,
-    required this.height,
     required this.functionToComply,
-    this.iconData,
-    this.iconSize,
-    this.textSize = 28,
     this.primaryColor = Colors.redAccent,
     Key? key,
   }) : super(key: key);
-  final double width, height;
   final String text;
   final void Function() functionToComply;
-  final IconData? iconData;
-  final double? iconSize;
-  double textSize;
   final Color primaryColor;
   @override
   Widget build(BuildContext context) {
+    final double textSize = MediaQuery.of(context).size.height * 0.03;
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        primary: primaryColor,
+        onPrimary: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(38),
+        ),
+        shadowColor: Colors.grey.shade900,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(text,
+            style: GoogleFonts.poppins(
+                fontSize: textSize, fontWeight: FontWeight.w600),
+            textAlign: TextAlign.center),
+      ),
+      onPressed: functionToComply,
+    );
+  }
+}
+
+// coolCardTemplate: a card with a icon and a title
+class coolCard extends StatelessWidget {
+  const coolCard({
+    Key? key,
+    required this.text,
+    required this.functionToComply,
+    this.iconData,
+    this.primaryColor = Colors.redAccent,
+  }) : super(key: key);
+  final String text;
+  final void Function() functionToComply;
+  final IconData? iconData;
+  final Color primaryColor;
+  @override
+  Widget build(BuildContext context) {
+    final double screenSizeH = MediaQuery.of(context).size.height;
     return Card(
       elevation: 5,
       shadowColor: Colors.black,
@@ -316,18 +362,29 @@ class coolButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(38),
           ),
-          fixedSize: Size(width, height),
           shadowColor: Colors.grey.shade900,
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (iconData != null) Icon(iconData, size: iconSize),
-            Text(text,
-                style: GoogleFonts.poppins(
-                    fontSize: textSize, fontWeight: FontWeight.w600),
-                textAlign: TextAlign.center),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            width: screenSizeH * 0.12,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(iconData, size: screenSizeH * 0.06),
+                Text(text.split(" ")[0],
+                    style: GoogleFonts.poppins(
+                        fontSize: screenSizeH * 0.02,
+                        fontWeight: FontWeight.w600),
+                    textAlign: TextAlign.center),
+                Text(text.split(" ")[1],
+                    style: GoogleFonts.poppins(
+                        fontSize: screenSizeH * 0.02,
+                        fontWeight: FontWeight.w600),
+                    textAlign: TextAlign.center),
+              ],
+            ),
+          ),
         ),
         onPressed: functionToComply,
       ),
@@ -343,6 +400,8 @@ class gocartTextField extends StatelessWidget {
     this.pswd = false,
     this.textType = TextInputType.text,
     this.editable = true,
+    this.length,
+    this.onChangedFunction,
     Key? key,
   }) : super(key: key);
   final String hint;
@@ -350,33 +409,40 @@ class gocartTextField extends StatelessWidget {
   final bool pswd;
   final TextInputType textType;
   final bool? editable;
+  final int? length;
+  final void Function(String)? onChangedFunction;
   @override
   Widget build(BuildContext context) {
-    final double screenSizeW = MediaQuery.of(context).size.width;
-    return TextField(
-      enabled: editable,
-      obscureText: pswd,
-      keyboardType: textType,
-      controller: control,
-      decoration: InputDecoration(
-        // set size of input field
-        contentPadding: EdgeInsets.symmetric(
-            horizontal: screenSizeW * 0.02, vertical: screenSizeW * 0.02),
-        filled: true,
-        fillColor: Colors.grey.shade300,
-        hintText: hint,
-        hintStyle: GoogleFonts.poppins(
-          color: Colors.grey,
-          fontSize: screenSizeW * 0.05,
+    final double screenSizeH = MediaQuery.of(context).size.height;
+    return Padding(
+      padding: EdgeInsets.only(bottom: length == null ? 20 : 0),
+      child: TextField(
+        onChanged: onChangedFunction,
+        maxLength: length,
+        enabled: editable,
+        obscureText: pswd,
+        keyboardType: textType,
+        controller: control,
+        decoration: InputDecoration(
+          // set size of input field
+          contentPadding: EdgeInsets.symmetric(
+              vertical: screenSizeH * 0.000, horizontal: 20),
+          filled: true,
+          fillColor: Colors.grey.shade300,
+          hintText: hint,
+          hintStyle: GoogleFonts.poppins(
+            color: Colors.grey,
+            fontSize: screenSizeH * 0.02,
+          ),
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            borderSide: BorderSide(width: 2.0),
+          ),
         ),
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-          borderSide: BorderSide(width: 2.0),
+        style: GoogleFonts.poppins(
+          color: Colors.black,
+          fontSize: screenSizeH * 0.02,
         ),
-      ),
-      style: GoogleFonts.poppins(
-        color: Colors.black,
-        fontSize: screenSizeW * 0.04,
       ),
     );
   }
@@ -389,12 +455,11 @@ class addressTile extends StatelessWidget {
   final Address address;
   @override
   Widget build(BuildContext context) {
-    final double screenSizeW = MediaQuery.of(context).size.width;
     final double screenSizeH = MediaQuery.of(context).size.height;
-
+    final double fontsize = screenSizeH * 0.015;
     Widget editButton() {
       return IconButton(
-        icon: Icon(Icons.edit_note_outlined, size: screenSizeW * 0.08),
+        icon: Icon(Icons.edit_note_outlined, size: screenSizeH * 0.03),
         onPressed: () {},
       );
     }
@@ -402,7 +467,7 @@ class addressTile extends StatelessWidget {
     Widget deleteButton() {
       return IconButton(
         icon: Icon(Icons.delete_forever_outlined,
-            color: Colors.red, size: screenSizeW * 0.07),
+            color: Colors.red, size: screenSizeH * 0.03),
         onPressed: () {},
       );
     }
@@ -423,11 +488,11 @@ class addressTile extends StatelessWidget {
             children: [
               Row(
                 children: <Widget>[
-                  Container(width: screenSizeW * 0.04),
+                  Container(width: screenSizeH * 0.01),
                   Text(
                     '${address.name} ',
                     style: GoogleFonts.poppins(
-                      fontSize: screenSizeW * 0.04,
+                      fontSize: screenSizeH * 0.02,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
@@ -443,51 +508,59 @@ class addressTile extends StatelessWidget {
               ),
               Row(
                 children: <Widget>[
-                  Container(width: screenSizeW * 0.04),
+                  Container(width: screenSizeH * 0.03),
                   Text(
                     'Address:  ',
                     style: GoogleFonts.poppins(
-                      fontSize: screenSizeW * 0.04,
+                      fontSize: fontsize,
                       fontWeight: FontWeight.w300,
                       color: Colors.black54,
                     ),
                   ),
-                  Text(
-                    address.address,
-                    style: GoogleFonts.poppins(
-                      fontSize: screenSizeW * 0.04,
-                      fontWeight: FontWeight.w300,
+                  Expanded(
+                    child: Text(
+                      address.address,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: GoogleFonts.poppins(
+                        fontSize: fontsize,
+                        fontWeight: FontWeight.w300,
+                      ),
                     ),
                   ),
                 ],
               ),
               Row(
                 children: <Widget>[
-                  Container(width: screenSizeW * 0.04),
+                  Container(width: screenSizeH * 0.03),
                   Text(
                     'City:          ',
                     style: GoogleFonts.poppins(
-                      fontSize: screenSizeW * 0.04,
+                      fontSize: fontsize,
                       fontWeight: FontWeight.w300,
                       color: Colors.black54,
                     ),
                   ),
-                  Text(
-                    address.city,
-                    style: GoogleFonts.poppins(
-                      fontSize: screenSizeW * 0.04,
-                      fontWeight: FontWeight.w300,
+                  Expanded(
+                    child: Text(
+                      address.city,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: GoogleFonts.poppins(
+                        fontSize: fontsize,
+                        fontWeight: FontWeight.w300,
+                      ),
                     ),
                   ),
                 ],
               ),
               Row(
                 children: <Widget>[
-                  Container(width: screenSizeW * 0.04),
+                  Container(width: screenSizeH * 0.03),
                   Text(
                     'Phone:     ',
                     style: GoogleFonts.poppins(
-                      fontSize: screenSizeW * 0.04,
+                      fontSize: fontsize,
                       fontWeight: FontWeight.w300,
                       color: Colors.black54,
                     ),
@@ -495,7 +568,7 @@ class addressTile extends StatelessWidget {
                   Text(
                     address.phone,
                     style: GoogleFonts.poppins(
-                      fontSize: screenSizeW * 0.04,
+                      fontSize: fontsize,
                       fontWeight: FontWeight.w300,
                     ),
                   ),
@@ -510,6 +583,87 @@ class addressTile extends StatelessWidget {
   }
 }
 
+// DebitCard Container
+class bankCard extends StatelessWidget {
+  bankCard({required this.card, Key? key, this.options = true})
+      : super(key: key);
+  final DebitCard card;
+  bool options;
+  @override
+  Widget build(BuildContext context) {
+    final double screenSizeH = MediaQuery.of(context).size.height;
+    Color cardColor;
+    if (getCardType(card.cardNumber) == CardType.visa) {
+      // Visa
+      cardColor = Colors.red.shade900;
+    } else if (getCardType(card.cardNumber) == CardType.masterCard) {
+      // MasterCard
+      cardColor = Colors.blueGrey;
+    } else if (getCardType(card.cardNumber) == CardType.maestro) {
+      // Union Pay
+      cardColor = Colors.purple.shade900;
+    } else {
+      // Unknown
+      cardColor = Colors.black;
+    }
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: CreditCard(
+            width: screenSizeH * 0.45,
+            height: screenSizeH * 0.26,
+            // frontBackground: CardBackgrounds.black,
+            frontBackground: Container(
+              width: double.maxFinite,
+              height: double.maxFinite,
+              color: cardColor,
+            ),
+            backBackground: Container(
+              width: double.maxFinite,
+              height: double.maxFinite,
+              color: cardColor,
+            ), //Color(0xffF9F9FA)
+            cardType: getCardType(card.cardNumber),
+            // cardType: CardType.discover,
+            showShadow: true,
+            bankName: card.bankName,
+            showBackSide: !card.cardFront,
+            cardNumber: card.cardNumber,
+            cardExpiry: card.expiryDate,
+            cardHolderName: card.cardHolderName,
+            cvv: card.cvv,
+          ),
+        ),
+        options
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  IconButton(
+                    icon: Icon(Icons.edit_note_outlined,
+                        size: screenSizeH * 0.04),
+                    onPressed: () {},
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Container(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 4.0),
+                    child: IconButton(
+                      icon: Icon(Icons.delete_forever_outlined,
+                          color: Colors.red, size: screenSizeH * 0.04),
+                      onPressed: () {},
+                    ),
+                  ),
+                ],
+              )
+            : Container(),
+      ],
+    );
+  }
+}
+
 class Address {
   Address({
     required this.name,
@@ -518,4 +672,16 @@ class Address {
     required this.phone,
   });
   final String name, address, city, phone;
+}
+
+class DebitCard {
+  DebitCard(
+      {required this.cardNumber,
+      required this.expiryDate,
+      required this.cvv,
+      required this.cardHolderName,
+      this.bankName = 'My Bank',
+      this.cardFront = true});
+  String cardNumber, expiryDate, cvv, cardHolderName, bankName;
+  bool cardFront;
 }

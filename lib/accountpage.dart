@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/accountdetails.dart';
+import 'package:gocart/paymentmethod.dart';
 import 'package:gocart/savedaddress.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,7 +18,6 @@ class _myAccountState extends State<myAccount> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: topBar(),
       body: Center(
@@ -28,7 +28,7 @@ class _myAccountState extends State<myAccount> {
               'My Account',
               style: GoogleFonts.poppins(
                 color: color1,
-                fontSize: screenWidth * 0.1,
+                fontSize: screenHeight * 0.05,
                 fontWeight: FontWeight.w900,
               ),
             ),
@@ -36,10 +36,8 @@ class _myAccountState extends State<myAccount> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                coolButton(
+                coolCard(
                   text: 'Account Details',
-                  width: screenWidth * 0.41,
-                  height: screenHeight * 0.18,
                   functionToComply: () {
                     Navigator.push(
                         context,
@@ -47,14 +45,10 @@ class _myAccountState extends State<myAccount> {
                             builder: (context) => accountDetails()));
                   },
                   iconData: Icons.account_circle_outlined,
-                  iconSize: screenWidth * 0.12,
-                  textSize: screenWidth * 0.06,
                 ),
-                SizedBox(width: screenWidth * 0.01),
-                coolButton(
+                SizedBox(width: screenHeight * 0.01),
+                coolCard(
                   text: 'Saved Addresses',
-                  width: screenWidth * 0.41,
-                  height: screenHeight * 0.18,
                   functionToComply: () {
                     Navigator.push(
                         context,
@@ -62,35 +56,28 @@ class _myAccountState extends State<myAccount> {
                             builder: (context) => savedAddress()));
                   },
                   iconData: Icons.location_on_outlined,
-                  iconSize: screenWidth * 0.12,
-                  textSize: screenWidth * 0.06,
                   primaryColor: color1,
                 ),
               ],
             ),
-            SizedBox(height: screenWidth * 0.01),
+            SizedBox(height: screenHeight * 0.01),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                coolButton(
+                coolCard(
                   text: 'Payment Methods',
-                  width: screenWidth * 0.41,
-                  height: screenHeight * 0.18,
-                  functionToComply: () {},
+                  functionToComply: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => paymentMethods()));
+                  },
                   iconData: Icons.account_balance_wallet_outlined,
-                  iconSize: screenWidth * 0.12,
-                  textSize: screenWidth * 0.06,
                   primaryColor: color1,
                 ),
-                SizedBox(width: screenWidth * 0.01),
-                coolButton(
+                SizedBox(width: screenHeight * 0.01),
+                coolCard(
                   text: 'Order History',
-                  width: screenWidth * 0.41,
-                  height: screenHeight * 0.18,
                   functionToComply: () {},
                   iconData: Icons.history_outlined,
-                  iconSize: screenWidth * 0.12,
-                  textSize: screenWidth * 0.06,
                 ),
               ],
             ),

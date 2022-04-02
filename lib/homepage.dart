@@ -15,11 +15,6 @@ class _homePageState extends State<homePage> {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      // appBar: AppBar(
-      //   automaticallyImplyLeading: false,
-      //   titleSpacing: 0.0,
-      //   title: topBar(),
-      // ),
       appBar: const topBar(),
       body: Center(
         child: Column(children: <Widget>[
@@ -30,7 +25,7 @@ class _homePageState extends State<homePage> {
               Text('Recomended Brands  ',
                   style: GoogleFonts.poppins(
                       color: Colors.grey,
-                      fontSize: screenWidth * 0.05,
+                      fontSize: screenHeight * 0.025,
                       fontWeight: FontWeight.w500)),
               Expanded(
                 child: Container(
@@ -48,7 +43,7 @@ class _homePageState extends State<homePage> {
               Text('Trending  ',
                   style: GoogleFonts.poppins(
                       color: Colors.grey,
-                      fontSize: screenWidth * 0.05,
+                      fontSize: screenHeight * 0.025,
                       fontWeight: FontWeight.w500)),
               Expanded(
                 child: Container(
@@ -66,7 +61,7 @@ class _homePageState extends State<homePage> {
               Text('AR Compatible  ',
                   style: GoogleFonts.poppins(
                       color: Colors.grey,
-                      fontSize: screenWidth * 0.05,
+                      fontSize: screenHeight * 0.025,
                       fontWeight: FontWeight.w500)),
               Expanded(
                 child: Container(

@@ -22,62 +22,59 @@ class _loginPageState extends State<loginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: screenHeight * 0.1),
+              SizedBox(height: screenHeight * 0.05),
               // Logo
               logo(),
-              SizedBox(height: screenHeight * 0.08),
+              SizedBox(height: screenHeight * 0.03),
               // Login Banner
               Text(
                 'Login',
                 style: GoogleFonts.poppins(
                   color: const Color.fromARGB(255, 59, 59, 61),
-                  fontSize: screenWidth * 0.1,
+                  fontSize: screenHeight * 0.05,
                   fontWeight: FontWeight.w900,
                 ),
               ),
               SizedBox(height: screenHeight * 0.04),
-              Padding(
-                padding: const EdgeInsets.only(left: 50, right: 50, bottom: 50),
-                child: Column(children: <Widget>[
-                  // Email TextField
-                  gocartTextField(
-                      hint: "Email",
+              Container(
+                width: screenHeight * 0.8,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.only(left: 50, right: 50, bottom: 10),
+                  child: Column(children: <Widget>[
+                    // Email TextField
+                    gocartTextField(
+                        hint: "Email",
+                        control: TextEditingController(),
+                        textType: TextInputType.emailAddress),
+                    // Password TextField
+                    gocartTextField(
+                      hint: "Password",
                       control: TextEditingController(),
-                      textType: TextInputType.emailAddress),
-                  SizedBox(height: screenHeight * 0.04),
-                  // Password TextField
-                  gocartTextField(
-                    hint: "Password",
-                    control: TextEditingController(),
-                    pswd: true,
-                  ),
-                  SizedBox(height: screenHeight * 0.02),
-                  // Forgot Password
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        InkWell(
-                            child: const Text("Forget Password?",
-                                style: TextStyle(
-                                    color: Colors.red,
-                                    decoration: TextDecoration.underline)),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  //                        MaterialPageRoute(builder: (context) => forgetPassword()));
-                                  MaterialPageRoute(
-                                      builder: (context) => loginPage()));
-                            })
-                      ]),
-                ]),
+                      pswd: true,
+                    ),
+                    // Forgot Password
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          InkWell(
+                              child: const Text("Forget Password?",
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      decoration: TextDecoration.underline)),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    //                        MaterialPageRoute(builder: (context) => forgetPassword()));
+                                    MaterialPageRoute(
+                                        builder: (context) => loginPage()));
+                              })
+                        ]),
+                  ]),
+                ),
               ),
               // Login Button
-              coolButton(
-                  text: "Login",
-                  width: screenWidth * 0.5, //252,
-                  height: screenHeight * 0.07, //70,
-                  textSize: screenWidth * 0.05,
-                  functionToComply: () {}),
+              coolButton(text: "Login", functionToComply: () {}),
               const SizedBox(height: 10),
               // Dont have an account?
               Row(

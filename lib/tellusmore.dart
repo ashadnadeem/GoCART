@@ -33,46 +33,43 @@ class _tellusmorePageState extends State<tellusmorePage> {
                 'Tell Us More',
                 style: GoogleFonts.poppins(
                   color: const Color.fromARGB(255, 59, 59, 61),
-                  fontSize: screenWidth * 0.1,
+                  fontSize: screenHeight * 0.05,
                   fontWeight: FontWeight.w900,
                 ),
               ),
               SizedBox(height: screenHeight * 0.04),
-              Padding(
-                padding: const EdgeInsets.only(left: 50, right: 50, bottom: 10),
-                child: Column(children: <Widget>[
-                  // Name TextField
-                  gocartTextField(
-                      hint: "Name", control: TextEditingController()),
-                  SizedBox(height: screenHeight * 0.04),
-                  // Address TextField
-                  gocartTextField(
-                    hint: "Address",
-                    control: TextEditingController(),
-                    textType: TextInputType.streetAddress,
-                  ),
-                  SizedBox(height: screenHeight * 0.04),
-                  // City TextField
-                  gocartTextField(
-                    hint: "City",
-                    control: TextEditingController(),
-                  ),
-                  SizedBox(height: screenHeight * 0.04),
-                  // Phone Number TextField
-                  gocartTextField(
-                    hint: "Phone Number",
-                    control: TextEditingController(),
-                    textType: TextInputType.number,
-                  ),
-                  SizedBox(height: screenHeight * 0.02),
-                ]),
+              Container(
+                width: screenHeight * 0.8,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.only(left: 50, right: 50, bottom: 10),
+                  child: Column(children: <Widget>[
+                    // Name TextField
+                    gocartTextField(
+                        hint: "Name", control: TextEditingController()),
+                    // Address TextField
+                    gocartTextField(
+                      hint: "Address",
+                      control: TextEditingController(),
+                      textType: TextInputType.streetAddress,
+                    ),
+                    // City TextField
+                    gocartTextField(
+                      hint: "City",
+                      control: TextEditingController(),
+                    ),
+                    // Phone Number TextField
+                    gocartTextField(
+                      hint: "Phone Number",
+                      control: TextEditingController(),
+                      textType: TextInputType.number,
+                    ),
+                  ]),
+                ),
               ),
               // Login Button
               coolButton(
                   text: "Register",
-                  width: screenWidth * 0.5,
-                  height: screenHeight * 0.07,
-                  textSize: screenWidth * 0.05,
                   functionToComply: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => homePage()));

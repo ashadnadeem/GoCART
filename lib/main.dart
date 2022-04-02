@@ -1,4 +1,7 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:gocart/cameraScreen.dart';
+import 'package:gocart/paymentmethod.dart';
 import 'package:gocart/signup.dart';
 import 'package:gocart/tryFile.dart';
 import 'package:gocart/utils.dart';
@@ -6,7 +9,10 @@ import 'package:gocart/login.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
-void main() {
+late List<CameraDescription> cameras;
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
   runApp(const MyApp());
 }
 
@@ -95,8 +101,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   coolButton(
                       text: "Get Started",
-                      width: 252,
-                      height: 70,
                       functionToComply: () {
                         Navigator.push(
                           context,
@@ -129,7 +133,9 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => tryMe(),
+              // builder: (context) => tryMe(),
+              // builder: (context) => paymentMethods(),
+              builder: (context) => CameraApp(),
             ),
           );
         },
