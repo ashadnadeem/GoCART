@@ -26,11 +26,11 @@ class _homePageState extends State<homePage> {
               Text('Recomended Brands  ',
                   style: GoogleFonts.poppins(
                       color: Colors.grey,
-                      fontSize: screenHeight * 0.025,
-                      fontWeight: FontWeight.w500)),
+                      fontSize: screenHeight * 0.020,
+                      fontWeight: FontWeight.w300)),
               Expanded(
                 child: Container(
-                  height: 2,
+                  height: 1,
                   color: Colors.grey,
                 ),
               ),
@@ -44,11 +44,11 @@ class _homePageState extends State<homePage> {
               Text('Trending  ',
                   style: GoogleFonts.poppins(
                       color: Colors.grey,
-                      fontSize: screenHeight * 0.025,
-                      fontWeight: FontWeight.w500)),
+                      fontSize: screenHeight * 0.02,
+                      fontWeight: FontWeight.w300)),
               Expanded(
                 child: Container(
-                  height: 2,
+                  height: 1,
                   color: Colors.grey,
                 ),
               ),
@@ -62,11 +62,11 @@ class _homePageState extends State<homePage> {
               Text('AR Compatible  ',
                   style: GoogleFonts.poppins(
                       color: Colors.grey,
-                      fontSize: screenHeight * 0.025,
-                      fontWeight: FontWeight.w500)),
+                      fontSize: screenHeight * 0.020,
+                      fontWeight: FontWeight.w300)),
               Expanded(
                 child: Container(
-                  height: 2,
+                  height: 1,
                   color: Colors.grey,
                 ),
               ),
