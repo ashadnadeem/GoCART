@@ -45,7 +45,6 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _isLoading = true;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(Duration(seconds: 6), () {
       setState(() {
@@ -58,76 +57,76 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.yellow,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: _isLoading
-              // Show Splash Screen
-              ? <Widget>[
-                  // logo(),
-                  const JumpingLogo(),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 150),
-                    child: LinearProgressIndicator(color: Colors.redAccent),
-                  ),
-                ]
-              // Show Onboarding Screen
-              : <Widget>[
-                  logo(),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 40),
-                    child: Container(
-                      height: 250,
-                      width: 350,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                            image: NetworkImage(
-                              // "https://somelink",
-                              "https://cdn.dribbble.com/users/2681962/screenshots/8971020/media/b476167100a1e276339525c6e578cb70.gif",
-                            ),
-                            fit: BoxFit.cover),
-                      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: _isLoading
+            // Show Splash Screen
+            ? <Widget>[
+                // logo(),
+                const JumpingLogo(),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 150),
+                  child: LinearProgressIndicator(color: Colors.redAccent),
+                ),
+              ]
+            // Show Onboarding Screen
+            : <Widget>[
+                logo(),
+                Padding(
+                  padding: const EdgeInsets.only(top: 40),
+                  child: Container(
+                    height: 250,
+                    width: 350,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                          image: NetworkImage(
+                            // "https://somelink",
+                            "https://cdn.dribbble.com/users/2681962/screenshots/8971020/media/b476167100a1e276339525c6e578cb70.gif",
+                          ),
+                          fit: BoxFit.cover),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 40),
-                    child: Text(
-                      'Try what you like without leaving \nthe comfort of your home',
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 20, color: Colors.grey.shade800),
-                    ),
-                  ),
-                  coolButton(
-                      text: "Get Started",
-                      functionToComply: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => signupPage()),
-                        );
-                      }),
-                  const SizedBox(height: 10),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        const Text("Already have an account? "),
-                        InkWell(
-                            child: const Text("Login",
-                                style: TextStyle(
-                                  color: Colors.red,
-                                  decoration: TextDecoration.underline,
-                                )),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => loginPage()));
-                            })
-                      ]),
-                ],
-        ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'Try what you like without leaving \nthe comfort of your home',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20, color: Colors.grey.shade800),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                coolButton(
+                    text: "Get Started",
+                    functionToComply: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => signupPage()),
+                      );
+                    }),
+                const SizedBox(height: 10),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      const Text("Already have an account? "),
+                      InkWell(
+                          child: const Text("Login",
+                              style: TextStyle(
+                                color: Colors.red,
+                                decoration: TextDecoration.underline,
+                              )),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => loginPage()));
+                          })
+                    ]),
+              ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
       floatingActionButton: FloatingActionButton(
         onPressed: () {
