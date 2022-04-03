@@ -314,6 +314,7 @@ class coolButton extends StatelessWidget {
     final double textSize = MediaQuery.of(context).size.height * 0.03;
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
+        fixedSize: Size(200, 60),
         primary: primaryColor,
         onPrimary: Colors.white,
         shape: RoundedRectangleBorder(

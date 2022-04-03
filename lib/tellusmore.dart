@@ -91,7 +91,7 @@ class _tellusmorePageState extends State<tellusmorePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => loginPage()));
+                                  builder: (context) => homePage()));
                         })
                   ]),
             ],
