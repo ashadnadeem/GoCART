@@ -78,13 +78,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 40),
                     child: Container(
-                      height: 200,
-                      width: 400,
+                      height: 250,
+                      width: 350,
                       decoration: const BoxDecoration(
                         image: DecorationImage(
                             image: NetworkImage(
                               // "https://somelink",
-                              "/lib/onboardingPicture.png",
+                              "https://cdn.dribbble.com/users/2681962/screenshots/8971020/media/b476167100a1e276339525c6e578cb70.gif",
                             ),
                             fit: BoxFit.cover),
                       ),
