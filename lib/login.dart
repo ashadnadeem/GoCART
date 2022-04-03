@@ -16,32 +16,33 @@ class _loginPageState extends State<loginPage> {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: screenHeight * 0.05),
               // Logo
-              logo(),
-              SizedBox(height: screenHeight * 0.03),
+              Hero(
+                tag: 'logo',
+                child: logo(),
+              ),
+              SizedBox(height: screenHeight * 0.04),
               // Login Banner
               Text(
                 'Login',
                 style: GoogleFonts.poppins(
                   color: const Color.fromARGB(255, 59, 59, 61),
-                  fontSize: screenHeight * 0.05,
+                  fontSize: screenHeight * 0.09,
                   fontWeight: FontWeight.w900,
                 ),
               ),
-              SizedBox(height: screenHeight * 0.04),
-              Container(
-                width: screenHeight * 0.8,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.only(left: 50, right: 50, bottom: 10),
-                  child: Column(children: <Widget>[
+              SizedBox(height: screenHeight * 0.06),
+              Padding(
+                padding: const EdgeInsets.only(left: 40, right: 40, bottom: 10),
+                child: Column(
+                  children: <Widget>[
                     // Email TextField
                     gocartTextField(
                         hint: "Email",
@@ -55,22 +56,28 @@ class _loginPageState extends State<loginPage> {
                     ),
                     // Forgot Password
                     Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: <Widget>[
-                          InkWell(
-                              child: const Text("Forget Password?",
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      decoration: TextDecoration.underline)),
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    //                        MaterialPageRoute(builder: (context) => forgetPassword()));
-                                    MaterialPageRoute(
-                                        builder: (context) => loginPage()));
-                              })
-                        ]),
-                  ]),
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        InkWell(
+                          child: const Padding(
+                            padding: EdgeInsets.only(right: 16.0),
+                            child: Text("Forget Password?",
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    decoration: TextDecoration.underline)),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                //                        MaterialPageRoute(builder: (context) => forgetPassword()));
+                                MaterialPageRoute(
+                                    builder: (context) => loginPage()));
+                          },
+                        )
+                      ],
+                    ),
+                    SizedBox(height: screenHeight * 0.04),
+                  ],
                 ),
               ),
               // Login Button
