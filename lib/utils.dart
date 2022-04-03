@@ -64,76 +64,130 @@ class logo extends StatelessWidget {
   }
 }
 
-// App Bar
 class topBar extends StatelessWidget implements PreferredSizeWidget {
   const topBar({Key? key}) : super(key: key);
-  @override
-  // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(90);
+
   @override
   Widget build(BuildContext context) {
     double screenSizeW = MediaQuery.of(context).size.width;
     double screenSizeH = MediaQuery.of(context).size.height;
-    return SafeArea(
-      bottom: false,
-      child: Container(
-        height: screenSizeH * 0.08,
-        width: screenSizeW,
-        decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 59, 59, 61),
-          // Border radius only for botom
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(30),
-            bottomRight: Radius.circular(30),
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              // Profile Icon
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: IconButton(
-                  icon: Icon(Icons.account_circle_outlined,
-                      size: screenSizeH * 0.05, color: Colors.white),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => myAccount()),
-                    );
-                  },
-                ),
-              ),
-              // Logo
-              logo(
-                primaryColor: Colors.white,
-                secondaryColor: Colors.yellow,
-                fontSize: screenSizeH * 0.05,
-              ),
-              // Cart Icon
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: IconButton(
-                  icon: Icon(Icons.shopping_cart_outlined,
-                      size: screenSizeH * 0.05, color: Colors.white),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => myAccount()),
-                    );
-                  },
-                ),
-              ),
-              // Icon(Icons.card_travel_outlined, size: 40, color: Colors.white),
-            ],
-          ),
+
+    return AppBar(
+      backgroundColor: const Color.fromARGB(255, 59, 59, 61),
+      automaticallyImplyLeading: false,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(25),
         ),
       ),
+      title: logo(
+        primaryColor: Colors.white,
+        secondaryColor: Colors.yellow,
+        fontSize: screenSizeH * 0.035,
+      ),
+      centerTitle: true,
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 26.0),
+        child: IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => myAccount()),
+            );
+          },
+          icon: const Icon(Icons.account_circle_outlined),
+          color: Colors.white,
+          iconSize: 28,
+        ),
+      ),
+      actions: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(right: 26.0),
+          child: IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.shopping_cart_outlined),
+            color: Colors.white,
+            iconSize: 28,
+          ),
+        )
+      ],
     );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(60);
 }
+
+// App Bar
+// class topBar extends StatelessWidget implements PreferredSizeWidget {
+//   const topBar({Key? key}) : super(key: key);
+//   @override
+//   // TODO: implement preferredSize
+//   Size get preferredSize => Size.fromHeight(90);
+//   @override
+//   Widget build(BuildContext context) {
+//     double screenSizeW = MediaQuery.of(context).size.width;
+//     double screenSizeH = MediaQuery.of(context).size.height;
+//     return SafeArea(
+//       bottom: false,
+//       child: Container(
+//         height: screenSizeH * 0.08,
+//         width: screenSizeW,
+//         decoration: const BoxDecoration(
+//           color: Color.fromARGB(255, 59, 59, 61),
+//           // Border radius only for botom
+//           borderRadius: BorderRadius.only(
+//             bottomLeft: Radius.circular(30),
+//             bottomRight: Radius.circular(30),
+//           ),
+//         ),
+//         child: Padding(
+//           padding: const EdgeInsets.only(left: 10, right: 10),
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: <Widget>[
+//               // Profile Icon
+//               Padding(
+//                 padding: const EdgeInsets.only(bottom: 10),
+//                 child: IconButton(
+//                   icon: Icon(Icons.account_circle_outlined,
+//                       size: screenSizeH * 0.05, color: Colors.white),
+//                   onPressed: () {
+//                     Navigator.push(
+//                       context,
+//                       MaterialPageRoute(builder: (context) => myAccount()),
+//                     );
+//                   },
+//                 ),
+//               ),
+//               // Logo
+//               logo(
+//                 primaryColor: Colors.white,
+//                 secondaryColor: Colors.yellow,
+//                 fontSize: screenSizeH * 0.035,
+//               ),
+//               // Cart Icon
+//               Padding(
+//                 padding: const EdgeInsets.only(bottom: 10),
+//                 child: IconButton(
+//                   icon: Icon(Icons.shopping_cart_outlined,
+//                       size: screenSizeH * 0.05, color: Colors.white),
+//                   onPressed: () {
+//                     Navigator.push(
+//                       context,
+//                       MaterialPageRoute(builder: (context) => myAccount()),
+//                     );
+//                   },
+//                 ),
+//               ),
+//               // Icon(Icons.card_travel_outlined, size: 40, color: Colors.white),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 // Bottom App Bar
 class bottomBar extends StatelessWidget implements PreferredSizeWidget {
