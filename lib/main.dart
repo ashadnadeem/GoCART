@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ]
             // Show Onboarding Screen
             : <Widget>[
-                logo(),
+                Hero(tag: 'logo', child: logo()),
                 Padding(
                   padding: const EdgeInsets.only(top: 40),
                   child: Container(
@@ -99,14 +99,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 50,
                 ),
-                coolButton(
-                    text: "Get Started",
-                    functionToComply: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => signupPage()),
-                      );
-                    }),
+                Hero(
+                  tag: 'onBoarding Button',
+                  child: coolButton(
+                      text: "Get Started",
+                      functionToComply: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => signupPage()),
+                        );
+                      }),
+                ),
                 const SizedBox(height: 10),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.center,

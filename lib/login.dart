@@ -31,12 +31,15 @@ class _loginPageState extends State<loginPage> {
               ),
               SizedBox(height: screenHeight * 0.04),
               // Login Banner
-              Text(
-                'Login',
-                style: GoogleFonts.poppins(
-                  color: const Color.fromARGB(255, 59, 59, 61),
-                  fontSize: screenHeight * 0.09,
-                  fontWeight: FontWeight.w900,
+              Hero(
+                tag: 'main text',
+                child: Text(
+                  'Login',
+                  style: GoogleFonts.poppins(
+                    color: const Color.fromARGB(255, 59, 59, 61),
+                    fontSize: screenHeight * 0.09,
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ),
               SizedBox(height: screenHeight * 0.06),
@@ -82,15 +85,18 @@ class _loginPageState extends State<loginPage> {
                 ),
               ),
               // Login Button
-              coolButton(
-                  text: "Login",
-                  functionToComply: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => homePage(),
-                      ),
-                    );
-                  }),
+              Hero(
+                tag: 'onBoarding Button',
+                child: coolButton(
+                    text: "Login",
+                    functionToComply: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => homePage(),
+                        ),
+                      );
+                    }),
+              ),
               const SizedBox(height: 10),
               // Dont have an account?
               Row(

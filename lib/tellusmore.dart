@@ -27,17 +27,23 @@ class _tellusmorePageState extends State<tellusmorePage> {
             children: <Widget>[
               //SizedBox(height: screenHeight * 0.1),
               // Logo
-              logo(
-                fontSize: screenHeight * 0.06,
+              Hero(
+                tag: 'logo',
+                child: logo(
+                  fontSize: screenHeight * 0.06,
+                ),
               ),
               SizedBox(height: screenHeight * 0.04),
               // Login Banner
-              Text(
-                'Tell Us More',
-                style: GoogleFonts.poppins(
-                  color: const Color.fromARGB(255, 59, 59, 61),
-                  fontSize: screenHeight * 0.07,
-                  fontWeight: FontWeight.w900,
+              Hero(
+                tag: 'main text',
+                child: Text(
+                  'Tell Us More',
+                  style: GoogleFonts.poppins(
+                    color: const Color.fromARGB(255, 59, 59, 61),
+                    fontSize: screenHeight * 0.07,
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ),
               SizedBox(height: screenHeight * 0.06),
@@ -68,13 +74,16 @@ class _tellusmorePageState extends State<tellusmorePage> {
               ),
               SizedBox(height: screenHeight * 0.02),
               // Login Button
-              coolButton(
-                  text: "Finish",
-                  functionToComply: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => homePage()));
-                  }),
-              SizedBox(height: 10),
+              Hero(
+                tag: 'onBoarding Button',
+                child: coolButton(
+                    text: "Finish",
+                    functionToComply: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => homePage()));
+                    }),
+              ),
+              const SizedBox(height: 10),
               // Fill Details Later?
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,

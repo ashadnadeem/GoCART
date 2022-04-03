@@ -29,17 +29,23 @@ class _signupPageState extends State<signupPage> {
             children: <Widget>[
               //SizedBox(height: screenHeight * 0.1),
               // Logo
-              logo(
-                fontSize: screenHeight * 0.06,
+              Hero(
+                tag: 'logo',
+                child: logo(
+                  fontSize: screenHeight * 0.06,
+                ),
               ),
               SizedBox(height: screenHeight * 0.04),
               // Login Banner
-              Text(
-                'Sign Up',
-                style: GoogleFonts.poppins(
-                  color: const Color.fromARGB(255, 59, 59, 61),
-                  fontSize: screenHeight * 0.09,
-                  fontWeight: FontWeight.w900,
+              Hero(
+                tag: 'main text',
+                child: Text(
+                  'Sign Up',
+                  style: GoogleFonts.poppins(
+                    color: const Color.fromARGB(255, 59, 59, 61),
+                    fontSize: screenHeight * 0.09,
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ),
               SizedBox(height: screenHeight * 0.06),
@@ -139,17 +145,20 @@ class _signupPageState extends State<signupPage> {
               ),
               SizedBox(height: screenHeight * 0.06),
               // Login Button
-              coolButton(
-                  text: "Register",
-                  // width: screenWidth * 0.5,
-                  // height: screenHeight * 0.07,
-                  // textSize: screenWidth * 0.04,
-                  functionToComply: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => tellusmorePage()));
-                  }),
+              Hero(
+                tag: 'onBoarding Button',
+                child: coolButton(
+                    text: "Register",
+                    // width: screenWidth * 0.5,
+                    // height: screenHeight * 0.07,
+                    // textSize: screenWidth * 0.04,
+                    functionToComply: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => tellusmorePage()));
+                    }),
+              ),
               SizedBox(height: screenHeight * 0.02),
               // Dont have an account?
               Row(
