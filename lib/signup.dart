@@ -20,68 +20,76 @@ class _signupPageState extends State<signupPage> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
           child: Container(
+            //color: Colors.yellow[100],
             width: screenHeight * 0.8,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SizedBox(height: screenHeight * 0.1),
+                //SizedBox(height: screenHeight * 0.1),
                 // Logo
-                logo(),
-                SizedBox(height: screenHeight * 0.05),
+                logo(
+                  fontSize: screenHeight * 0.06,
+                ),
+                SizedBox(height: screenHeight * 0.04),
                 // Login Banner
                 Text(
                   'Sign Up',
                   style: GoogleFonts.poppins(
                     color: const Color.fromARGB(255, 59, 59, 61),
-                    fontSize: screenHeight * 0.05,
+                    fontSize: screenHeight * 0.09,
                     fontWeight: FontWeight.w900,
                   ),
                 ),
-                SizedBox(height: screenHeight * 0.04),
+                SizedBox(height: screenHeight * 0.06),
                 Padding(
                   padding:
-                      const EdgeInsets.only(left: 50, right: 50, bottom: 10),
-                  child: Column(children: <Widget>[
-                    // Email TextField
-                    gocartTextField(
-                      hint: "Email",
-                      control: TextEditingController(),
-                      textType: TextInputType.emailAddress,
-                    ),
-                    // Password TextField
-                    gocartTextField(
-                      hint: "Password",
-                      control: TextEditingController(),
-                      pswd: true,
-                    ),
-                    SizedBox(height: screenHeight * 0.015),
-                    // ---------- or -----------
-                    Row(
+                      const EdgeInsets.only(left: 40, right: 40, bottom: 10),
+                  child: Column(
+                    children: <Widget>[
+                      // Email TextField
+                      gocartTextField(
+                        hint: "Email",
+                        control: TextEditingController(),
+                        textType: TextInputType.emailAddress,
+                      ),
+                      // Password TextField
+                      gocartTextField(
+                        hint: "Password",
+                        control: TextEditingController(),
+                        pswd: true,
+                      ),
+                      SizedBox(height: screenHeight * 0.02),
+                      // ---------- or -----------
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Expanded(
                             child: Container(
-                              height: 2,
+                              height: 1,
                               color: Colors.black54,
                             ),
                           ),
                           Text("  or  ",
                               style: GoogleFonts.poppins(
                                   color: Colors.black54,
-                                  fontSize: screenHeight * 0.04,
-                                  fontWeight: FontWeight.w500)),
+                                  fontSize: screenHeight * 0.03,
+                                  fontWeight: FontWeight.w400)),
                           Expanded(
                             child: Container(
-                              height: 2,
+                              height: 1,
                               color: Colors.black54,
                             ),
                           ),
-                        ]),
-                  ]),
+                        ],
+                      ),
+                      SizedBox(height: screenHeight * 0.02),
+                    ],
+                  ),
                 ),
                 // Signup with Google Button
                 InkWell(
@@ -94,15 +102,16 @@ class _signupPageState extends State<signupPage> {
                   },
                   child: Padding(
                     padding:
-                        EdgeInsets.symmetric(horizontal: screenHeight * 0.09),
+                        EdgeInsets.symmetric(horizontal: screenHeight * 0.05),
                     child: Container(
                         decoration: BoxDecoration(
                             color: Colors.blue.shade400,
                             borderRadius: BorderRadius.circular(5)),
                         // width: screenHeight * 0.1,
-                        height: screenHeight * 0.06,
+                        height: screenHeight * 0.07,
+                        width: screenWidth * 0.75,
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Container(
                               width: screenHeight * 0.05,
@@ -123,7 +132,8 @@ class _signupPageState extends State<signupPage> {
                                 'Sign up with Google',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: screenHeight * 0.02,
+                                  fontSize: screenHeight * 0.024,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
@@ -131,7 +141,7 @@ class _signupPageState extends State<signupPage> {
                         )),
                   ),
                 ),
-                SizedBox(height: screenHeight * 0.02),
+                SizedBox(height: screenHeight * 0.06),
                 // Login Button
                 coolButton(
                     text: "Register",
@@ -168,7 +178,7 @@ class _signupPageState extends State<signupPage> {
             ),
           ),
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
