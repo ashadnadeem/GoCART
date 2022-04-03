@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:gocart/homepage.dart';
 import 'package:gocart/signup.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -81,7 +82,15 @@ class _loginPageState extends State<loginPage> {
                 ),
               ),
               // Login Button
-              coolButton(text: "Login", functionToComply: () {}),
+              coolButton(
+                  text: "Login",
+                  functionToComply: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => homePage(),
+                      ),
+                    );
+                  }),
               const SizedBox(height: 10),
               // Dont have an account?
               Row(
