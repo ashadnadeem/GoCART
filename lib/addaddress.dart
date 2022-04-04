@@ -18,7 +18,7 @@ class _addAddressState extends State<addAddress> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: const topBar(),
+      appBar: const topBar(implyLeading: false),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[

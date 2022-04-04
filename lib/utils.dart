@@ -66,7 +66,8 @@ class logo extends StatelessWidget {
 }
 
 class topBar extends StatelessWidget implements PreferredSizeWidget {
-  const topBar({Key? key}) : super(key: key);
+  const topBar({Key? key, required this.implyLeading}) : super(key: key);
+  final bool implyLeading;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +76,7 @@ class topBar extends StatelessWidget implements PreferredSizeWidget {
 
     return AppBar(
       backgroundColor: const Color.fromARGB(255, 59, 59, 61),
-      automaticallyImplyLeading: false,
+      // automaticallyImplyLeading: implyLeading,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           bottom: Radius.circular(25),
@@ -89,17 +90,26 @@ class topBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       leading: Padding(
         padding: const EdgeInsets.only(left: 26.0),
-        child: IconButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => myAccount()),
-            );
-          },
-          icon: const Icon(Icons.account_circle_outlined),
-          color: Colors.white,
-          iconSize: 28,
-        ),
+        child: !implyLeading
+            ? IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => myAccount()),
+                  );
+                },
+                icon: const Icon(Icons.account_circle_outlined),
+                color: Colors.white,
+                iconSize: 28,
+              )
+            : IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                color: Colors.white,
+                iconSize: 28,
+              ),
       ),
       actions: <Widget>[
         Padding(

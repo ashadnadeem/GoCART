@@ -19,7 +19,7 @@ class _myAccountState extends State<myAccount> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: topBar(),
+      appBar: topBar(implyLeading: true),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

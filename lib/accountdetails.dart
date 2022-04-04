@@ -19,7 +19,7 @@ class _accountDetailsState extends State<accountDetails> {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: const topBar(),
+      appBar: const topBar(implyLeading: false),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

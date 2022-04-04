@@ -39,7 +39,7 @@ class _addCardState extends State<addCard> {
       cardFront: !back,
     );
     return Scaffold(
-      appBar: const topBar(),
+      appBar: const topBar(implyLeading: false),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[

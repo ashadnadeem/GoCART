@@ -24,7 +24,7 @@ class _tryMeState extends State<tryMe> {
             const Text('Onboarding Screen'),
             const Text('Navigate to Login page'),
             logo(),
-            topBar(),
+            topBar(implyLeading: false),
             bottomBar(),
             gocartTextField(hint: "hint", control: TextEditingController()),
             ElevatedButton(

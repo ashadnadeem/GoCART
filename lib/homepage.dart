@@ -16,7 +16,7 @@ class _homePageState extends State<homePage> {
     final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       //appBar: const topBar(),
-      appBar: const topBar(),
+      appBar: const topBar(implyLeading: false),
       body: Center(
         child: Column(children: <Widget>[
           Row(
