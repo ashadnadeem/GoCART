@@ -4,6 +4,9 @@ import 'package:awesome_card/awesome_card.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gocart/AccountScreen_Pages/Account%20Main/accountpage.dart';
+import 'package:gocart/AccountScreen_Pages/Address/U_EditAddressForm.dart';
+import 'package:gocart/AccountScreen_Pages/Payment/U_EditCardForm.dart';
+import 'package:gocart/MainScreen_Pages/U_ItemDetailPage.dart';
 import 'package:gocart/MainScreen_Pages/mainPage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -595,7 +598,11 @@ class addressTile extends StatelessWidget {
     Widget editButton() {
       return IconButton(
         icon: Icon(Icons.edit_note_outlined, size: screenSizeH * 0.03),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => EditAddress(),
+          ));
+        },
       );
     }
 
@@ -777,7 +784,11 @@ class bankCard extends StatelessWidget {
                   IconButton(
                     icon: Icon(Icons.edit_note_outlined,
                         size: screenSizeH * 0.04),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const EditCard(),
+                      ));
+                    },
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -834,16 +845,23 @@ class ItemCard extends StatelessWidget {
                 : CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(27),
-                ),
-                color: index % 2 == 0
-                    ? Colors.red
-                    : const Color.fromARGB(255, 46, 44, 44),
-                child: SizedBox(
-                  width: cardWidth,
-                  height: 100,
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const ItemDetail(),
+                  ));
+                },
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(27),
+                  ),
+                  color: index % 2 == 0
+                      ? Colors.red
+                      : const Color.fromARGB(255, 46, 44, 44),
+                  child: SizedBox(
+                    width: cardWidth,
+                    height: 100,
+                  ),
                 ),
               ),
               if (hasSubtext)
