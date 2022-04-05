@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/addaddress.dart';
+import 'package:gocart/AccountScreen_Pages/Address/addaddress.dart';
+
 import 'package:gocart/utils.dart';
 
 class savedAddress extends StatefulWidget {
@@ -74,7 +75,7 @@ class _savedAddressState extends State<savedAddress> {
           ],
         ),
       ),
-      bottomNavigationBar: const bottomBar(),
+      // bottomNavigationBar: const bottomBar(),
     );
   }
 }

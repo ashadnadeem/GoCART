@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:awesome_card/awesome_card.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:gocart/accountpage.dart';
-import 'package:gocart/homepage.dart';
+import 'package:gocart/AccountScreen_Pages/Account%20Main/accountpage.dart';
+import 'package:gocart/MainScreen_Pages/mainPage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // Logo
@@ -200,64 +200,74 @@ class topBar extends StatelessWidget implements PreferredSizeWidget {
 //   }
 // }
 
-class bottomBar extends StatefulWidget implements PreferredSizeWidget {
-  const bottomBar({Key? key}) : super(key: key);
+// class bottomBar extends StatefulWidget implements PreferredSizeWidget {
+//   const bottomBar({Key? key, required this.list, required this.index})
+//       : super(key: key);
+//   final List<Widget> list;
+//   final int index;
+//   @override
+//   State<bottomBar> createState() => _bottomBarState();
 
-  @override
-  State<bottomBar> createState() => _bottomBarState();
+//   @override
+//   Size get preferredSize => const Size.fromWidth(80);
+// }
 
-  @override
-  Size get preferredSize => const Size.fromWidth(80);
-}
+// class _bottomBarState extends State<bottomBar> {
+//   int _currentIndex = 0;
+//   List<Widget> list = [homePage(), SearchPage()];
 
-class _bottomBarState extends State<bottomBar> {
-  int _currentIndex = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavyBar(
-      selectedIndex: _currentIndex,
-      showElevation: true,
-      itemCornerRadius: 24,
-      containerHeight: 60,
-      curve: Curves.easeIn,
-      backgroundColor: Color.fromARGB(255, 33, 32, 32),
-      onItemSelected: (index) => setState(
-        () => _currentIndex = index,
-      ),
-      items: [
-        BottomNavyBarItem(
-          icon: const Icon(Icons.home_outlined),
-          title: const Text('Home'),
-          activeColor: Colors.white,
-          inactiveColor: Colors.white54,
-          textAlign: TextAlign.center,
-        ),
-        BottomNavyBarItem(
-          icon: const Icon(Icons.search),
-          title: const Text('Search'),
-          activeColor: Colors.white,
-          inactiveColor: Colors.white54,
-          textAlign: TextAlign.center,
-        ),
-        BottomNavyBarItem(
-          icon: const Icon(Icons.favorite_outline_sharp),
-          title: const Text('Wishlist'),
-          activeColor: Colors.white,
-          inactiveColor: Colors.white54,
-          textAlign: TextAlign.center,
-        ),
-        BottomNavyBarItem(
-          icon: const Icon(Icons.shopping_cart_outlined),
-          title: const Text('Cart'),
-          activeColor: Colors.white,
-          inactiveColor: Colors.white54,
-          textAlign: TextAlign.center,
-        ),
-      ],
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return BottomNavyBar(
+//       selectedIndex: _currentIndex,
+//       showElevation: true,
+//       itemCornerRadius: 24,
+//       containerHeight: 60,
+//       curve: Curves.easeIn,
+//       backgroundColor: Color.fromARGB(255, 33, 32, 32),
+//       onItemSelected: (index) => setState(
+//         () {
+//           // Navigator.of(context).push(
+//           //   MaterialPageRoute(
+//           //     builder: (context) => list[index],
+//           //   ),
+//           // );
+//           _currentIndex = index;
+//         },
+//       ),
+//       items: [
+//         BottomNavyBarItem(
+//           icon: const Icon(Icons.home_outlined),
+//           title: const Text('Home'),
+//           activeColor: Colors.white,
+//           inactiveColor: Colors.white54,
+//           textAlign: TextAlign.center,
+//         ),
+//         BottomNavyBarItem(
+//           icon: const Icon(Icons.search),
+//           title: const Text('Search'),
+//           activeColor: Colors.white,
+//           inactiveColor: Colors.white54,
+//           textAlign: TextAlign.center,
+//         ),
+//         BottomNavyBarItem(
+//           icon: const Icon(Icons.favorite_outline_sharp),
+//           title: const Text('Wishlist'),
+//           activeColor: Colors.white,
+//           inactiveColor: Colors.white54,
+//           textAlign: TextAlign.center,
+//         ),
+//         BottomNavyBarItem(
+//           icon: const Icon(Icons.shopping_cart_outlined),
+//           title: const Text('Cart'),
+//           activeColor: Colors.white,
+//           inactiveColor: Colors.white54,
+//           textAlign: TextAlign.center,
+//         ),
+//       ],
+//     );
+//   }
+// }
 
 // // Bottom App Bar
 // class bottomBar extends StatelessWidget implements PreferredSizeWidget {

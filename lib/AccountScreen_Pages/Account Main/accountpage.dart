@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/accountdetails.dart';
-import 'package:gocart/paymentmethod.dart';
-import 'package:gocart/savedaddress.dart';
+import 'package:gocart/AccountScreen_Pages/Address/savedaddress.dart';
+import 'package:gocart/AccountScreen_Pages/Details/accountdetails.dart';
+import 'package:gocart/AccountScreen_Pages/Payment/paymentmethod.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -84,7 +84,7 @@ class _myAccountState extends State<myAccount> {
           ],
         ),
       ),
-      bottomNavigationBar: const bottomBar(),
+      // bottomNavigationBar: const bottomBar(),
     );
   }
 }

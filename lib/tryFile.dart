@@ -25,7 +25,7 @@ class _tryMeState extends State<tryMe> {
             const Text('Navigate to Login page'),
             logo(),
             topBar(implyLeading: false),
-            bottomBar(),
+            // bottomBar(),
             gocartTextField(hint: "hint", control: TextEditingController()),
             ElevatedButton(
                 onPressed: () {

@@ -1,10 +1,5 @@
-import 'dart:convert';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:gocart/homepage.dart';
 import 'package:gocart/utils.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'Login.dart';
 
 class addCard extends StatefulWidget {
   addCard({Key? key}) : super(key: key);
@@ -128,7 +123,7 @@ class _addCardState extends State<addCard> {
           ],
         ),
       ),
-      bottomNavigationBar: const bottomBar(),
+      // bottomNavigationBar: const bottomBar(),
     );
   }
 }

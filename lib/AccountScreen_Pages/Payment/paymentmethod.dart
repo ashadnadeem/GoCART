@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/addaddress.dart';
-import 'package:gocart/addcard.dart';
+import 'package:gocart/AccountScreen_Pages/Payment/addcard.dart';
 import 'package:gocart/utils.dart';
 
 class paymentMethods extends StatefulWidget {
@@ -110,7 +109,7 @@ class _paymentMethodsState extends State<paymentMethods> {
           ],
         ),
       ),
-      bottomNavigationBar: const bottomBar(),
+      // bottomNavigationBar: const bottomBar(),
     );
   }
 }
