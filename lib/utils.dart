@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:awesome_card/awesome_card.dart';
 import 'package:flutter/material.dart';
 import 'package:gocart/accountpage.dart';

@@ -1,3 +1,4 @@
+import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:gocart/cameraScreen.dart';
@@ -12,6 +13,10 @@ import 'package:progress_indicators/progress_indicators.dart';
 late List<CameraDescription> cameras;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  print('ARCORE IS AVAILABLE?');
+  print(await ArCoreController.checkArCoreAvailability());
+  print('\nAR SERVICES INSTALLED?');
+  print(await ArCoreController.checkIsArCoreInstalled());
   cameras = await availableCameras();
   runApp(const MyApp());
 }
@@ -84,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         image: DecorationImage(
                             image: NetworkImage(
                               // "https://somelink",
-                              "/lib/onboardingPicture.png",
+                              "/assets/onboardingPicture.png",
                             ),
                             fit: BoxFit.cover),
                       ),
@@ -133,9 +138,9 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              // builder: (context) => tryMe(),
+              builder: (context) => tryMe(),
               // builder: (context) => paymentMethods(),
-              builder: (context) => CameraApp(),
+              // builder: (context) => CameraApp(),
             ),
           );
         },
@@ -164,14 +169,6 @@ class JumpingLogo extends StatelessWidget {
           color: primaryColor,
         ),
       ),
-      // Text(
-      //   'O',
-      //   style: GoogleFonts.poppins(
-      //     fontSize: fontSize,
-      //     fontWeight: FontWeight.w300,
-      //     color: primaryColor,
-      //   ),
-      // ),
       SizedBox(
         width: fontSize / 2 + 10,
         height: fontSize / 2 + 10,

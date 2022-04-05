@@ -20,19 +20,19 @@ class _paymentMethodsState extends State<paymentMethods> {
     card1 = DebitCard(
       cardNumber: "6216 5100 5100 5100",
       cardHolderName: "Ashad Nadeem",
-      expiryDate: "12/20",
+      expiryDate: "12/26",
       cvv: "123",
     );
     card2 = DebitCard(
       cardNumber: "5245 4444 4444 4444",
-      cardHolderName: "Sugar Daddy",
+      cardHolderName: "Ameer Party",
       expiryDate: "12/23",
       cvv: "456",
     );
     card3 = DebitCard(
       cardNumber: "4224 5100 5100 5100",
       cardHolderName: "Waderey Ka Beta",
-      expiryDate: "12/26",
+      expiryDate: "12/24",
       cvv: "789",
     );
   }
