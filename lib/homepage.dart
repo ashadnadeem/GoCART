@@ -18,62 +18,102 @@ class _homePageState extends State<homePage> {
       //appBar: const topBar(),
       appBar: const topBar(implyLeading: false),
       body: Center(
-        child: Column(children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(width: screenWidth * 0.04),
-              Text('Recomended Brands  ',
-                  style: GoogleFonts.poppins(
-                      color: Colors.grey,
-                      fontSize: screenHeight * 0.020,
-                      fontWeight: FontWeight.w300)),
-              Expanded(
-                child: Container(
-                  height: 1,
-                  color: Colors.grey,
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: screenHeight * 0.03,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: screenWidth * 0.04,
                 ),
-              ),
-              Container(width: screenWidth * 0.04),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(width: screenWidth * 0.04),
-              Text('Trending  ',
-                  style: GoogleFonts.poppins(
-                      color: Colors.grey,
-                      fontSize: screenHeight * 0.02,
-                      fontWeight: FontWeight.w300)),
-              Expanded(
-                child: Container(
-                  height: 1,
-                  color: Colors.grey,
+                Text('Recomended Brands  ',
+                    style: GoogleFonts.poppins(
+                        color: Colors.grey,
+                        fontSize: screenHeight * 0.020,
+                        fontWeight: FontWeight.w300)),
+                Expanded(
+                  child: Container(
+                    height: 1,
+                    color: Colors.grey,
+                  ),
                 ),
-              ),
-              Container(width: screenWidth * 0.04),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              SizedBox(width: screenWidth * 0.04),
-              Text('AR Compatible  ',
-                  style: GoogleFonts.poppins(
-                      color: Colors.grey,
-                      fontSize: screenHeight * 0.020,
-                      fontWeight: FontWeight.w300)),
-              Expanded(
-                child: Container(
-                  height: 1,
-                  color: Colors.grey,
+                Container(width: screenWidth * 0.04),
+              ],
+            ),
+            SizedBox(
+              height: screenHeight * 0.015,
+            ),
+            ItemCard(
+              screenWidth: screenWidth,
+              cardWidth: 175,
+              hasSubtext: false,
+              isTrending: false,
+            ),
+            SizedBox(
+              height: screenHeight * 0.015,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(width: screenWidth * 0.04),
+                Text('Trending  ',
+                    style: GoogleFonts.poppins(
+                        color: Colors.grey,
+                        fontSize: screenHeight * 0.02,
+                        fontWeight: FontWeight.w300)),
+                Expanded(
+                  child: Container(
+                    height: 1,
+                    color: Colors.grey,
+                  ),
                 ),
-              ),
-              Container(width: screenWidth * 0.04),
-            ],
-          ),
-        ]),
+                Container(width: screenWidth * 0.04),
+              ],
+            ),
+            SizedBox(
+              height: screenHeight * 0.015,
+            ),
+            ItemCard(
+              screenWidth: screenWidth,
+              cardWidth: 100,
+              hasSubtext: true,
+              isTrending: true,
+            ),
+            SizedBox(
+              height: screenHeight * 0.015,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(width: screenWidth * 0.04),
+                Text('AR Compatible  ',
+                    style: GoogleFonts.poppins(
+                        color: Colors.grey,
+                        fontSize: screenHeight * 0.020,
+                        fontWeight: FontWeight.w300)),
+                Expanded(
+                  child: Container(
+                    height: 1,
+                    color: Colors.grey,
+                  ),
+                ),
+                Container(width: screenWidth * 0.04),
+              ],
+            ),
+            SizedBox(
+              height: screenHeight * 0.015,
+            ),
+            ItemCard(
+              screenWidth: screenWidth,
+              cardWidth: 175,
+              hasSubtext: true,
+              isTrending: false,
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: const bottomBar(),
       // bottomNavigationBar: const bottomBar(),
