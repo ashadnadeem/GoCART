@@ -1,3 +1,4 @@
+import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:gocart/OnBoarding/Login.dart';
@@ -10,6 +11,10 @@ import 'package:progress_indicators/progress_indicators.dart';
 late List<CameraDescription> cameras;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  print('ARCORE IS AVAILABLE?');
+  print(await ArCoreController.checkArCoreAvailability());
+  print('\nAR SERVICES INSTALLED?');
+  print(await ArCoreController.checkIsArCoreInstalled());
   cameras = await availableCameras();
   runApp(const MyApp());
 }
@@ -164,14 +169,6 @@ class JumpingLogo extends StatelessWidget {
           color: primaryColor,
         ),
       ),
-      // Text(
-      //   'O',
-      //   style: GoogleFonts.poppins(
-      //     fontSize: fontSize,
-      //     fontWeight: FontWeight.w300,
-      //     color: primaryColor,
-      //   ),
-      // ),
       SizedBox(
         width: fontSize / 2 + 10,
         height: fontSize / 2 + 10,

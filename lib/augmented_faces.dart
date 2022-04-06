@@ -20,6 +20,7 @@ class _AugmentedFacesScreenState extends State<AugmentedFacesScreen> {
     'assets/lipstick.png',
     'assets/makeup.png',
     'assets/fox_face_mesh_texture.png',
+    'assets/foxandears.png',
     'assets/glasses.png',
     'assets/rayban_classic_transparent.png',
     'assets/rayban_exotic_blue.png',
@@ -37,7 +38,7 @@ class _AugmentedFacesScreenState extends State<AugmentedFacesScreen> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: topBar(
+        appBar: const topBar(
           implyLeading: true,
         ),
         body: Stack(children: [
