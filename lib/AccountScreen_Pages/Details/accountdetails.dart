@@ -1,10 +1,5 @@
-import 'dart:convert';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:gocart/homepage.dart';
 import 'package:gocart/utils.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'Login.dart';
 
 class accountDetails extends StatefulWidget {
   accountDetails({Key? key}) : super(key: key);
@@ -19,7 +14,7 @@ class _accountDetailsState extends State<accountDetails> {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: const topBar(),
+      appBar: const topBar(implyLeading: false),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -75,7 +70,7 @@ class _accountDetailsState extends State<accountDetails> {
           ],
         ),
       ),
-      bottomNavigationBar: const bottomBar(),
+      // bottomNavigationBar: const bottomBar(),
     );
   }
 }

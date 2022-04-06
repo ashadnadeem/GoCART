@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gocart/augmented_faces.dart';
+import 'package:gocart/cameraScreen.dart';
+import 'package:gocart/custom_object.dart';
 import 'package:gocart/utils.dart';
 
 class tryMe extends StatefulWidget {
@@ -12,9 +15,7 @@ class _tryMeState extends State<tryMe> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Try Me Page'),
-      ),
+      appBar: const topBar(implyLeading: false),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -24,17 +25,46 @@ class _tryMeState extends State<tryMe> {
             const Text('Onboarding Screen'),
             const Text('Navigate to Login page'),
             logo(),
-            topBar(),
-            bottomBar(),
             gocartTextField(hint: "hint", control: TextEditingController()),
             ElevatedButton(
-                onPressed: () {
-                  dialogs.showDeleteConfirmationDialog(context);
-                },
-                child: const Text('Try Dialog')),
+              onPressed: () {
+                dialogs.showDeleteConfirmationDialog(context);
+              },
+              child: const Text('Try Dialog'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CameraApp()),
+                );
+              },
+              child: const Text('Try AR CAMERA'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const AugmentedFacesScreen()));
+              },
+              child: const Text("Augmented Faces"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => CustomObject()));
+              },
+              child: const Text("Custom Anchored Object with onTap"),
+            ),
+            // ListTile(
+            // onTap: () {
+            //   Navigator.of(context).push(
+            //       MaterialPageRoute(builder: (context) => AssetsObject()));
+            // },
+            // title: Text("Custom sfb object"),
+            // ),
           ],
         ),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }

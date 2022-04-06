@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/addaddress.dart';
-import 'package:gocart/addcard.dart';
+import 'package:gocart/AccountScreen_Pages/Payment/addcard.dart';
 import 'package:gocart/utils.dart';
 
 class paymentMethods extends StatefulWidget {
@@ -25,7 +24,7 @@ class _paymentMethodsState extends State<paymentMethods> {
     );
     card2 = DebitCard(
       cardNumber: "5245 4444 4444 4444",
-      cardHolderName: "Sugar Daddy",
+      cardHolderName: "Ameer Party",
       expiryDate: "12/23",
       cvv: "456",
     );
@@ -41,7 +40,7 @@ class _paymentMethodsState extends State<paymentMethods> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: const topBar(),
+      appBar: const topBar(implyLeading: false),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -110,7 +109,7 @@ class _paymentMethodsState extends State<paymentMethods> {
           ],
         ),
       ),
-      bottomNavigationBar: const bottomBar(),
+      // bottomNavigationBar: const bottomBar(),
     );
   }
 }

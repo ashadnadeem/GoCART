@@ -1,10 +1,5 @@
-import 'dart:convert';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:gocart/homepage.dart';
 import 'package:gocart/utils.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'Login.dart';
 
 class addAddress extends StatefulWidget {
   addAddress({Key? key}) : super(key: key);
@@ -18,7 +13,7 @@ class _addAddressState extends State<addAddress> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: const topBar(),
+      appBar: const topBar(implyLeading: false),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -74,7 +69,7 @@ class _addAddressState extends State<addAddress> {
           ],
         ),
       ),
-      bottomNavigationBar: const bottomBar(),
+      // bottomNavigationBar: const bottomBar(),
     );
   }
 }

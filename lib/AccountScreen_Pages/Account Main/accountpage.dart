@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/accountdetails.dart';
-import 'package:gocart/paymentmethod.dart';
-import 'package:gocart/savedaddress.dart';
+import 'package:gocart/AccountScreen_Pages/Address/savedaddress.dart';
+import 'package:gocart/AccountScreen_Pages/Details/accountdetails.dart';
+import 'package:gocart/AccountScreen_Pages/Order/U_OrderHistoryPage.dart';
+import 'package:gocart/AccountScreen_Pages/Payment/paymentmethod.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,7 +20,7 @@ class _myAccountState extends State<myAccount> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: topBar(),
+      appBar: topBar(implyLeading: true),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -76,7 +77,11 @@ class _myAccountState extends State<myAccount> {
                 SizedBox(width: screenHeight * 0.01),
                 coolCard(
                   text: 'Order History',
-                  functionToComply: () {},
+                  functionToComply: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const OrderHistory(),
+                    ));
+                  },
                   iconData: Icons.history_outlined,
                 ),
               ],
@@ -84,7 +89,7 @@ class _myAccountState extends State<myAccount> {
           ],
         ),
       ),
-      bottomNavigationBar: const bottomBar(),
+      // bottomNavigationBar: const bottomBar(),
     );
   }
 }

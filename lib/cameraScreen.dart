@@ -71,7 +71,7 @@ class _CameraAppState extends State<CameraApp> {
           ),
         ),
       ),
-      bottomNavigationBar: const bottomBar(),
+      // bottomNavigationBar: const bottomBar(),
     );
   }
 

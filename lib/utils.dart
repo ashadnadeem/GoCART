@@ -1,9 +1,13 @@
 import 'dart:math';
 
 import 'package:awesome_card/awesome_card.dart';
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:gocart/accountpage.dart';
-import 'package:gocart/homepage.dart';
+import 'package:gocart/AccountScreen_Pages/Account%20Main/accountpage.dart';
+import 'package:gocart/AccountScreen_Pages/Address/U_EditAddressForm.dart';
+import 'package:gocart/AccountScreen_Pages/Payment/U_EditCardForm.dart';
+import 'package:gocart/MainScreen_Pages/U_ItemDetailPage.dart';
+import 'package:gocart/MainScreen_Pages/mainPage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // Logo
@@ -64,151 +68,284 @@ class logo extends StatelessWidget {
   }
 }
 
-// App Bar
 class topBar extends StatelessWidget implements PreferredSizeWidget {
-  const topBar({Key? key}) : super(key: key);
-  @override
-  // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(90);
+  const topBar({Key? key, required this.implyLeading}) : super(key: key);
+  final bool implyLeading;
+
   @override
   Widget build(BuildContext context) {
     double screenSizeW = MediaQuery.of(context).size.width;
     double screenSizeH = MediaQuery.of(context).size.height;
-    return SafeArea(
-      bottom: false,
-      child: Container(
-        height: screenSizeH * 0.08,
-        width: screenSizeW,
-        decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 59, 59, 61),
-          // Border radius only for botom
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(30),
-            bottomRight: Radius.circular(30),
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              // Profile Icon
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: IconButton(
-                  icon: Icon(Icons.account_circle_outlined,
-                      size: screenSizeH * 0.05, color: Colors.white),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => myAccount()),
-                    );
-                  },
-                ),
-              ),
-              // Logo
-              logo(
-                primaryColor: Colors.white,
-                secondaryColor: Colors.yellow,
-                fontSize: screenSizeH * 0.05,
-              ),
-              // Cart Icon
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: IconButton(
-                  icon: Icon(Icons.shopping_cart_outlined,
-                      size: screenSizeH * 0.05, color: Colors.white),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => myAccount()),
-                    );
-                  },
-                ),
-              ),
-              // Icon(Icons.card_travel_outlined, size: 40, color: Colors.white),
-            ],
-          ),
+
+    return AppBar(
+      backgroundColor: const Color.fromARGB(255, 59, 59, 61),
+      // automaticallyImplyLeading: implyLeading,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(25),
         ),
       ),
+      title: logo(
+        primaryColor: Colors.white,
+        secondaryColor: Colors.yellow,
+        fontSize: screenSizeH * 0.035,
+      ),
+      centerTitle: true,
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 26.0),
+        child: !implyLeading
+            ? IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => myAccount()),
+                  );
+                },
+                icon: const Icon(Icons.account_circle_outlined),
+                color: Colors.white,
+                iconSize: 28,
+              )
+            : IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                color: Colors.white,
+                iconSize: 28,
+              ),
+      ),
+      actions: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(right: 26.0),
+          child: IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.shopping_cart_outlined),
+            color: Colors.white,
+            iconSize: 28,
+          ),
+        )
+      ],
     );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(60);
 }
 
-// Bottom App Bar
-class bottomBar extends StatelessWidget implements PreferredSizeWidget {
-  const bottomBar({Key? key}) : super(key: key);
-  @override
-  // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(80);
-  @override
-  Widget build(BuildContext context) {
-    final double iconSize = MediaQuery.of(context).size.height * 0.05;
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.08,
-      decoration: const BoxDecoration(
-        color: Color.fromARGB(255, 59, 59, 61),
-        // Border radius only for botom
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(top: 10, bottom: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.home_outlined,
-                size: iconSize,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => homePage()));
-              },
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.search_outlined,
-                size: iconSize,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => homePage()));
-              },
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.favorite_border_outlined,
-                size: iconSize,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => homePage()));
-              },
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.shopping_cart_outlined,
-                size: iconSize,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => homePage()));
-              },
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+// App Bar
+// class topBar extends StatelessWidget implements PreferredSizeWidget {
+//   const topBar({Key? key}) : super(key: key);
+//   @override
+//   // TODO: implement preferredSize
+//   Size get preferredSize => Size.fromHeight(90);
+//   @override
+//   Widget build(BuildContext context) {
+//     double screenSizeW = MediaQuery.of(context).size.width;
+//     double screenSizeH = MediaQuery.of(context).size.height;
+//     return SafeArea(
+//       bottom: false,
+//       child: Container(
+//         height: screenSizeH * 0.08,
+//         width: screenSizeW,
+//         decoration: const BoxDecoration(
+//           color: Color.fromARGB(255, 59, 59, 61),
+//           // Border radius only for botom
+//           borderRadius: BorderRadius.only(
+//             bottomLeft: Radius.circular(30),
+//             bottomRight: Radius.circular(30),
+//           ),
+//         ),
+//         child: Padding(
+//           padding: const EdgeInsets.only(left: 10, right: 10),
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//             children: <Widget>[
+//               // Profile Icon
+//               Padding(
+//                 padding: const EdgeInsets.only(bottom: 10),
+//                 child: IconButton(
+//                   icon: Icon(Icons.account_circle_outlined,
+//                       size: screenSizeH * 0.05, color: Colors.white),
+//                   onPressed: () {
+//                     Navigator.push(
+//                       context,
+//                       MaterialPageRoute(builder: (context) => myAccount()),
+//                     );
+//                   },
+//                 ),
+//               ),
+//               // Logo
+//               logo(
+//                 primaryColor: Colors.white,
+//                 secondaryColor: Colors.yellow,
+//                 fontSize: screenSizeH * 0.035,
+//               ),
+//               // Cart Icon
+//               Padding(
+//                 padding: const EdgeInsets.only(bottom: 10),
+//                 child: IconButton(
+//                   icon: Icon(Icons.shopping_cart_outlined,
+//                       size: screenSizeH * 0.05, color: Colors.white),
+//                   onPressed: () {
+//                     Navigator.push(
+//                       context,
+//                       MaterialPageRoute(builder: (context) => myAccount()),
+//                     );
+//                   },
+//                 ),
+//               ),
+//               // Icon(Icons.card_travel_outlined, size: 40, color: Colors.white),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class bottomBar extends StatefulWidget implements PreferredSizeWidget {
+//   const bottomBar({Key? key, required this.list, required this.index})
+//       : super(key: key);
+//   final List<Widget> list;
+//   final int index;
+//   @override
+//   State<bottomBar> createState() => _bottomBarState();
+
+//   @override
+//   Size get preferredSize => const Size.fromWidth(80);
+// }
+
+// class _bottomBarState extends State<bottomBar> {
+//   int _currentIndex = 0;
+//   List<Widget> list = [homePage(), SearchPage()];
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return BottomNavyBar(
+//       selectedIndex: _currentIndex,
+//       showElevation: true,
+//       itemCornerRadius: 24,
+//       containerHeight: 60,
+//       curve: Curves.easeIn,
+//       backgroundColor: Color.fromARGB(255, 33, 32, 32),
+//       onItemSelected: (index) => setState(
+//         () {
+//           // Navigator.of(context).push(
+//           //   MaterialPageRoute(
+//           //     builder: (context) => list[index],
+//           //   ),
+//           // );
+//           _currentIndex = index;
+//         },
+//       ),
+//       items: [
+//         BottomNavyBarItem(
+//           icon: const Icon(Icons.home_outlined),
+//           title: const Text('Home'),
+//           activeColor: Colors.white,
+//           inactiveColor: Colors.white54,
+//           textAlign: TextAlign.center,
+//         ),
+//         BottomNavyBarItem(
+//           icon: const Icon(Icons.search),
+//           title: const Text('Search'),
+//           activeColor: Colors.white,
+//           inactiveColor: Colors.white54,
+//           textAlign: TextAlign.center,
+//         ),
+//         BottomNavyBarItem(
+//           icon: const Icon(Icons.favorite_outline_sharp),
+//           title: const Text('Wishlist'),
+//           activeColor: Colors.white,
+//           inactiveColor: Colors.white54,
+//           textAlign: TextAlign.center,
+//         ),
+//         BottomNavyBarItem(
+//           icon: const Icon(Icons.shopping_cart_outlined),
+//           title: const Text('Cart'),
+//           activeColor: Colors.white,
+//           inactiveColor: Colors.white54,
+//           textAlign: TextAlign.center,
+//         ),
+//       ],
+//     );
+//   }
+// }
+
+// // Bottom App Bar
+// class bottomBar extends StatelessWidget implements PreferredSizeWidget {
+//   const bottomBar({Key? key}) : super(key: key);
+//   @override
+//   // TODO: implement preferredSize
+//   Size get preferredSize => Size.fromHeight(80);
+//   @override
+//   Widget build(BuildContext context) {
+//     final double iconSize = MediaQuery.of(context).size.height * 0.05;
+//     return Container(
+//       height: MediaQuery.of(context).size.height * 0.08,
+//       decoration: const BoxDecoration(
+//         color: Color.fromARGB(255, 59, 59, 61),
+//         // Border radius only for botom
+//         borderRadius: BorderRadius.only(
+//           topLeft: Radius.circular(30),
+//           topRight: Radius.circular(30),
+//         ),
+//       ),
+//       child: Padding(
+//         padding: const EdgeInsets.only(top: 10, bottom: 20),
+//         child: Row(
+//           mainAxisAlignment: MainAxisAlignment.spaceAround,
+//           children: <Widget>[
+//             IconButton(
+//               icon: Icon(
+//                 Icons.home_outlined,
+//                 size: iconSize,
+//                 color: Colors.white,
+//               ),
+//               onPressed: () {
+//                 Navigator.push(context,
+//                     MaterialPageRoute(builder: (context) => homePage()));
+//               },
+//             ),
+//             IconButton(
+//               icon: Icon(
+//                 Icons.search_outlined,
+//                 size: iconSize,
+//                 color: Colors.white,
+//               ),
+//               onPressed: () {
+//                 Navigator.push(context,
+//                     MaterialPageRoute(builder: (context) => homePage()));
+//               },
+//             ),
+//             IconButton(
+//               icon: Icon(
+//                 Icons.favorite_border_outlined,
+//                 size: iconSize,
+//                 color: Colors.white,
+//               ),
+//               onPressed: () {
+//                 Navigator.push(context,
+//                     MaterialPageRoute(builder: (context) => homePage()));
+//               },
+//             ),
+//             IconButton(
+//               icon: Icon(
+//                 Icons.shopping_cart_outlined,
+//                 size: iconSize,
+//                 color: Colors.white,
+//               ),
+//               onPressed: () {
+//                 Navigator.push(context,
+//                     MaterialPageRoute(builder: (context) => homePage()));
+//               },
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 // Header with back button
 class headerBar extends StatelessWidget {
@@ -314,6 +451,7 @@ class coolButton extends StatelessWidget {
     final double textSize = MediaQuery.of(context).size.height * 0.03;
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
+        fixedSize: Size(200, 60),
         primary: primaryColor,
         onPrimary: Colors.white,
         shape: RoundedRectangleBorder(
@@ -460,7 +598,11 @@ class addressTile extends StatelessWidget {
     Widget editButton() {
       return IconButton(
         icon: Icon(Icons.edit_note_outlined, size: screenSizeH * 0.03),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => EditAddress(),
+          ));
+        },
       );
     }
 
@@ -642,7 +784,11 @@ class bankCard extends StatelessWidget {
                   IconButton(
                     icon: Icon(Icons.edit_note_outlined,
                         size: screenSizeH * 0.04),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const EditCard(),
+                      ));
+                    },
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -660,6 +806,104 @@ class bankCard extends StatelessWidget {
               )
             : Container(),
       ],
+    );
+  }
+}
+
+//Homepage Item Card
+class ItemCard extends StatelessWidget {
+  const ItemCard({
+    Key? key,
+    required this.screenWidth,
+    required this.cardWidth,
+    required this.hasSubtext,
+    required this.isTrending,
+    //required this.cardHeigth,
+  }) : super(key: key);
+
+  final double screenWidth;
+  final double cardWidth;
+  final bool hasSubtext;
+  final bool isTrending;
+  //final double cardHeigth;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: screenWidth * 0.92,
+      height: !hasSubtext ? 120 : 180,
+      // height: 150,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        clipBehavior: Clip.none,
+        itemCount: 4,
+        itemBuilder: (context, index) {
+          return Column(
+            // mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: isTrending
+                ? CrossAxisAlignment.start
+                : CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              InkWell(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const ItemDetail(),
+                  ));
+                },
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(27),
+                  ),
+                  color: index % 2 == 0
+                      ? Colors.red
+                      : const Color.fromARGB(255, 46, 44, 44),
+                  child: SizedBox(
+                    width: cardWidth,
+                    height: 100,
+                  ),
+                ),
+              ),
+              if (hasSubtext)
+                isTrending
+                    ? Padding(
+                        padding: const EdgeInsets.only(left: 16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text(
+                              "Nike",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                            Text(
+                              "Contour 40",
+                              style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 12,
+                              ),
+                            ),
+                            Text(
+                              "PKR 12,000",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : const Text(
+                        "Nike",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 18),
+                      )
+            ],
+          );
+        },
+      ),
     );
   }
 }
