@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/OnBoarding/login_page.dart';
+import 'package:gocart/OnBoarding%20Pages/login_page.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -53,8 +53,10 @@ class _changepsw extends State<changepsw> {
                 coolButton(
                     text: "Reset",
                     functionToComply: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => loginPage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginPage()));
                       // Navigator.pop(context);
                     }),
                 const SizedBox(height: 10),

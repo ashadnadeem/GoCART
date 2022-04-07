@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/utils.dart';
 
-class accountDetails extends StatefulWidget {
-  accountDetails({Key? key}) : super(key: key);
+class AccountDetails extends StatefulWidget {
+  const AccountDetails({Key? key}) : super(key: key);
 
   @override
-  State<accountDetails> createState() => _accountDetailsState();
+  State<AccountDetails> createState() => _AccountDetailsState();
 }
 
-class _accountDetailsState extends State<accountDetails> {
-  final TextEditingController _nameController = TextEditingController();
+class _AccountDetailsState extends State<AccountDetails> {
+ final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
@@ -29,15 +29,16 @@ class _accountDetailsState extends State<accountDetails> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: const topBar(implyLeading: false),
+      appBar: const MyAppBar(implyLeading: false),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             SizedBox(height: screenHeight * 0.02),
             // Login Banner
-            headerBar(title: "My Profile"),
-            Container(
+            const HeaderBar(title: "Account Details"),
+            SizedBox(height: screenHeight * 0.08),
+            SizedBox(
               width: screenHeight * 0.8,
               child: Padding(
                 padding: const EdgeInsets.only(left: 50, right: 50, bottom: 10),

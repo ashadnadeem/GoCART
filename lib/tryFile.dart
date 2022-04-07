@@ -15,7 +15,7 @@ class _tryMeState extends State<tryMe> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const topBar(implyLeading: false),
+      appBar: const MyAppBar(implyLeading: false),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

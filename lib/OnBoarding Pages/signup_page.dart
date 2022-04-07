@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/MainScreen_Pages/main_page.dart';
-import 'package:gocart/OnBoarding/login_page.dart';
-import 'package:gocart/OnBoarding/tellusmore_page.dart';
+import 'package:gocart/Main%20Screen%20Pages/main_page.dart';
+import 'package:gocart/OnBoarding%20Pages/login_page.dart';
+import 'package:gocart/OnBoarding%20Pages/tellusmore_page.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class signupPage extends StatefulWidget {
-  signupPage({Key? key}) : super(key: key);
+class SignupPage extends StatefulWidget {
+  const SignupPage({Key? key}) : super(key: key);
 
   @override
-  State<signupPage> createState() => _signupPageState();
+  State<SignupPage> createState() => _SignupPageState();
 }
 
-class _signupPageState extends State<signupPage> {
+class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -96,55 +96,7 @@ class _signupPageState extends State<signupPage> {
                     ),
                   ),
                   // Signup with Google Button
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => homePage(),
-                        ),
-                      );
-                    },
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: screenHeight * 0.05),
-                      child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.blue.shade400,
-                              borderRadius: BorderRadius.circular(5)),
-                          // width: screenHeight * 0.1,
-                          height: screenHeight * 0.07,
-                          width: screenWidth * 0.75,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                width: screenHeight * 0.05,
-                                height: screenHeight * 0.05,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  color: Colors.white,
-                                  image: const DecorationImage(
-                                    image: NetworkImage(
-                                        'https://img.icons8.com/color/48/000000/google-logo.png'),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Text(
-                                  'Sign up with Google',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: screenHeight * 0.024,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )),
-                    ),
-                  ),
+                  GoogleButton(),
                   SizedBox(height: screenHeight * 0.06),
                   // Login Button
                   Hero(
@@ -158,34 +110,92 @@ class _signupPageState extends State<signupPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => tellusmorePage()));
+                                  builder: (context) =>
+                                      const TellUsMorePage()));
                         }),
                   ),
                   SizedBox(height: screenHeight * 0.02),
                   // Dont have an account?
                   Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        const Text("Already have an account? "),
-                        InkWell(
-                            child: const Text("Login",
-                                style: TextStyle(
-                                  color: Colors.red,
-                                  decoration: TextDecoration.underline,
-                                )),
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => loginPage()));
-                            })
-                      ]),
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      const Text("Already have an account? "),
+                      InkWell(
+                        child: const Text("Login",
+                            style: TextStyle(
+                              color: Colors.red,
+                              decoration: TextDecoration.underline,
+                            )),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginPage(),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget GoogleButton() {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    final double screenWidth = MediaQuery.of(context).size.width;
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const MainPage(),
+          ),
+        );
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: screenHeight * 0.05),
+        child: Container(
+            decoration: BoxDecoration(
+                color: Colors.blue.shade400,
+                borderRadius: BorderRadius.circular(5)),
+            // width: screenHeight * 0.1,
+            height: screenHeight * 0.07,
+            width: screenWidth * 0.75,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  width: screenHeight * 0.05,
+                  height: screenHeight * 0.05,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: Colors.white,
+                    image: const DecorationImage(
+                      image: NetworkImage(
+                          'https://img.icons8.com/color/48/000000/google-logo.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    'Sign up with Google',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: screenHeight * 0.024,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            )),
       ),
     );
   }

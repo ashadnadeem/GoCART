@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/AccountScreen_Pages/Payment/add_card_page.dart';
+import 'package:gocart/Account%20Screen%20Pages/Payment/add_card_page.dart';
+import 'package:gocart/Account%20Screen%20Pages/Widgets/debitcard_widget.dart';
+import 'package:gocart/Models/debitcard_model.dart';
 import 'package:gocart/utils.dart';
 
-class paymentMethods extends StatefulWidget {
-  paymentMethods({Key? key}) : super(key: key);
+class PaymentMethods extends StatefulWidget {
+  const PaymentMethods({Key? key}) : super(key: key);
 
   @override
-  State<paymentMethods> createState() => _paymentMethodsState();
+  State<PaymentMethods> createState() => _PaymentMethodsState();
 }
 
-class _paymentMethodsState extends State<paymentMethods> {
+class _PaymentMethodsState extends State<PaymentMethods> {
   bool isfront = true;
   List<DebitCard> myCards = [];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     myCards.add(DebitCard(
       cardNumber: "6216510051005100",
@@ -39,20 +40,21 @@ class _paymentMethodsState extends State<paymentMethods> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
+    print(myCards.length);
     return Scaffold(
-      appBar: const topBar(implyLeading: false),
+      appBar: const MyAppBar(implyLeading: false),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const headerBar(title: "Payment Methods"),
+            const HeaderBar(title: "Payment Methods"),
             SizedBox(height: screenHeight * 0.03),
             for (var i = 0; i < myCards.length; i++) CardTile(myCards[i]),
             addCardButton(),
           ],
         ),
       ),
-      // bottomNavigationBar: const bottomBar(),
+     
     );
   }
 
@@ -60,7 +62,7 @@ class _paymentMethodsState extends State<paymentMethods> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
       child: InkWell(
-        child: bankCard(
+        child: BankCard(
           card: card,
           encrypt: true,
         ),
@@ -85,7 +87,7 @@ class _paymentMethodsState extends State<paymentMethods> {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => addCard(),
+              builder: (context) => AddCard(),
             ),
           );
         },

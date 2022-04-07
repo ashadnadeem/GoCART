@@ -1,41 +1,38 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:gocart/MainScreen_Pages/U_CartPage.dart';
-import 'package:gocart/MainScreen_Pages/home_page.dart';
-import 'package:gocart/MainScreen_Pages/search_page.dart';
-import 'package:gocart/MainScreen_Pages/wishlist_page.dart';
+import 'package:gocart/Main%20Screen%20Pages/U_CartPage.dart';
+import 'package:gocart/Main%20Screen%20Pages/home_page.dart';
+import 'package:gocart/Main%20Screen%20Pages/search_page.dart';
+import 'package:gocart/Main%20Screen%20Pages/wishlist_page.dart';
 import 'package:gocart/utils.dart';
 
-class homePage extends StatefulWidget {
-  homePage({Key? key}) : super(key: key);
+class MainPage extends StatefulWidget {
+  const MainPage({Key? key}) : super(key: key);
 
   @override
-  State<homePage> createState() => _homePageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _homePageState extends State<homePage> {
+class _MainPageState extends State<MainPage> {
   List<Widget> list = const [Home(), SearchPage(), WishlistPage(), CartPage()];
   int _currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        //appBar: const topBar(),
-        appBar: const topBar(implyLeading: false),
-        body: list[_currentIndex],
-        bottomNavigationBar: BottomBar()
-        // bottomNavigationBar: bottomBar(list: list, index: _currInd),
-        // bottomNavigationBar: const bottomBar(),
-        );
+      appBar: const MyAppBar(implyLeading: false),
+      body: list[_currentIndex],
+      bottomNavigationBar: bottomNavBar(),
+    );
   }
 
-  BottomNavyBar BottomBar() {
+  BottomNavyBar bottomNavBar() {
     return BottomNavyBar(
       selectedIndex: _currentIndex,
       showElevation: true,
       itemCornerRadius: 24,
       containerHeight: 60,
       curve: Curves.easeIn,
-      backgroundColor: Color.fromARGB(255, 33, 32, 32),
+      backgroundColor: const Color.fromARGB(255, 33, 32, 32),
       onItemSelected: (index) => setState(
         () {
           _currentIndex = index;

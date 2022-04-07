@@ -7,7 +7,7 @@ class ItemDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      appBar: topBar(implyLeading: true),
+      appBar: MyAppBar(implyLeading: true),
       body: Center(
         child: Text("Item Details"),
       ),

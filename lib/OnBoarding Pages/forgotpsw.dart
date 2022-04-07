@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/OnBoarding/changepsw_page.dart';
+import 'package:gocart/OnBoarding%20Pages/changepsw.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:gocart/Models/address_model.dart';
 import 'package:gocart/utils.dart';
 
-class addAddress extends StatefulWidget {
-  addAddress({this.address, Key? key}) : super(key: key);
+class AddAddress extends StatefulWidget {
+  AddAddress({this.address, Key? key}) : super(key: key);
   Address? address;
   @override
-  State<addAddress> createState() => _addAddressState();
+  State<AddAddress> createState() => _AddAddressState();
 }
 
-class _addAddressState extends State<addAddress> {
+class _AddAddressState extends State<AddAddress> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
@@ -43,13 +44,13 @@ class _addAddressState extends State<addAddress> {
     address.zip = _zipController.text;
     address.phone = _phoneController.text;
     return Scaffold(
-      appBar: const topBar(implyLeading: false),
+      appBar: const MyAppBar(implyLeading: false),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            headerBar(title: title),
+            HeaderBar(title: title),
             SizedBox(height: screenHeight * 0.08),
-            Container(
+            SizedBox(
               width: screenHeight * 0.8,
               child: Padding(
                 padding: const EdgeInsets.only(left: 50, right: 50, bottom: 10),

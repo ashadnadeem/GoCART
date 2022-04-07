@@ -51,7 +51,7 @@ class _AugmentedFacesScreenState extends State<AugmentedFacesScreen> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.yellow,
-        appBar: const topBar(
+        appBar: const MyAppBar(
           implyLeading: true,
         ),
         body: isLoaded ? ArCam() : Center(child: const JumpingLogo()),
