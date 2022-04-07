@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/MainScreen_Pages/mainPage.dart';
+import 'package:gocart/OnBoarding/forgotpsw.dart';
 import 'package:gocart/OnBoarding/signup.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -77,7 +78,7 @@ class _loginPageState extends State<loginPage> {
                                   context,
                                   //                        MaterialPageRoute(builder: (context) => forgetPassword()));
                                   MaterialPageRoute(
-                                      builder: (context) => loginPage()));
+                                      builder: (context) => forgotpsw()));
                             },
                           )
                         ],
