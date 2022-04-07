@@ -1,7 +1,7 @@
 import 'package:awesome_card/awesome_card.dart';
 import 'package:flutter/material.dart';
 import 'package:gocart/AccountScreen_Pages/Account%20Main/accountpage.dart';
-import 'package:gocart/AccountScreen_Pages/Address/U_EditAddressForm.dart';
+import 'package:gocart/AccountScreen_Pages/Address/addaddress.dart';
 import 'package:gocart/AccountScreen_Pages/Payment/addcard.dart';
 import 'package:gocart/MainScreen_Pages/U_ItemDetailPage.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -368,9 +368,7 @@ class gocartTextField extends StatelessWidget {
 }
 
 class addressTile extends StatelessWidget {
-  addressTile({Key? key, this.defaultAddress = false, required this.address})
-      : super(key: key);
-  bool defaultAddress;
+  addressTile({Key? key, required this.address}) : super(key: key);
   final Address address;
   @override
   Widget build(BuildContext context) {
@@ -381,7 +379,7 @@ class addressTile extends StatelessWidget {
         icon: Icon(Icons.edit_note_outlined, size: screenSizeH * 0.03),
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => EditAddress(),
+            builder: (context) => addAddress(address: address),
           ));
         },
       );
@@ -395,14 +393,12 @@ class addressTile extends StatelessWidget {
       );
     }
 
-    return InkWell(
-      onTap: () {
-        // Change the default address
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      child: Container(
+        width: MediaQuery.of(context).size.height * 0.8,
         child: Card(
-          color: defaultAddress ? Colors.grey.shade300 : Colors.white,
+          color: address.defaultAddress ? Colors.grey.shade300 : Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
@@ -419,14 +415,14 @@ class addressTile extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  defaultAddress ? Container() : editButton(),
+                  address.defaultAddress ? Container() : editButton(),
                   Expanded(
                     child: Container(
                       color: Colors.black54,
                       height: 2,
                     ),
                   ),
-                  defaultAddress ? editButton() : deleteButton(),
+                  address.defaultAddress ? editButton() : deleteButton(),
                 ],
               ),
               Row(
@@ -467,6 +463,30 @@ class addressTile extends StatelessWidget {
                   Expanded(
                     child: Text(
                       address.city,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: GoogleFonts.poppins(
+                        fontSize: fontsize,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Container(width: screenSizeH * 0.03),
+                  Text(
+                    'Zip:            ',
+                    style: GoogleFonts.poppins(
+                      fontSize: fontsize,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      address.zip,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style: GoogleFonts.poppins(
@@ -710,18 +730,22 @@ class Address {
     required this.address,
     required this.city,
     required this.phone,
+    required this.zip,
+    this.defaultAddress = false,
   });
-  final String name, address, city, phone;
+  String name, address, city, phone, zip;
+  bool defaultAddress;
 }
 
 class DebitCard {
-  DebitCard(
-      {required this.cardNumber,
-      required this.expiryDate,
-      required this.cvv,
-      required this.cardHolderName,
-      this.bankName = 'My Bank',
-      this.cardFront = true});
+  DebitCard({
+    required this.cardNumber,
+    required this.expiryDate,
+    required this.cvv,
+    required this.cardHolderName,
+    this.bankName = 'My Bank',
+    this.cardFront = true,
+  });
   String cardNumber, expiryDate, cvv, cardHolderName, bankName;
   bool cardFront;
 }

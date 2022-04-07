@@ -9,10 +9,25 @@ class accountDetails extends StatefulWidget {
 }
 
 class _accountDetailsState extends State<accountDetails> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _nameController.text = "Ashad Nadeem";
+    _emailController.text = "ashadnadeem@gmail.com";
+    _cityController.text = "Karachi";
+    _addressController.text = "E-7/2, Block-E, Gulshan-e-Iqbal";
+    _phoneController.text = "0300-1234567";
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: const topBar(implyLeading: false),
       body: SingleChildScrollView(
@@ -21,39 +36,43 @@ class _accountDetailsState extends State<accountDetails> {
           children: <Widget>[
             SizedBox(height: screenHeight * 0.02),
             // Login Banner
-            headerBar(title: "Account Details"),
-            SizedBox(height: screenHeight * 0.08),
+            headerBar(title: "My Profile"),
             Container(
               width: screenHeight * 0.8,
               child: Padding(
                 padding: const EdgeInsets.only(left: 50, right: 50, bottom: 10),
                 child: Column(children: <Widget>[
+                  // Profile Image
+                  profilePic(),
                   // Name TextField
                   Row(children: const <Widget>[Text("  Name")]),
                   gocartTextField(
-                      hint: "Name",
+                      hint: "Name", editable: false, control: _nameController),
+                  // Name TextField
+                  Row(children: const <Widget>[Text("  Email")]),
+                  gocartTextField(
+                      hint: "Email",
                       editable: false,
-                      control: TextEditingController()..text = "Shaheer Ahmed"),
+                      control: _emailController),
                   // Address TextField
                   Row(children: const <Widget>[Text("  Address")]),
                   gocartTextField(
                     hint: "Address",
-                    control: TextEditingController()
-                      ..text = "E-1103, Creek Vista Apartments",
+                    control: _addressController,
                     textType: TextInputType.streetAddress,
                   ),
                   // City TextField
                   Row(children: const <Widget>[Text("  City")]),
                   gocartTextField(
                     hint: "City",
-                    control: TextEditingController()..text = "Karachi",
+                    control: _cityController,
                   ),
                   // Phone Number TextField
                   Row(children: const <Widget>[Text("  Phone Number")]),
                   gocartTextField(
                     hint: "Phone Number",
-                    control: TextEditingController()..text = "0300 1234567",
-                    textType: TextInputType.number,
+                    control: _phoneController,
+                    textType: TextInputType.phone,
                   ),
                 ]),
               ),
@@ -71,6 +90,48 @@ class _accountDetailsState extends State<accountDetails> {
         ),
       ),
       // bottomNavigationBar: const bottomBar(),
+    );
+  }
+
+  Widget profilePic() {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    return Stack(
+      children: [
+        Container(
+          height: screenHeight * 0.15,
+          width: screenHeight * 0.15,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              fit: BoxFit.fill,
+              image: NetworkImage(
+                  "https://avatars.githubusercontent.com/u/58692788?v=4"),
+            ),
+          ),
+        ),
+        Positioned(
+          top: screenHeight * 0.10,
+          right: screenHeight * 0.00,
+          child: Container(
+            height: screenHeight * 0.05,
+            width: screenHeight * 0.05,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.grey,
+            ),
+            child: IconButton(
+              icon: const Icon(
+                Icons.edit,
+                color: Colors.black,
+              ),
+              onPressed: () {
+                // Select Image from Gallery to upload
+                // flutter pub add image_picker
+              },
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
