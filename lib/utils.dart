@@ -1,16 +1,13 @@
-import 'dart:math';
-
-import 'package:awesome_card/awesome_card.dart';
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:gocart/AccountScreen_Pages/Account%20Main/accountpage.dart';
-import 'package:gocart/AccountScreen_Pages/Address/U_EditAddressForm.dart';
-import 'package:gocart/AccountScreen_Pages/Payment/U_EditCardForm.dart';
-import 'package:gocart/MainScreen_Pages/U_ItemDetailPage.dart';
-import 'package:gocart/MainScreen_Pages/mainPage.dart';
+import 'package:gocart/Account%20Screen%20Pages/Account%20Main/account_main_page.dart';
+import 'package:gocart/rickroll.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:progress_indicators/progress_indicators.dart';
+import 'package:url_launcher/link.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 // Logo
+// ignore: camel_case_types, must_be_immutable
 class logo extends StatelessWidget {
   // logo({Key? key}) : super(key: key);
   logo(
@@ -68,13 +65,13 @@ class logo extends StatelessWidget {
   }
 }
 
-class topBar extends StatelessWidget implements PreferredSizeWidget {
-  const topBar({Key? key, required this.implyLeading}) : super(key: key);
+class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const MyAppBar({Key? key, required this.implyLeading}) : super(key: key);
   final bool implyLeading;
 
   @override
   Widget build(BuildContext context) {
-    double screenSizeW = MediaQuery.of(context).size.width;
+    //double screenSizeW = MediaQuery.of(context).size.width;
     double screenSizeH = MediaQuery.of(context).size.height;
 
     return AppBar(
@@ -98,7 +95,8 @@ class topBar extends StatelessWidget implements PreferredSizeWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => myAccount()),
+                    MaterialPageRoute(
+                        builder: (context) => const AccountMain()),
                   );
                 },
                 icon: const Icon(Icons.account_circle_outlined),
@@ -118,8 +116,14 @@ class topBar extends StatelessWidget implements PreferredSizeWidget {
         Padding(
           padding: const EdgeInsets.only(right: 26.0),
           child: IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.shopping_cart_outlined),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const RickRoll(),
+                ),
+              );
+            },
+            icon: const Icon(Icons.help_outline),
             color: Colors.white,
             iconSize: 28,
           ),
@@ -132,224 +136,9 @@ class topBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(60);
 }
 
-// App Bar
-// class topBar extends StatelessWidget implements PreferredSizeWidget {
-//   const topBar({Key? key}) : super(key: key);
-//   @override
-//   // TODO: implement preferredSize
-//   Size get preferredSize => Size.fromHeight(90);
-//   @override
-//   Widget build(BuildContext context) {
-//     double screenSizeW = MediaQuery.of(context).size.width;
-//     double screenSizeH = MediaQuery.of(context).size.height;
-//     return SafeArea(
-//       bottom: false,
-//       child: Container(
-//         height: screenSizeH * 0.08,
-//         width: screenSizeW,
-//         decoration: const BoxDecoration(
-//           color: Color.fromARGB(255, 59, 59, 61),
-//           // Border radius only for botom
-//           borderRadius: BorderRadius.only(
-//             bottomLeft: Radius.circular(30),
-//             bottomRight: Radius.circular(30),
-//           ),
-//         ),
-//         child: Padding(
-//           padding: const EdgeInsets.only(left: 10, right: 10),
-//           child: Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: <Widget>[
-//               // Profile Icon
-//               Padding(
-//                 padding: const EdgeInsets.only(bottom: 10),
-//                 child: IconButton(
-//                   icon: Icon(Icons.account_circle_outlined,
-//                       size: screenSizeH * 0.05, color: Colors.white),
-//                   onPressed: () {
-//                     Navigator.push(
-//                       context,
-//                       MaterialPageRoute(builder: (context) => myAccount()),
-//                     );
-//                   },
-//                 ),
-//               ),
-//               // Logo
-//               logo(
-//                 primaryColor: Colors.white,
-//                 secondaryColor: Colors.yellow,
-//                 fontSize: screenSizeH * 0.035,
-//               ),
-//               // Cart Icon
-//               Padding(
-//                 padding: const EdgeInsets.only(bottom: 10),
-//                 child: IconButton(
-//                   icon: Icon(Icons.shopping_cart_outlined,
-//                       size: screenSizeH * 0.05, color: Colors.white),
-//                   onPressed: () {
-//                     Navigator.push(
-//                       context,
-//                       MaterialPageRoute(builder: (context) => myAccount()),
-//                     );
-//                   },
-//                 ),
-//               ),
-//               // Icon(Icons.card_travel_outlined, size: 40, color: Colors.white),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class bottomBar extends StatefulWidget implements PreferredSizeWidget {
-//   const bottomBar({Key? key, required this.list, required this.index})
-//       : super(key: key);
-//   final List<Widget> list;
-//   final int index;
-//   @override
-//   State<bottomBar> createState() => _bottomBarState();
-
-//   @override
-//   Size get preferredSize => const Size.fromWidth(80);
-// }
-
-// class _bottomBarState extends State<bottomBar> {
-//   int _currentIndex = 0;
-//   List<Widget> list = [homePage(), SearchPage()];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return BottomNavyBar(
-//       selectedIndex: _currentIndex,
-//       showElevation: true,
-//       itemCornerRadius: 24,
-//       containerHeight: 60,
-//       curve: Curves.easeIn,
-//       backgroundColor: Color.fromARGB(255, 33, 32, 32),
-//       onItemSelected: (index) => setState(
-//         () {
-//           // Navigator.of(context).push(
-//           //   MaterialPageRoute(
-//           //     builder: (context) => list[index],
-//           //   ),
-//           // );
-//           _currentIndex = index;
-//         },
-//       ),
-//       items: [
-//         BottomNavyBarItem(
-//           icon: const Icon(Icons.home_outlined),
-//           title: const Text('Home'),
-//           activeColor: Colors.white,
-//           inactiveColor: Colors.white54,
-//           textAlign: TextAlign.center,
-//         ),
-//         BottomNavyBarItem(
-//           icon: const Icon(Icons.search),
-//           title: const Text('Search'),
-//           activeColor: Colors.white,
-//           inactiveColor: Colors.white54,
-//           textAlign: TextAlign.center,
-//         ),
-//         BottomNavyBarItem(
-//           icon: const Icon(Icons.favorite_outline_sharp),
-//           title: const Text('Wishlist'),
-//           activeColor: Colors.white,
-//           inactiveColor: Colors.white54,
-//           textAlign: TextAlign.center,
-//         ),
-//         BottomNavyBarItem(
-//           icon: const Icon(Icons.shopping_cart_outlined),
-//           title: const Text('Cart'),
-//           activeColor: Colors.white,
-//           inactiveColor: Colors.white54,
-//           textAlign: TextAlign.center,
-//         ),
-//       ],
-//     );
-//   }
-// }
-
-// // Bottom App Bar
-// class bottomBar extends StatelessWidget implements PreferredSizeWidget {
-//   const bottomBar({Key? key}) : super(key: key);
-//   @override
-//   // TODO: implement preferredSize
-//   Size get preferredSize => Size.fromHeight(80);
-//   @override
-//   Widget build(BuildContext context) {
-//     final double iconSize = MediaQuery.of(context).size.height * 0.05;
-//     return Container(
-//       height: MediaQuery.of(context).size.height * 0.08,
-//       decoration: const BoxDecoration(
-//         color: Color.fromARGB(255, 59, 59, 61),
-//         // Border radius only for botom
-//         borderRadius: BorderRadius.only(
-//           topLeft: Radius.circular(30),
-//           topRight: Radius.circular(30),
-//         ),
-//       ),
-//       child: Padding(
-//         padding: const EdgeInsets.only(top: 10, bottom: 20),
-//         child: Row(
-//           mainAxisAlignment: MainAxisAlignment.spaceAround,
-//           children: <Widget>[
-//             IconButton(
-//               icon: Icon(
-//                 Icons.home_outlined,
-//                 size: iconSize,
-//                 color: Colors.white,
-//               ),
-//               onPressed: () {
-//                 Navigator.push(context,
-//                     MaterialPageRoute(builder: (context) => homePage()));
-//               },
-//             ),
-//             IconButton(
-//               icon: Icon(
-//                 Icons.search_outlined,
-//                 size: iconSize,
-//                 color: Colors.white,
-//               ),
-//               onPressed: () {
-//                 Navigator.push(context,
-//                     MaterialPageRoute(builder: (context) => homePage()));
-//               },
-//             ),
-//             IconButton(
-//               icon: Icon(
-//                 Icons.favorite_border_outlined,
-//                 size: iconSize,
-//                 color: Colors.white,
-//               ),
-//               onPressed: () {
-//                 Navigator.push(context,
-//                     MaterialPageRoute(builder: (context) => homePage()));
-//               },
-//             ),
-//             IconButton(
-//               icon: Icon(
-//                 Icons.shopping_cart_outlined,
-//                 size: iconSize,
-//                 color: Colors.white,
-//               ),
-//               onPressed: () {
-//                 Navigator.push(context,
-//                     MaterialPageRoute(builder: (context) => homePage()));
-//               },
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 // Header with back button
-class headerBar extends StatelessWidget {
-  const headerBar({Key? key, required this.title}) : super(key: key);
+class HeaderBar extends StatelessWidget {
+  const HeaderBar({Key? key, required this.title}) : super(key: key);
   final String title;
   @override
   Widget build(BuildContext context) {
@@ -386,6 +175,7 @@ class headerBar extends StatelessWidget {
 }
 
 // Dialog for confirm delete
+// ignore: camel_case_types
 class dialogs {
   static Future showDeleteConfirmationDialog(BuildContext context) async {
     return showDialog<bool>(
@@ -436,6 +226,7 @@ class dialogs {
 }
 
 // Elevted Button Template
+// ignore: camel_case_types
 class coolButton extends StatelessWidget {
   coolButton({
     required this.text,
@@ -471,66 +262,8 @@ class coolButton extends StatelessWidget {
   }
 }
 
-// coolCardTemplate: a card with a icon and a title
-class coolCard extends StatelessWidget {
-  const coolCard({
-    Key? key,
-    required this.text,
-    required this.functionToComply,
-    this.iconData,
-    this.primaryColor = Colors.redAccent,
-  }) : super(key: key);
-  final String text;
-  final void Function() functionToComply;
-  final IconData? iconData;
-  final Color primaryColor;
-  @override
-  Widget build(BuildContext context) {
-    final double screenSizeH = MediaQuery.of(context).size.height;
-    return Card(
-      elevation: 5,
-      shadowColor: Colors.black,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(38),
-      ),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          primary: primaryColor,
-          onPrimary: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(38),
-          ),
-          shadowColor: Colors.grey.shade900,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            width: screenSizeH * 0.12,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(iconData, size: screenSizeH * 0.06),
-                Text(text.split(" ")[0],
-                    style: GoogleFonts.poppins(
-                        fontSize: screenSizeH * 0.02,
-                        fontWeight: FontWeight.w600),
-                    textAlign: TextAlign.center),
-                Text(text.split(" ")[1],
-                    style: GoogleFonts.poppins(
-                        fontSize: screenSizeH * 0.02,
-                        fontWeight: FontWeight.w600),
-                    textAlign: TextAlign.center),
-              ],
-            ),
-          ),
-        ),
-        onPressed: functionToComply,
-      ),
-    );
-  }
-}
-
 // GocartTextField
+// ignore: camel_case_types
 class gocartTextField extends StatelessWidget {
   gocartTextField({
     required this.hint,
@@ -586,346 +319,69 @@ class gocartTextField extends StatelessWidget {
   }
 }
 
-class addressTile extends StatelessWidget {
-  addressTile({Key? key, this.defaultAddress = false, required this.address})
-      : super(key: key);
-  bool defaultAddress;
-  final Address address;
+class JumpingLogo extends StatelessWidget {
+  const JumpingLogo({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final double screenSizeH = MediaQuery.of(context).size.height;
-    final double fontsize = screenSizeH * 0.015;
-    Widget editButton() {
-      return IconButton(
-        icon: Icon(Icons.edit_note_outlined, size: screenSizeH * 0.03),
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => EditAddress(),
-          ));
-        },
-      );
-    }
-
-    Widget deleteButton() {
-      return IconButton(
-        icon: Icon(Icons.delete_forever_outlined,
-            color: Colors.red, size: screenSizeH * 0.03),
-        onPressed: () {},
-      );
-    }
-
-    return InkWell(
-      onTap: () {
-        // Change the default address
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Card(
-          color: defaultAddress ? Colors.grey.shade300 : Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          elevation: 2,
-          child: Column(
-            children: [
-              Row(
-                children: <Widget>[
-                  Container(width: screenSizeH * 0.01),
-                  Text(
-                    '${address.name} ',
-                    style: GoogleFonts.poppins(
-                      fontSize: screenSizeH * 0.02,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  defaultAddress ? Container() : editButton(),
-                  Expanded(
-                    child: Container(
-                      color: Colors.black54,
-                      height: 2,
-                    ),
-                  ),
-                  defaultAddress ? editButton() : deleteButton(),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Container(width: screenSizeH * 0.03),
-                  Text(
-                    'Address:  ',
-                    style: GoogleFonts.poppins(
-                      fontSize: fontsize,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.black54,
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      address.address,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: GoogleFonts.poppins(
-                        fontSize: fontsize,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Container(width: screenSizeH * 0.03),
-                  Text(
-                    'City:          ',
-                    style: GoogleFonts.poppins(
-                      fontSize: fontsize,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.black54,
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      address.city,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: GoogleFonts.poppins(
-                        fontSize: fontsize,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Container(width: screenSizeH * 0.03),
-                  Text(
-                    'Phone:     ',
-                    style: GoogleFonts.poppins(
-                      fontSize: fontsize,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.black54,
-                    ),
-                  ),
-                  Text(
-                    address.phone,
-                    style: GoogleFonts.poppins(
-                      fontSize: fontsize,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: screenSizeH * 0.01),
-            ],
-          ),
+    const Color primaryColor = Colors.black87;
+    const Color secondaryColor = Colors.redAccent;
+    // Screensize / some value
+    double fontSize = MediaQuery.of(context).size.width * 0.13;
+    return CollectionSlideTransition(children: [
+      Text(
+        'G',
+        style: GoogleFonts.poppins(
+          fontSize: fontSize,
+          fontWeight: FontWeight.w300,
+          color: primaryColor,
         ),
       ),
-    );
-  }
-}
-
-// DebitCard Container
-class bankCard extends StatelessWidget {
-  bankCard({required this.card, Key? key, this.options = true})
-      : super(key: key);
-  final DebitCard card;
-  bool options;
-  @override
-  Widget build(BuildContext context) {
-    final double screenSizeH = MediaQuery.of(context).size.height;
-    Color cardColor;
-    if (getCardType(card.cardNumber) == CardType.visa) {
-      // Visa
-      cardColor = Colors.red.shade900;
-    } else if (getCardType(card.cardNumber) == CardType.masterCard) {
-      // MasterCard
-      cardColor = Colors.blueGrey;
-    } else if (getCardType(card.cardNumber) == CardType.maestro) {
-      // Union Pay
-      cardColor = Colors.purple.shade900;
-    } else {
-      // Unknown
-      cardColor = Colors.black;
-    }
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: CreditCard(
-            width: screenSizeH * 0.45,
-            height: screenSizeH * 0.26,
-            // frontBackground: CardBackgrounds.black,
-            frontBackground: Container(
-              width: double.maxFinite,
-              height: double.maxFinite,
-              color: cardColor,
-            ),
-            backBackground: Container(
-              width: double.maxFinite,
-              height: double.maxFinite,
-              color: cardColor,
-            ), //Color(0xffF9F9FA)
-            cardType: getCardType(card.cardNumber),
-            // cardType: CardType.discover,
-            showShadow: true,
-            bankName: card.bankName,
-            showBackSide: !card.cardFront,
-            cardNumber: card.cardNumber,
-            cardExpiry: card.expiryDate,
-            cardHolderName: card.cardHolderName,
-            cvv: card.cvv,
-          ),
-        ),
-        options
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.edit_note_outlined,
-                        size: screenSizeH * 0.04),
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const EditCard(),
-                      ));
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Container(),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 4.0),
-                    child: IconButton(
-                      icon: Icon(Icons.delete_forever_outlined,
-                          color: Colors.red, size: screenSizeH * 0.04),
-                      onPressed: () {},
-                    ),
-                  ),
-                ],
-              )
-            : Container(),
-      ],
-    );
-  }
-}
-
-//Homepage Item Card
-class ItemCard extends StatelessWidget {
-  const ItemCard({
-    Key? key,
-    required this.screenWidth,
-    required this.cardWidth,
-    required this.hasSubtext,
-    required this.isTrending,
-    //required this.cardHeigth,
-  }) : super(key: key);
-
-  final double screenWidth;
-  final double cardWidth;
-  final bool hasSubtext;
-  final bool isTrending;
-  //final double cardHeigth;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: screenWidth * 0.92,
-      height: !hasSubtext ? 120 : 180,
-      // height: 150,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        clipBehavior: Clip.none,
-        itemCount: 4,
-        itemBuilder: (context, index) {
-          return Column(
-            // mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: isTrending
-                ? CrossAxisAlignment.start
-                : CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ItemDetail(),
-                  ));
-                },
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(27),
-                  ),
-                  color: index % 2 == 0
-                      ? Colors.red
-                      : const Color.fromARGB(255, 46, 44, 44),
-                  child: SizedBox(
-                    width: cardWidth,
-                    height: 100,
-                  ),
-                ),
-              ),
-              if (hasSubtext)
-                isTrending
-                    ? Padding(
-                        padding: const EdgeInsets.only(left: 16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              "Nike",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                            Text(
-                              "Contour 40",
-                              style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 12,
-                              ),
-                            ),
-                            Text(
-                              "PKR 12,000",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14,
-                              ),
-                            ),
-                          ],
-                        ),
-                      )
-                    : const Text(
-                        "Nike",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 18),
-                      )
-            ],
-          );
-        },
+      // Text(
+      //   'O',
+      //   style: GoogleFonts.poppins(
+      //     fontSize: fontSize,
+      //     fontWeight: FontWeight.w300,
+      //     color: primaryColor,
+      //   ),
+      // ),
+      SizedBox(
+        width: fontSize / 2 + 10,
+        height: fontSize / 2 + 10,
+        child: const CircularProgressIndicator(color: primaryColor),
       ),
-    );
+      Text(
+        'C',
+        style: GoogleFonts.poppins(
+          fontSize: fontSize,
+          fontWeight: FontWeight.w900,
+          color: primaryColor,
+        ),
+      ),
+      Text(
+        'A',
+        style: GoogleFonts.poppins(
+          fontSize: fontSize,
+          fontWeight: FontWeight.w900,
+          color: secondaryColor,
+        ),
+      ),
+      Text(
+        'R',
+        style: GoogleFonts.poppins(
+          fontSize: fontSize,
+          fontWeight: FontWeight.w900,
+          color: secondaryColor,
+        ),
+      ),
+      Text(
+        'T',
+        style: GoogleFonts.poppins(
+          fontSize: fontSize,
+          fontWeight: FontWeight.w900,
+          color: primaryColor,
+        ),
+      ),
+    ]);
   }
-}
-
-class Address {
-  Address({
-    required this.name,
-    required this.address,
-    required this.city,
-    required this.phone,
-  });
-  final String name, address, city, phone;
-}
-
-class DebitCard {
-  DebitCard(
-      {required this.cardNumber,
-      required this.expiryDate,
-      required this.cvv,
-      required this.cardHolderName,
-      this.bankName = 'My Bank',
-      this.cardFront = true});
-  String cardNumber, expiryDate, cvv, cardHolderName, bankName;
-  bool cardFront;
 }

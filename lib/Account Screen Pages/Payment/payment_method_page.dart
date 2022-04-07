@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/AccountScreen_Pages/Payment/addcard.dart';
+import 'package:gocart/Account%20Screen%20Pages/Payment/add_card_page.dart';
+import 'package:gocart/Account%20Screen%20Pages/Widgets/debitcard_widget.dart';
+import 'package:gocart/Models/debitcard_model.dart';
 import 'package:gocart/utils.dart';
 
-class paymentMethods extends StatefulWidget {
-  paymentMethods({Key? key}) : super(key: key);
+class PaymentMethods extends StatefulWidget {
+  const PaymentMethods({Key? key}) : super(key: key);
 
   @override
-  State<paymentMethods> createState() => _paymentMethodsState();
+  State<PaymentMethods> createState() => _PaymentMethodsState();
 }
 
-class _paymentMethodsState extends State<paymentMethods> {
+class _PaymentMethodsState extends State<PaymentMethods> {
   bool isfront = true;
   DebitCard? card1, card2, card3;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     card1 = DebitCard(
       cardNumber: "6216 5100 5100 5100",
@@ -40,13 +41,13 @@ class _paymentMethodsState extends State<paymentMethods> {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: const topBar(implyLeading: false),
+      appBar: const MyAppBar(implyLeading: false),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            const headerBar(title: "Payment Methods"),
+            const HeaderBar(title: "Payment Methods"),
             SizedBox(height: screenHeight * 0.03),
-            Container(
+            SizedBox(
               width: screenHeight * 0.8,
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 10),
@@ -54,7 +55,7 @@ class _paymentMethodsState extends State<paymentMethods> {
                   children: <Widget>[
                     // Card1
                     InkWell(
-                      child: bankCard(
+                      child: BankCard(
                         card: card1!,
                       ),
                       onTap: () {
@@ -66,7 +67,7 @@ class _paymentMethodsState extends State<paymentMethods> {
                     SizedBox(height: screenHeight * 0.02),
                     // Card2
                     InkWell(
-                      child: bankCard(
+                      child: BankCard(
                         card: card2!,
                       ),
                       onTap: () {
@@ -78,7 +79,7 @@ class _paymentMethodsState extends State<paymentMethods> {
                     SizedBox(height: screenHeight * 0.02),
                     // Card3
                     InkWell(
-                      child: bankCard(
+                      child: BankCard(
                         card: card3!,
                       ),
                       onTap: () {
@@ -97,7 +98,7 @@ class _paymentMethodsState extends State<paymentMethods> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => addCard(),
+                            builder: (context) => const AddCard(),
                           ),
                         );
                       },
@@ -109,7 +110,6 @@ class _paymentMethodsState extends State<paymentMethods> {
           ],
         ),
       ),
-      // bottomNavigationBar: const bottomBar(),
     );
   }
 }

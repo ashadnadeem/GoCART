@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/utils.dart';
+import 'package:gocart/Main%20Screen%20Pages/Widgets/item_card_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Home extends StatelessWidget {
@@ -40,7 +40,7 @@ class Home extends StatelessWidget {
           SizedBox(
             height: screenHeight * 0.015,
           ),
-          ItemCard(
+          ItemCardList(
             screenWidth: screenWidth,
             cardWidth: 175,
             hasSubtext: false,
@@ -70,7 +70,7 @@ class Home extends StatelessWidget {
           SizedBox(
             height: screenHeight * 0.015,
           ),
-          ItemCard(
+          ItemCardList(
             screenWidth: screenWidth,
             cardWidth: 100,
             hasSubtext: true,
@@ -100,7 +100,7 @@ class Home extends StatelessWidget {
           SizedBox(
             height: screenHeight * 0.015,
           ),
-          ItemCard(
+          ItemCardList(
             screenWidth: screenWidth,
             cardWidth: 175,
             hasSubtext: true,

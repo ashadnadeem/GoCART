@@ -1,69 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/utils.dart';
 
-class accountDetails extends StatefulWidget {
-  accountDetails({Key? key}) : super(key: key);
+class AddAddress extends StatefulWidget {
+  const AddAddress({Key? key}) : super(key: key);
 
   @override
-  State<accountDetails> createState() => _accountDetailsState();
+  State<AddAddress> createState() => _AddAddressState();
 }
 
-class _accountDetailsState extends State<accountDetails> {
+class _AddAddressState extends State<AddAddress> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: const topBar(implyLeading: false),
+      appBar: const MyAppBar(implyLeading: false),
       body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            SizedBox(height: screenHeight * 0.02),
             // Login Banner
-            headerBar(title: "Account Details"),
+            const HeaderBar(title: "Add Address"),
             SizedBox(height: screenHeight * 0.08),
-            Container(
+            SizedBox(
               width: screenHeight * 0.8,
               child: Padding(
                 padding: const EdgeInsets.only(left: 50, right: 50, bottom: 10),
                 child: Column(children: <Widget>[
                   // Name TextField
-                  Row(children: const <Widget>[Text("  Name")]),
+                  Row(children: const <Widget>[Text("  Title")]),
                   gocartTextField(
-                      hint: "Name",
-                      editable: false,
-                      control: TextEditingController()..text = "Shaheer Ahmed"),
+                      hint: "Title", control: TextEditingController()),
                   // Address TextField
                   Row(children: const <Widget>[Text("  Address")]),
                   gocartTextField(
                     hint: "Address",
-                    control: TextEditingController()
-                      ..text = "E-1103, Creek Vista Apartments",
+                    control: TextEditingController(),
                     textType: TextInputType.streetAddress,
                   ),
                   // City TextField
                   Row(children: const <Widget>[Text("  City")]),
                   gocartTextField(
                     hint: "City",
-                    control: TextEditingController()..text = "Karachi",
+                    control: TextEditingController(),
+                  ),
+                  // Zip Code TextField
+                  Row(children: const <Widget>[Text("  Zip Code")]),
+                  gocartTextField(
+                    hint: "Zip Code",
+                    textType: TextInputType.number,
+                    control: TextEditingController(),
                   ),
                   // Phone Number TextField
                   Row(children: const <Widget>[Text("  Phone Number")]),
                   gocartTextField(
                     hint: "Phone Number",
-                    control: TextEditingController()..text = "0300 1234567",
+                    control: TextEditingController(),
                     textType: TextInputType.number,
                   ),
+                  SizedBox(height: screenHeight * 0.02),
                 ]),
               ),
             ),
             // Login Button
             coolButton(
                 text: "Save",
-                // width: screenWidth * 0.5,
-                // height: screenHeight * 0.07,
-                // textSize: screenWidth * 0.05,
                 functionToComply: () {
                   Navigator.pop(context);
                 }),

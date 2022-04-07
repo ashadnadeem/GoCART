@@ -1,34 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/AccountScreen_Pages/Address/addaddress.dart';
-
+import 'package:gocart/Account%20Screen%20Pages/Address/add_address_page.dart';
+import 'package:gocart/Account%20Screen%20Pages/Widgets/address_tile_widget.dart';
+import 'package:gocart/Models/address_model.dart';
 import 'package:gocart/utils.dart';
 
-class savedAddress extends StatefulWidget {
-  savedAddress({Key? key}) : super(key: key);
+class SavedAddress extends StatefulWidget {
+  const SavedAddress({Key? key}) : super(key: key);
 
   @override
-  State<savedAddress> createState() => _savedAddressState();
+  State<SavedAddress> createState() => _SavedAddressState();
 }
 
-class _savedAddressState extends State<savedAddress> {
+class _SavedAddressState extends State<SavedAddress> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: const topBar(implyLeading: false),
+      appBar: const MyAppBar(implyLeading: false),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            headerBar(title: "Saved Addresses"),
+            const HeaderBar(title: "Saved Addresses"),
             SizedBox(height: screenHeight * 0.03),
-            Container(
+            SizedBox(
               width: screenHeight * 0.8,
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    addressTile(
+                    AddressTile(
                       defaultAddress: true,
                       address: Address(
                         name: "Default Address",
@@ -38,7 +39,7 @@ class _savedAddressState extends State<savedAddress> {
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.005),
-                    addressTile(
+                    AddressTile(
                       address: Address(
                         name: "My Home",
                         address: "E-1103, Creek Vista Apartments, DHA",
@@ -47,7 +48,7 @@ class _savedAddressState extends State<savedAddress> {
                       ),
                     ),
                     SizedBox(height: screenHeight * 0.005),
-                    addressTile(
+                    AddressTile(
                       address: Address(
                         name: "Ashad's Home",
                         address: "4B/1 1st Central Lane DHA",
@@ -63,7 +64,7 @@ class _savedAddressState extends State<savedAddress> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => addAddress(),
+                            builder: (context) => const AddAddress(),
                           ),
                         );
                       },

@@ -1,23 +1,20 @@
-import 'dart:convert';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:gocart/MainScreen_Pages/mainPage.dart';
+import 'package:gocart/Main%20Screen%20Pages/main_page.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'Login.dart';
 
-class tellusmorePage extends StatefulWidget {
-  tellusmorePage({Key? key}) : super(key: key);
+class TellUsMorePage extends StatefulWidget {
+  const TellUsMorePage({Key? key}) : super(key: key);
 
   @override
-  State<tellusmorePage> createState() => _tellusmorePageState();
+  State<TellUsMorePage> createState() => _TellUsMorePageState();
 }
 
-class _tellusmorePageState extends State<tellusmorePage> {
+class _TellUsMorePageState extends State<TellUsMorePage> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    final double screenWidth = MediaQuery.of(context).size.width;
+    // final double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       body: Center(
@@ -77,32 +74,41 @@ class _tellusmorePageState extends State<tellusmorePage> {
               Hero(
                 tag: 'onBoarding Button',
                 child: coolButton(
-                    text: "Finish",
-                    functionToComply: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => homePage()));
-                    }),
+                  text: "Finish",
+                  functionToComply: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MainPage(),
+                      ),
+                    );
+                  },
+                ),
               ),
               const SizedBox(height: 10),
               // Fill Details Later?
               Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    const Text("Want to setup later? "),
-                    InkWell(
-                        child: const Text("Skip",
-                            style: TextStyle(
-                              color: Colors.red,
-                              decoration: TextDecoration.underline,
-                            )),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => homePage()));
-                        })
-                  ]),
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  const Text("Want to setup later? "),
+                  InkWell(
+                    child: const Text("Skip",
+                        style: TextStyle(
+                          color: Colors.red,
+                          decoration: TextDecoration.underline,
+                        )),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MainPage(),
+                        ),
+                      );
+                    },
+                  )
+                ],
+              ),
             ],
           ),
         ),

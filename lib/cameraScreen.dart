@@ -54,7 +54,7 @@ class _CameraAppState extends State<CameraApp> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // logo(),
-              const headerBar(title: "Live Camera"),
+              const HeaderBar(title: "Live Camera"),
               cameraInitialized
                   ? Container(
                       height: MediaQuery.of(context).size.height * 0.7,

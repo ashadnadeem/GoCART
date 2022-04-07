@@ -1,21 +1,18 @@
-import 'dart:convert';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:gocart/MainScreen_Pages/mainPage.dart';
-import 'package:gocart/OnBoarding/tellusmore.dart';
+import 'package:gocart/Main%20Screen%20Pages/main_page.dart';
+import 'package:gocart/OnBoarding%20Pages/login_page.dart';
+import 'package:gocart/OnBoarding%20Pages/tellusmore_page.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'Login.dart';
-
-class signupPage extends StatefulWidget {
-  signupPage({Key? key}) : super(key: key);
+class SignupPage extends StatefulWidget {
+  const SignupPage({Key? key}) : super(key: key);
 
   @override
-  State<signupPage> createState() => _signupPageState();
+  State<SignupPage> createState() => _SignupPageState();
 }
 
-class _signupPageState extends State<signupPage> {
+class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -98,7 +95,7 @@ class _signupPageState extends State<signupPage> {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => homePage(),
+                      builder: (context) => const MainPage(),
                     ),
                   );
                 },
@@ -156,29 +153,33 @@ class _signupPageState extends State<signupPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => tellusmorePage()));
+                              builder: (context) => const TellUsMorePage()));
                     }),
               ),
               SizedBox(height: screenHeight * 0.02),
               // Dont have an account?
               Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    const Text("Already have an account? "),
-                    InkWell(
-                        child: const Text("Login",
-                            style: TextStyle(
-                              color: Colors.red,
-                              decoration: TextDecoration.underline,
-                            )),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => loginPage()));
-                        })
-                  ]),
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  const Text("Already have an account? "),
+                  InkWell(
+                    child: const Text("Login",
+                        style: TextStyle(
+                          color: Colors.red,
+                          decoration: TextDecoration.underline,
+                        )),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginPage(),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ],
           ),
         ),

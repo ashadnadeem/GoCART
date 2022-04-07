@@ -40,6 +40,8 @@ dependencies:
   awesome_card: ^1.1.7
   camera: ^0.9.4+18
   bottom_navy_bar: ^6.0.0
+  provider: ^6.0.2
+  url_launcher: ^6.0.20
 
 dev_dependencies:
   flutter_test:

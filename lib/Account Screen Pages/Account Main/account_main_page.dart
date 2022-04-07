@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/AccountScreen_Pages/Address/savedaddress.dart';
-import 'package:gocart/AccountScreen_Pages/Details/accountdetails.dart';
-import 'package:gocart/AccountScreen_Pages/Order/U_OrderHistoryPage.dart';
-import 'package:gocart/AccountScreen_Pages/Payment/paymentmethod.dart';
+import 'package:gocart/Account%20Screen%20Pages/Address/saved_address_page.dart';
+import 'package:gocart/Account%20Screen%20Pages/Details/account_details_page.dart';
+import 'package:gocart/Account%20Screen%20Pages/Order/U_OrderHistoryPage.dart';
+import 'package:gocart/Account%20Screen%20Pages/Payment/payment_method_page.dart';
+import 'package:gocart/Account%20Screen%20Pages/Widgets/settings_cards_widget.dart';
+
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class myAccount extends StatefulWidget {
-  myAccount({Key? key}) : super(key: key);
+class AccountMain extends StatefulWidget {
+  const AccountMain({Key? key}) : super(key: key);
 
   @override
-  State<myAccount> createState() => _myAccountState();
+  State<AccountMain> createState() => _AccountMainState();
 }
 
-class _myAccountState extends State<myAccount> {
+class _AccountMainState extends State<AccountMain> {
   final Color color1 = const Color.fromARGB(255, 59, 59, 61);
   final Color color2 = const Color.fromARGB(255, 232, 72, 85);
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: topBar(implyLeading: true),
+      appBar: const MyAppBar(implyLeading: true),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -37,24 +39,24 @@ class _myAccountState extends State<myAccount> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                coolCard(
+                AccountSettingCard(
                   text: 'Account Details',
                   functionToComply: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => accountDetails()));
+                            builder: (context) => AccountDetails()));
                   },
                   iconData: Icons.account_circle_outlined,
                 ),
                 SizedBox(width: screenHeight * 0.01),
-                coolCard(
+                AccountSettingCard(
                   text: 'Saved Addresses',
                   functionToComply: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => savedAddress()));
+                            builder: (context) => const SavedAddress()));
                   },
                   iconData: Icons.location_on_outlined,
                   primaryColor: color1,
@@ -65,17 +67,17 @@ class _myAccountState extends State<myAccount> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                coolCard(
+                AccountSettingCard(
                   text: 'Payment Methods',
                   functionToComply: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => paymentMethods()));
+                        builder: (context) => PaymentMethods()));
                   },
                   iconData: Icons.account_balance_wallet_outlined,
                   primaryColor: color1,
                 ),
                 SizedBox(width: screenHeight * 0.01),
-                coolCard(
+                AccountSettingCard(
                   text: 'Order History',
                   functionToComply: () {
                     Navigator.of(context).push(MaterialPageRoute(

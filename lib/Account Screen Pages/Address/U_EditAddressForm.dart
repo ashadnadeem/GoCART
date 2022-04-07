@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/utils.dart';
 
-class ItemDetail extends StatelessWidget {
-  const ItemDetail({Key? key}) : super(key: key);
+class EditAddress extends StatelessWidget {
+  const EditAddress({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      appBar: topBar(implyLeading: true),
+      appBar: MyAppBar(implyLeading: true),
       body: Center(
-        child: Text("Item Details"),
+        child: Text("Edit Address"),
       ),
     );
   }

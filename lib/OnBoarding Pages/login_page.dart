@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/MainScreen_Pages/mainPage.dart';
-import 'package:gocart/OnBoarding/signup.dart';
+import 'package:gocart/Main%20Screen%20Pages/main_page.dart';
+import 'package:gocart/OnBoarding%20Pages/signup_page.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class loginPage extends StatefulWidget {
-  loginPage({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<loginPage> createState() => _loginPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _loginPageState extends State<loginPage> {
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
+    //final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
@@ -74,7 +74,7 @@ class _loginPageState extends State<loginPage> {
                                 context,
                                 //                        MaterialPageRoute(builder: (context) => forgetPassword()));
                                 MaterialPageRoute(
-                                    builder: (context) => loginPage()));
+                                    builder: (context) => const LoginPage()));
                           },
                         )
                       ],
@@ -91,7 +91,7 @@ class _loginPageState extends State<loginPage> {
                     functionToComply: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => homePage(),
+                          builder: (context) => const MainPage(),
                         ),
                       );
                     }),
@@ -99,25 +99,29 @@ class _loginPageState extends State<loginPage> {
               const SizedBox(height: 10),
               // Dont have an account?
               Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    const Text("Don't have an account? "),
-                    InkWell(
-                        child: const Text(
-                          "Signup",
-                          style: TextStyle(
-                            color: Colors.red,
-                            decoration: TextDecoration.underline,
-                          ),
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  const Text("Don't have an account? "),
+                  InkWell(
+                    child: const Text(
+                      "Signup",
+                      style: TextStyle(
+                        color: Colors.red,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SignupPage(),
                         ),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => signupPage()));
-                        })
-                  ]),
+                      );
+                    },
+                  )
+                ],
+              ),
             ],
           ),
         ),
