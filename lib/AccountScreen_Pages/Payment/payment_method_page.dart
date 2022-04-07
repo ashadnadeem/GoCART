@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/AccountScreen_Pages/Payment/addcard.dart';
+import 'package:gocart/AccountScreen_Pages/Payment/add_card_page.dart';
 import 'package:gocart/utils.dart';
 
 class paymentMethods extends StatefulWidget {

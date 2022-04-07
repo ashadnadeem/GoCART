@@ -1,9 +1,9 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gocart/MainScreen_Pages/U_CartPage.dart';
-import 'package:gocart/MainScreen_Pages/HomePage.dart';
-import 'package:gocart/MainScreen_Pages/U_SearchPage.dart';
-import 'package:gocart/MainScreen_Pages/U_WishlistPage.dart';
+import 'package:gocart/MainScreen_Pages/home_page.dart';
+import 'package:gocart/MainScreen_Pages/search_page.dart';
+import 'package:gocart/MainScreen_Pages/wishlist_page.dart';
 import 'package:gocart/utils.dart';
 
 class homePage extends StatefulWidget {

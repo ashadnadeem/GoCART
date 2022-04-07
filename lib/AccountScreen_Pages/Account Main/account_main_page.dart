@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/AccountScreen_Pages/Address/savedaddress.dart';
-import 'package:gocart/AccountScreen_Pages/Details/accountdetails.dart';
+import 'package:gocart/AccountScreen_Pages/Address/saved_address_page.dart';
+import 'package:gocart/AccountScreen_Pages/Details/account_details_page.dart';
 import 'package:gocart/AccountScreen_Pages/Order/U_OrderHistoryPage.dart';
-import 'package:gocart/AccountScreen_Pages/Payment/paymentmethod.dart';
+import 'package:gocart/AccountScreen_Pages/Payment/payment_method_page.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 
