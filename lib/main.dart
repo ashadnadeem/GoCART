@@ -12,9 +12,9 @@ late List<CameraDescription> cameras;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   print('ARCORE IS AVAILABLE?');
-  print(await ArCoreController.checkArCoreAvailability());
+  // print(await ArCoreController.checkArCoreAvailability());
   print('\nAR SERVICES INSTALLED?');
-  print(await ArCoreController.checkIsArCoreInstalled());
+  // print(await ArCoreController.checkIsArCoreInstalled());
   cameras = await availableCameras();
   runApp(const MyApp());
 }

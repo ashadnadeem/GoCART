@@ -1,11 +1,9 @@
 import 'package:awesome_card/awesome_card.dart';
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gocart/AccountScreen_Pages/Account%20Main/accountpage.dart';
 import 'package:gocart/AccountScreen_Pages/Address/U_EditAddressForm.dart';
-import 'package:gocart/AccountScreen_Pages/Payment/U_EditCardForm.dart';
+import 'package:gocart/AccountScreen_Pages/Payment/addcard.dart';
 import 'package:gocart/MainScreen_Pages/U_ItemDetailPage.dart';
-import 'package:gocart/MainScreen_Pages/mainPage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 // Logo
@@ -129,221 +127,6 @@ class topBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(60);
 }
-
-// App Bar
-// class topBar extends StatelessWidget implements PreferredSizeWidget {
-//   const topBar({Key? key}) : super(key: key);
-//   @override
-//   // TODO: implement preferredSize
-//   Size get preferredSize => Size.fromHeight(90);
-//   @override
-//   Widget build(BuildContext context) {
-//     double screenSizeW = MediaQuery.of(context).size.width;
-//     double screenSizeH = MediaQuery.of(context).size.height;
-//     return SafeArea(
-//       bottom: false,
-//       child: Container(
-//         height: screenSizeH * 0.08,
-//         width: screenSizeW,
-//         decoration: const BoxDecoration(
-//           color: Color.fromARGB(255, 59, 59, 61),
-//           // Border radius only for botom
-//           borderRadius: BorderRadius.only(
-//             bottomLeft: Radius.circular(30),
-//             bottomRight: Radius.circular(30),
-//           ),
-//         ),
-//         child: Padding(
-//           padding: const EdgeInsets.only(left: 10, right: 10),
-//           child: Row(
-//             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//             children: <Widget>[
-//               // Profile Icon
-//               Padding(
-//                 padding: const EdgeInsets.only(bottom: 10),
-//                 child: IconButton(
-//                   icon: Icon(Icons.account_circle_outlined,
-//                       size: screenSizeH * 0.05, color: Colors.white),
-//                   onPressed: () {
-//                     Navigator.push(
-//                       context,
-//                       MaterialPageRoute(builder: (context) => myAccount()),
-//                     );
-//                   },
-//                 ),
-//               ),
-//               // Logo
-//               logo(
-//                 primaryColor: Colors.white,
-//                 secondaryColor: Colors.yellow,
-//                 fontSize: screenSizeH * 0.035,
-//               ),
-//               // Cart Icon
-//               Padding(
-//                 padding: const EdgeInsets.only(bottom: 10),
-//                 child: IconButton(
-//                   icon: Icon(Icons.shopping_cart_outlined,
-//                       size: screenSizeH * 0.05, color: Colors.white),
-//                   onPressed: () {
-//                     Navigator.push(
-//                       context,
-//                       MaterialPageRoute(builder: (context) => myAccount()),
-//                     );
-//                   },
-//                 ),
-//               ),
-//               // Icon(Icons.card_travel_outlined, size: 40, color: Colors.white),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class bottomBar extends StatefulWidget implements PreferredSizeWidget {
-//   const bottomBar({Key? key, required this.list, required this.index})
-//       : super(key: key);
-//   final List<Widget> list;
-//   final int index;
-//   @override
-//   State<bottomBar> createState() => _bottomBarState();
-
-//   @override
-//   Size get preferredSize => const Size.fromWidth(80);
-// }
-
-// class _bottomBarState extends State<bottomBar> {
-//   int _currentIndex = 0;
-//   List<Widget> list = [homePage(), SearchPage()];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return BottomNavyBar(
-//       selectedIndex: _currentIndex,
-//       showElevation: true,
-//       itemCornerRadius: 24,
-//       containerHeight: 60,
-//       curve: Curves.easeIn,
-//       backgroundColor: Color.fromARGB(255, 33, 32, 32),
-//       onItemSelected: (index) => setState(
-//         () {
-//           // Navigator.of(context).push(
-//           //   MaterialPageRoute(
-//           //     builder: (context) => list[index],
-//           //   ),
-//           // );
-//           _currentIndex = index;
-//         },
-//       ),
-//       items: [
-//         BottomNavyBarItem(
-//           icon: const Icon(Icons.home_outlined),
-//           title: const Text('Home'),
-//           activeColor: Colors.white,
-//           inactiveColor: Colors.white54,
-//           textAlign: TextAlign.center,
-//         ),
-//         BottomNavyBarItem(
-//           icon: const Icon(Icons.search),
-//           title: const Text('Search'),
-//           activeColor: Colors.white,
-//           inactiveColor: Colors.white54,
-//           textAlign: TextAlign.center,
-//         ),
-//         BottomNavyBarItem(
-//           icon: const Icon(Icons.favorite_outline_sharp),
-//           title: const Text('Wishlist'),
-//           activeColor: Colors.white,
-//           inactiveColor: Colors.white54,
-//           textAlign: TextAlign.center,
-//         ),
-//         BottomNavyBarItem(
-//           icon: const Icon(Icons.shopping_cart_outlined),
-//           title: const Text('Cart'),
-//           activeColor: Colors.white,
-//           inactiveColor: Colors.white54,
-//           textAlign: TextAlign.center,
-//         ),
-//       ],
-//     );
-//   }
-// }
-
-// // Bottom App Bar
-// class bottomBar extends StatelessWidget implements PreferredSizeWidget {
-//   const bottomBar({Key? key}) : super(key: key);
-//   @override
-//   // TODO: implement preferredSize
-//   Size get preferredSize => Size.fromHeight(80);
-//   @override
-//   Widget build(BuildContext context) {
-//     final double iconSize = MediaQuery.of(context).size.height * 0.05;
-//     return Container(
-//       height: MediaQuery.of(context).size.height * 0.08,
-//       decoration: const BoxDecoration(
-//         color: Color.fromARGB(255, 59, 59, 61),
-//         // Border radius only for botom
-//         borderRadius: BorderRadius.only(
-//           topLeft: Radius.circular(30),
-//           topRight: Radius.circular(30),
-//         ),
-//       ),
-//       child: Padding(
-//         padding: const EdgeInsets.only(top: 10, bottom: 20),
-//         child: Row(
-//           mainAxisAlignment: MainAxisAlignment.spaceAround,
-//           children: <Widget>[
-//             IconButton(
-//               icon: Icon(
-//                 Icons.home_outlined,
-//                 size: iconSize,
-//                 color: Colors.white,
-//               ),
-//               onPressed: () {
-//                 Navigator.push(context,
-//                     MaterialPageRoute(builder: (context) => homePage()));
-//               },
-//             ),
-//             IconButton(
-//               icon: Icon(
-//                 Icons.search_outlined,
-//                 size: iconSize,
-//                 color: Colors.white,
-//               ),
-//               onPressed: () {
-//                 Navigator.push(context,
-//                     MaterialPageRoute(builder: (context) => homePage()));
-//               },
-//             ),
-//             IconButton(
-//               icon: Icon(
-//                 Icons.favorite_border_outlined,
-//                 size: iconSize,
-//                 color: Colors.white,
-//               ),
-//               onPressed: () {
-//                 Navigator.push(context,
-//                     MaterialPageRoute(builder: (context) => homePage()));
-//               },
-//             ),
-//             IconButton(
-//               icon: Icon(
-//                 Icons.shopping_cart_outlined,
-//                 size: iconSize,
-//                 color: Colors.white,
-//               ),
-//               onPressed: () {
-//                 Navigator.push(context,
-//                     MaterialPageRoute(builder: (context) => homePage()));
-//               },
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 // Header with back button
 class headerBar extends StatelessWidget {
@@ -725,10 +508,21 @@ class addressTile extends StatelessWidget {
 
 // DebitCard Container
 class bankCard extends StatelessWidget {
-  bankCard({required this.card, Key? key, this.options = true})
+  bankCard(
+      {required this.card, this.encrypt = false, Key? key, this.options = true})
       : super(key: key);
   final DebitCard card;
+  bool encrypt;
   bool options;
+  String cardEncrypt(String cardNumber) {
+    // Put * and display only last 4 digits
+    String card = '';
+    card = cardNumber.substring(0, 4) +
+        "*" * 8 +
+        cardNumber.substring(cardNumber.length - 4, cardNumber.length);
+    return card;
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenSizeH = MediaQuery.of(context).size.height;
@@ -746,64 +540,68 @@ class bankCard extends StatelessWidget {
       // Unknown
       cardColor = Colors.black;
     }
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-          child: CreditCard(
-            width: screenSizeH * 0.45,
-            height: screenSizeH * 0.26,
-            // frontBackground: CardBackgrounds.black,
-            frontBackground: Container(
-              width: double.maxFinite,
-              height: double.maxFinite,
-              color: cardColor,
+    return Container(
+      width: MediaQuery.of(context).size.height * 0.8,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: CreditCard(
+              width: screenSizeH * 0.45,
+              height: screenSizeH * 0.26,
+              // frontBackground: CardBackgrounds.black,
+              frontBackground: Container(
+                width: double.maxFinite,
+                height: double.maxFinite,
+                color: cardColor,
+              ),
+              backBackground: Container(
+                width: double.maxFinite,
+                height: double.maxFinite,
+                color: cardColor,
+              ), //Color(0xffF9F9FA)
+              cardType: getCardType(card.cardNumber),
+              // cardType: CardType.discover,
+              showShadow: true,
+              bankName: card.bankName,
+              showBackSide: !card.cardFront,
+              cardNumber:
+                  encrypt ? cardEncrypt(card.cardNumber) : card.cardNumber,
+              cardExpiry: card.expiryDate,
+              cardHolderName: card.cardHolderName,
+              cvv: card.cvv,
             ),
-            backBackground: Container(
-              width: double.maxFinite,
-              height: double.maxFinite,
-              color: cardColor,
-            ), //Color(0xffF9F9FA)
-            cardType: getCardType(card.cardNumber),
-            // cardType: CardType.discover,
-            showShadow: true,
-            bankName: card.bankName,
-            showBackSide: !card.cardFront,
-            cardNumber: card.cardNumber,
-            cardExpiry: card.expiryDate,
-            cardHolderName: card.cardHolderName,
-            cvv: card.cvv,
           ),
-        ),
-        options
-            ? Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.edit_note_outlined,
-                        size: screenSizeH * 0.04),
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const EditCard(),
-                      ));
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Container(),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 4.0),
-                    child: IconButton(
-                      icon: Icon(Icons.delete_forever_outlined,
-                          color: Colors.red, size: screenSizeH * 0.04),
-                      onPressed: () {},
+          options
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.edit_note_outlined,
+                          size: screenSizeH * 0.04),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => addCard(card: card),
+                        ));
+                      },
                     ),
-                  ),
-                ],
-              )
-            : Container(),
-      ],
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Container(),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 4.0),
+                      child: IconButton(
+                        icon: Icon(Icons.delete_forever_outlined,
+                            color: Colors.red, size: screenSizeH * 0.04),
+                        onPressed: () {},
+                      ),
+                    ),
+                  ],
+                )
+              : Container(),
+        ],
+      ),
     );
   }
 }

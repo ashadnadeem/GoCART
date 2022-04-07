@@ -11,105 +11,86 @@ class paymentMethods extends StatefulWidget {
 
 class _paymentMethodsState extends State<paymentMethods> {
   bool isfront = true;
-  DebitCard? card1, card2, card3;
+  List<DebitCard> myCards = [];
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    card1 = DebitCard(
-      cardNumber: "6216 5100 5100 5100",
+    myCards.add(DebitCard(
+      cardNumber: "6216510051005100",
       cardHolderName: "Ashad Nadeem",
       expiryDate: "12/26",
       cvv: "123",
-    );
-    card2 = DebitCard(
-      cardNumber: "5245 4444 4444 4444",
+    ));
+    myCards.add(DebitCard(
+      cardNumber: "5245444444444444",
       cardHolderName: "Ameer Party",
       expiryDate: "12/23",
       cvv: "456",
-    );
-    card3 = DebitCard(
-      cardNumber: "4224 5100 5100 5100",
+    ));
+    myCards.add(DebitCard(
+      cardNumber: "4224510051005100",
       cardHolderName: "Waderey Ka Beta",
       expiryDate: "12/24",
       cvv: "789",
-    );
+    ));
   }
 
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
+    print(myCards.length);
     return Scaffold(
       appBar: const topBar(implyLeading: false),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const headerBar(title: "Payment Methods"),
             SizedBox(height: screenHeight * 0.03),
-            Container(
-              width: screenHeight * 0.8,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Column(
-                  children: <Widget>[
-                    // Card1
-                    InkWell(
-                      child: bankCard(
-                        card: card1!,
-                      ),
-                      onTap: () {
-                        setState(() {
-                          card1!.cardFront = !card1!.cardFront;
-                        });
-                      },
-                    ),
-                    SizedBox(height: screenHeight * 0.02),
-                    // Card2
-                    InkWell(
-                      child: bankCard(
-                        card: card2!,
-                      ),
-                      onTap: () {
-                        setState(() {
-                          card2!.cardFront = !card2!.cardFront;
-                        });
-                      },
-                    ),
-                    SizedBox(height: screenHeight * 0.02),
-                    // Card3
-                    InkWell(
-                      child: bankCard(
-                        card: card3!,
-                      ),
-                      onTap: () {
-                        setState(() {
-                          card3!.cardFront = !card3!.cardFront;
-                        });
-                      },
-                    ),
-                    SizedBox(height: screenHeight * 0.05),
-                    coolButton(
-                      text: "Add Card",
-                      functionToComply: () {
-                        isfront = !isfront;
-                        setState(() {});
-                        // Navigate to add Card page
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => addCard(),
-                          ),
-                        );
-                      },
-                    )
-                  ],
-                ),
-              ),
-            ),
+            for (var i = 0; i < myCards.length; i++) CardTile(myCards[i]),
+            addCardButton(),
           ],
         ),
       ),
       // bottomNavigationBar: const bottomBar(),
+    );
+  }
+
+  Widget CardTile(card) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      child: InkWell(
+        child: bankCard(
+          card: card,
+          encrypt: true,
+        ),
+        onTap: () {
+          setState(() {
+            card.cardFront = !card.cardFront;
+          });
+        },
+      ),
+    );
+  }
+
+  Widget addCardButton() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      child: coolButton(
+        text: "Add Card",
+        functionToComply: () {
+          isfront = !isfront;
+          setState(() {});
+          // Navigate to add Card page
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => addCard(),
+            ),
+          );
+        },
+      ),
     );
   }
 }

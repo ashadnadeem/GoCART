@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gocart/utils.dart';
 
 class addCard extends StatefulWidget {
-  addCard({Key? key}) : super(key: key);
-
+  addCard({Key? key, this.card}) : super(key: key);
+  DebitCard? card;
   @override
   State<addCard> createState() => _addCardState();
 }
@@ -14,32 +14,45 @@ class _addCardState extends State<addCard> {
   final TextEditingController _expiryDateController = TextEditingController();
   final TextEditingController _cvvController = TextEditingController();
   final TextEditingController _bankNameController = TextEditingController();
+  late DebitCard card1;
+  String title = "Add Card";
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    // If there is a card Passing means editing
+    if (widget.card != null) {
+      title = "Edit Card";
+      card1 = widget.card!;
+      _cardNumberController.text =
+          "*" * 12 + card1.cardNumber.substring(12, 16);
+      _nameOnCardController.text = card1.cardHolderName;
+      _expiryDateController.text = card1.expiryDate;
+      _cvvController.text = "";
+      _bankNameController.text = card1.bankName;
+    } else {
+      card1 = DebitCard(
+          cardNumber: "", cardHolderName: "", expiryDate: "", cvv: "");
+    }
   }
 
   bool back = false;
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    final double screenWidth = MediaQuery.of(context).size.width;
-    DebitCard card1 = DebitCard(
-      cardNumber: _cardNumberController.text,
-      expiryDate: _expiryDateController.text,
-      cvv: _cvvController.text,
-      cardHolderName: _nameOnCardController.text,
-      bankName: _bankNameController.text,
-      cardFront: !back,
-    );
+    card1.cardNumber = _cardNumberController.text;
+    card1.cardHolderName = _nameOnCardController.text;
+    card1.expiryDate = _expiryDateController.text;
+    card1.cvv = _cvvController.text;
+    card1.bankName = _bankNameController.text;
+    card1.cardFront = !back;
     return Scaffold(
       appBar: const topBar(implyLeading: false),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             // Login Banner
-            const headerBar(title: "Add a Card"),
+            headerBar(title: title),
             SizedBox(height: screenHeight * 0.03),
             bankCard(
               options: false,
@@ -62,20 +75,20 @@ class _addCardState extends State<addCard> {
                       setState(() {});
                     },
                   ),
-                  // Address TextField
+                  // Card Number TextField
                   Row(children: const <Widget>[Text("  Card Number")]),
                   gocartTextField(
                     hint: "Number",
                     control: _cardNumberController,
                     textType: TextInputType.number,
-                    length: 13,
+                    length: 16,
                     onChangedFunction: (value) {
                       back = false;
                       card1.cardNumber = value;
                       setState(() {});
                     },
                   ),
-                  // City TextField
+                  // Bank Name TextField
                   Row(children: const <Widget>[Text("  Bank Name")]),
                   gocartTextField(
                     hint: "Safe Bank",
@@ -86,7 +99,7 @@ class _addCardState extends State<addCard> {
                       setState(() {});
                     },
                   ),
-                  // Zip Code TextField
+                  // Expiry TextField
                   Row(children: const <Widget>[Text("  Expiry Date")]),
                   gocartTextField(
                     hint: "MM/YY",
@@ -98,12 +111,13 @@ class _addCardState extends State<addCard> {
                       setState(() {});
                     },
                   ),
-                  // Phone Number TextField
+                  // Cvv TextField
                   Row(children: const <Widget>[Text("  Cvv")]),
                   gocartTextField(
                     hint: "cvv",
                     control: _cvvController,
                     textType: TextInputType.number,
+                    length: 3,
                     onChangedFunction: (value) {
                       back = true;
                       card1.cardHolderName = value;

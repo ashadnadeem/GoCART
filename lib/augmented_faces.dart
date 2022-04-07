@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:gocart/main.dart';
 import 'package:gocart/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
@@ -13,24 +14,35 @@ class AugmentedFacesScreen extends StatefulWidget {
 
 class _AugmentedFacesScreenState extends State<AugmentedFacesScreen> {
   late ArCoreFaceController arCoreFaceController;
-  bool isLoading = true;
   List<String> filters = [
-    'assets/Daco.png',
-    'assets/joker.png',
-    'assets/lipstick.png',
-    'assets/makeup.png',
-    'assets/fox_face_mesh_texture.png',
-    'assets/foxandears.png',
-    'assets/glasses.png',
-    'assets/rayban_classic_transparent.png',
-    'assets/rayban_exotic_blue.png',
+    "assets/fox_face_mesh_texture.png",
+    "assets/glasses_round_gold.png",
+    "assets/glasses_round_golden.png",
+    "assets/glasses.png",
+    "assets/rayban_classic_transparent.png",
+    "assets/rayban_exotic_blue.png",
+    "assets/mask_camo_green.png",
+    "assets/mask_geometric.png",
+    "assets/mask_iba.png",
     // 'assets/face_mesh.png',
   ];
-  int filterIndex = 0;
-
+  int filterIndex = 8;
+  bool isLoaded = false;
   void updateFilter() {
     filterIndex = ((filterIndex + 1) % filters.length);
     loadMesh();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // Delay to allow the camera to initialize
+    setState(() {});
+    Future.delayed(Duration(seconds: 1), () {
+      isLoaded = true;
+      setState(() {});
+    });
   }
 
   @override
@@ -38,23 +50,33 @@ class _AugmentedFacesScreenState extends State<AugmentedFacesScreen> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: Colors.yellow,
         appBar: const topBar(
           implyLeading: true,
         ),
-        body: Stack(children: [
-          ArCoreFaceView(
-            onArCoreViewCreated: _onArCoreViewCreated,
-            enableAugmentedFaces: true,
-          ),
-          Align(
+        body: isLoaded ? ArCam() : Center(child: const JumpingLogo()),
+      ),
+    );
+  }
+
+  Widget ArCam() {
+    return Stack(
+      children: [
+        ArCoreFaceView(
+          onArCoreViewCreated: _onArCoreViewCreated,
+          enableAugmentedFaces: true,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 50),
+          child: Align(
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(
               onPressed: updateFilter,
               child: const Text('Try Next Filter'),
             ),
           ),
-        ]),
-      ),
+        ),
+      ],
     );
   }
 

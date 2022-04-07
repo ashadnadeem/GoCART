@@ -72,15 +72,15 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/Daco.png
     - assets/fox_face_mesh_texture.png
-    - assets/makeup.png
-    - assets/joker.png
-    - assets/lipstick.png
+    - assets/glasses_round_gold.png
+    - assets/glasses_round_golden.png
     - assets/glasses.png
+    - assets/mask_camo_green.png
+    - assets/mask_geometric.png
+    - assets/mask_iba.png
     - assets/rayban_classic_transparent.png
     - assets/rayban_exotic_blue.png
-    - assets/face_mesh.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
