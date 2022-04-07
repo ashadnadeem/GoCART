@@ -1,7 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:gocart/OnBoarding/Login.dart';
-import 'package:gocart/OnBoarding/signup.dart';
+import 'package:gocart/OnBoarding/login_page.dart';
+import 'package:gocart/OnBoarding/signup_page.dart';
 import 'package:gocart/tryFile.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';

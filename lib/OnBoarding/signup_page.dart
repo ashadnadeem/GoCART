@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/MainScreen_Pages/main_page.dart';
+import 'package:gocart/OnBoarding/login_page.dart';
 import 'package:gocart/OnBoarding/tellusmore_page.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'Login.dart';
 
 class signupPage extends StatefulWidget {
   signupPage({Key? key}) : super(key: key);

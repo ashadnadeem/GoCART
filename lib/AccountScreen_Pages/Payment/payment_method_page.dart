@@ -39,7 +39,6 @@ class _paymentMethodsState extends State<paymentMethods> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    print(myCards.length);
     return Scaffold(
       appBar: const topBar(implyLeading: false),
       body: SingleChildScrollView(
