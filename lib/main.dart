@@ -279,5 +279,15 @@ class _MyHomePageState extends State<MyHomePage> {
               image:
                   "https://fashiontimesmagazine.com/wp-content/uploads/2021/10/ff0fb676-bc35-4126-ab5f-ab85abd6dc1b.jpeg"),
         );
+    context.read<CartProvider>().addToCart(
+          Item(
+              name: "RayBank Sunlit",
+              description: "SunGlasses",
+              price: 56000,
+              isFav: false,
+              image:
+                  "https://www.ray-ban.com/_repository/_resources/productscatalog/optics/images/most_popular_launches_section_sunpage.jpg",
+              ar_link: "assets/rayban_exotic_blue.png"),
+        );
   }
 }
