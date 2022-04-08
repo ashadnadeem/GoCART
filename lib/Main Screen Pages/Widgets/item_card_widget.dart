@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/U_ItemDetailPage.dart';
+import 'package:gocart/Models/item_model.dart';
 
 //Homepage Item Card
 class ItemCardList extends StatelessWidget {
-  const ItemCardList({
-    Key? key,
-    required this.screenWidth,
-    required this.cardWidth,
-    required this.hasSubtext,
-    required this.isTrending,
-    //required this.cardHeigth,
-  }) : super(key: key);
+  const ItemCardList(
+      {Key? key,
+      required this.screenWidth,
+      required this.cardWidth,
+      required this.hasSubtext,
+      required this.isTrending,
+      required this.list
+      //required this.cardHeigth,
+      })
+      : super(key: key);
 
   final double screenWidth;
   final double cardWidth;
   final bool hasSubtext;
   final bool isTrending;
+  final List<Item> list;
   //final double cardHeigth;
 
   @override
@@ -27,7 +31,7 @@ class ItemCardList extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         clipBehavior: Clip.none,
-        itemCount: 4,
+        itemCount: list.length,
         itemBuilder: (context, index) {
           return Column(
             // mainAxisAlignment: MainAxisAlignment.start,
@@ -38,14 +42,16 @@ class ItemCardList extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ItemDetail(),
-                  ));
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const ItemDetail(),
+                    ),
+                  );
                 },
                 child: buildCard(index),
               ),
               if (hasSubtext)
-                isTrending ? buildTrendingSubtext() : buildARSubtext()
+                isTrending ? buildTrendingSubtext(index) : buildARSubtext(index)
             ],
           );
         },
@@ -61,45 +67,56 @@ class ItemCardList extends StatelessWidget {
       ),
       color:
           index % 2 == 0 ? Colors.red : const Color.fromARGB(255, 46, 44, 44),
-      child: SizedBox(
-        width: cardWidth,
-        height: 100,
+      child: Expanded(
+        child: Container(
+          width: cardWidth,
+          height: 100,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(27),
+            image: DecorationImage(
+              image: NetworkImage(
+                list[index].image,
+              ),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
       ),
     );
   }
 
   // build subtext for AR Compatible section
-  Text buildARSubtext() {
-    return const Text(
-      "Nike",
-      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+  Text buildARSubtext(int index) {
+    return Text(
+      list[index].name,
+      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
     );
   }
 
   // build subtext for Trending section
-  Padding buildTrendingSubtext() {
+  Padding buildTrendingSubtext(int index) {
     return Padding(
       padding: const EdgeInsets.only(left: 16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           Text(
-            "Nike",
-            style: TextStyle(
+            list[index].name,
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
           ),
           Text(
-            "Contour 40",
-            style: TextStyle(
+            list[index].description,
+            style: const TextStyle(
               fontWeight: FontWeight.normal,
               fontSize: 12,
             ),
           ),
           Text(
-            "PKR 12,000",
-            style: TextStyle(
+            list[index].price.toString(),
+            style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 14,
             ),
