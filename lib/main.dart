@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:gocart/Models/brand_model.dart';
 import 'package:gocart/Models/brand_provider.dart';
+import 'package:gocart/Models/cart_provider.dart';
 import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/Models/item_provider.dart';
 import 'package:gocart/OnBoarding%20Pages/login_page.dart';
@@ -26,6 +27,9 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => BrandProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => CartProvider(),
         )
       ],
       child: const MyApp(),
