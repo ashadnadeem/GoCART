@@ -16,4 +16,16 @@ class CartProvider extends ChangeNotifier {
     list.removeAt(index);
     notifyListeners();
   }
+
+  void incCount(Item item) {
+    int index = list.indexOf(item);
+    list[index].itemCount++;
+    notifyListeners();
+  }
+
+  void decCount(Item item) {
+    int index = list.indexOf(item);
+    list[index].itemCount--;
+    notifyListeners();
+  }
 }

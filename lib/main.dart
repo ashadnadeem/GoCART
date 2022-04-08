@@ -250,5 +250,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   "https://www.ray-ban.com/_repository/_resources/productscatalog/optics/images/most_popular_launches_section_sunpage.jpg",
               ar_link: "assets/rayban_exotic_blue.png"),
         );
+    context.read<CartProvider>().addToCart(
+          Item(
+              name: "RayBank Sunlit",
+              description: "SunGlasses",
+              price: 56000,
+              isFav: false,
+              image:
+                  "https://www.ray-ban.com/_repository/_resources/productscatalog/optics/images/most_popular_launches_section_sunpage.jpg",
+              ar_link: "assets/rayban_exotic_blue.png"),
+        );
   }
 }

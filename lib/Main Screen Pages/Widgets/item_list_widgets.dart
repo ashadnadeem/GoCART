@@ -35,13 +35,13 @@ class _ItemListState extends State<ItemList> {
                     (widget.isWishlist == true && widget.items[index].isFav)
                 ? ListTile(
                     leading: !widget.isWishlist
-                        ? const ItemThumbnail()
+                        ? ItemThumbnail(item: widget.items[index])
                         : Row(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               FavIcon(item: widget.items[index]),
-                              const ItemThumbnail(),
+                              ItemThumbnail(item: widget.items[index]),
                             ],
                           ),
                     title: Text(widget.items[index].name),
@@ -54,7 +54,8 @@ class _ItemListState extends State<ItemList> {
           );
         },
         separatorBuilder: (context, index) =>
-            widget.items[index].name == widget.searchQuery
+            (widget.items[index].name == widget.searchQuery) ||
+                    (widget.items[index].isFav && widget.isWishlist)
                 ? const Divider(
                     height: 2,
                     color: Colors.black,
@@ -92,10 +93,9 @@ class ArrowButton extends StatelessWidget {
 
 // Item Tumbnail in each list tile
 class ItemThumbnail extends StatelessWidget {
-  const ItemThumbnail({
-    Key? key,
-  }) : super(key: key);
+  const ItemThumbnail({Key? key, required this.item}) : super(key: key);
 
+  final Item item;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -104,6 +104,12 @@ class ItemThumbnail extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(13.5),
         color: const Color.fromARGB(255, 46, 44, 44),
+        image: DecorationImage(
+          image: NetworkImage(
+            item.image,
+          ),
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }

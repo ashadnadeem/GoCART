@@ -4,6 +4,7 @@ class Item {
     required this.description,
     required this.price,
     required this.image,
+    this.itemCount = 1,
     this.isFav = false,
     this.ar_link,
   });
@@ -12,6 +13,7 @@ class Item {
   final String description;
   final int price;
   final String image;
+  int itemCount;
   bool isFav;
   String? ar_link;
 
