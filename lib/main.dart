@@ -1,5 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:gocart/Models/brand_model.dart';
+import 'package:gocart/Models/brand_provider.dart';
 import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/Models/item_provider.dart';
 import 'package:gocart/OnBoarding%20Pages/login_page.dart';
@@ -16,10 +18,19 @@ Future<void> main() async {
   print('\nAR SERVICES INSTALLED?');
   // print(await ArCoreController.checkIsArCoreInstalled());
   cameras = await availableCameras();
-  runApp(ChangeNotifierProvider(
-    create: (_) => ItemProvider(),
-    child: const MyApp(),
-  ));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => ItemProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => BrandProvider(),
+        )
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -163,6 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
+  // This method is only for testing purposes
   void addItemData(BuildContext context) {
     context.read<ItemProvider>().addItem(
           Item(
@@ -170,8 +182,9 @@ class _MyHomePageState extends State<MyHomePage> {
               description: "Contour 40",
               price: 12000,
               isFav: false,
+              isAR: true,
               image:
-                  "https://cdn.britannica.com/50/213250-050-02322AA8/Nike-logo.jpg"),
+                  "https://cdn.vox-cdn.com/thumbor/pjcUw1kyqVQA8sbGFd1mz2g9pog=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/22406771/Exbfpl2WgAAQkl8_resized.jpeg"),
         );
     context.read<ItemProvider>().addItem(
           Item(
@@ -179,24 +192,48 @@ class _MyHomePageState extends State<MyHomePage> {
               description: "Sunlit",
               price: 45000,
               isFav: true,
+              isAR: true,
               image:
-                  "https://media.designrush.com/inspirations/129359/conversions/_1513769873_94_Ray-Ban-preview.jpg"),
+                  "https://i.guim.co.uk/img/media/825ada31cf787c1bd2e3051329c5829145f02d07/307_205_1429_857/master/1429.jpg?width=620&quality=85&auto=format&fit=max&s=2668748e6db848315c59748c0b35d869"),
         );
     context.read<ItemProvider>().addItem(
           Item(
               name: "Outfitters",
-              description: "T-Shirt",
+              description: "Red Dragon",
               price: 4500,
               isFav: true,
               image:
-                  "https://cdn.shopify.com/s/files/1/2290/7887/files/1200X628_aa0ccfa6-5e3d-4788-ae21-c97f6d74ba2e.jpg?v=1597126538"),
+                  "https://cdn.shopify.com/s/files/1/2290/7887/products/F0098103302_2_1024x1024.jpg?v=1643975070"),
         );
     context.read<ItemProvider>().addItem(
           Item(
               name: "Outfitters",
-              description: "T-Shirt 2",
+              description: "Chill Pill",
               price: 45004,
               isFav: false,
+              image:
+                  "https://cdn.shopify.com/s/files/1/2290/7887/products/F0071103998_3_8f63c89e-8f15-4da4-8f17-fe257221a68b_1024x1024.jpg?v=1644228010"),
+        );
+    context.read<BrandProvider>().addItem(
+          Brand(
+              name: "Nike",
+              address: "Karachi, Pakistan",
+              hasAR: true,
+              image:
+                  "https://cdn.britannica.com/50/213250-050-02322AA8/Nike-logo.jpg"),
+        );
+    context.read<BrandProvider>().addItem(
+          Brand(
+              name: "Ray.Ban",
+              address: "Karachi, Pakistan",
+              hasAR: true,
+              image:
+                  "https://media.designrush.com/inspirations/129359/conversions/_1513769873_94_Ray-Ban-preview.jpg"),
+        );
+    context.read<BrandProvider>().addItem(
+          Brand(
+              name: "Outfitters",
+              address: "Karachi, Pakistan",
               image:
                   "https://cdn.shopify.com/s/files/1/2290/7887/files/1200X628_aa0ccfa6-5e3d-4788-ae21-c97f6d74ba2e.jpg?v=1597126538"),
         );
