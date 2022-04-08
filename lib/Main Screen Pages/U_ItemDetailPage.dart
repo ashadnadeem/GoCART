@@ -68,7 +68,7 @@ class ProductDrawer extends StatelessWidget {
         height: screenHeight,
         // Add radius
         decoration: const BoxDecoration(
-          color: Colors.white,
+          color: Colors.white70,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(35),
             topRight: Radius.circular(35),

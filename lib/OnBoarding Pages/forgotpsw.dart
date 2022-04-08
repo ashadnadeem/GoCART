@@ -16,38 +16,19 @@ class _forgotpswState extends State<forgotpsw> {
     final double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Center(
-        child: SizedBox(
-          width: screenHeight * 0.8,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 50, right: 50, bottom: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(height: screenHeight * 0.2),
-                // Logo
-                logo(),
-                SizedBox(height: screenHeight * 0.1),
-                Text(
-                  'Forgot your password? No worries. Just fill in your email and we\'ll send you a link to reset your password.',
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.poppins(
-                    color: const Color.fromARGB(255, 59, 59, 61),
-                    fontSize: screenHeight * 0.03,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-                SizedBox(height: screenHeight * 0.03),
-                // Email TextField
-                gocartTextField(
-                    hint: "Email",
-                    control: TextEditingController(),
-                    textType: TextInputType.emailAddress),
-
-                // Send Button
-                coolButton(text: "Send", functionToComply: _sendEmail),
-                const SizedBox(height: 10),
-              ],
-            ),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(height: screenHeight * 0.05),
+              // Logo
+              logo(),
+              SizedBox(height: screenHeight * 0.03),
+              // Main Body
+              mainBody(),
+              // Send Button
+              coolButton(text: "Send", functionToComply: _sendEmail),
+            ],
           ),
         ),
       ),
@@ -58,5 +39,31 @@ class _forgotpswState extends State<forgotpsw> {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => changepsw()));
     // Navigator.pop(context);
+  }
+
+  Widget mainBody() {
+    final double screenHeight = MediaQuery.of(context).size.height;
+    return Padding(
+      padding: const EdgeInsets.only(left: 50, right: 50, bottom: 10),
+      child: Column(
+        children: <Widget>[
+          Text(
+            'Forgot your password? No worries. Just fill in your email and we\'ll send you a link to reset your password.',
+            textAlign: TextAlign.center,
+            style: GoogleFonts.poppins(
+              color: const Color.fromARGB(255, 59, 59, 61),
+              fontSize: screenHeight * 0.025,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          SizedBox(height: screenHeight * 0.03),
+          // Email TextField
+          gocartTextField(
+              hint: "Email",
+              control: TextEditingController(),
+              textType: TextInputType.emailAddress),
+        ],
+      ),
+    );
   }
 }

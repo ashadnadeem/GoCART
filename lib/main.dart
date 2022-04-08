@@ -5,11 +5,12 @@ import 'package:gocart/Models/brand_provider.dart';
 import 'package:gocart/Models/cart_provider.dart';
 import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/Models/item_provider.dart';
-import 'package:gocart/OnBoarding%20Pages/login_page.dart';
-import 'package:gocart/OnBoarding%20Pages/signup_page.dart';
 import 'package:gocart/tryFile.dart';
 import 'package:gocart/utils.dart';
 import 'package:provider/provider.dart';
+
+import 'OnBoarding Pages/login_page.dart';
+import 'OnBoarding Pages/signup_page.dart';
 
 late List<CameraDescription> cameras;
 Future<void> main() async {
@@ -128,19 +129,16 @@ class _MyHomePageState extends State<MyHomePage> {
       const SizedBox(
         height: 50,
       ),
-      Hero(
-        tag: 'onBoarding Button',
-        child: coolButton(
-            text: "Get Started",
-            functionToComply: () {
-              addItemData(context);
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const SignupPage()),
-                // MaterialPageRoute(builder: (context) => const MainPage()),
-              );
-            }),
-      ),
+      coolButton(
+          text: "Get Started",
+          functionToComply: () {
+            addItemData(context);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SignupPage()),
+              // MaterialPageRoute(builder: (context) => const MainPage()),
+            );
+          }),
       const SizedBox(height: 10),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -180,6 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // This method is only for testing purposes
   void addItemData(BuildContext context) {
+    // Item Adding
     context.read<ItemProvider>().addItem(
           Item(
               name: "Nike",
@@ -217,6 +216,38 @@ class _MyHomePageState extends State<MyHomePage> {
               image:
                   "https://cdn.shopify.com/s/files/1/2290/7887/products/F0071103998_3_8f63c89e-8f15-4da4-8f17-fe257221a68b_1024x1024.jpg?v=1644228010"),
         );
+    context.read<ItemProvider>().addItem(
+          Item(
+              name: "Ray.Ban",
+              description: "Aviator",
+              price: 56000,
+              isFav: false,
+              image:
+                  "https://www.ray-ban.com/_repository/_resources/productscatalog/optics/images/most_popular_launches_section_sunpage.jpg",
+              ar_link: "assets/rayban_exotic_blue.png"),
+        );
+    context.read<ItemProvider>().addItem(
+          Item(
+              name: "Khaadi",
+              description: "Camo Mask",
+              price: 100,
+              isFav: false,
+              ar_link: "assets/mask_camo_green.png",
+              image:
+                  "https://image.made-in-china.com/2f0j00hjVaGiPYvIfN/Green-Camouflage-Women-Men-Face-Mask-Unisex-Outdoor-Protection-From-Dust-and-Wind.jpg"),
+        );
+    context.read<ItemProvider>().addItem(
+          Item(
+              name: "Khaadi",
+              description: "Spring Mask",
+              price: 75,
+              isFav: false,
+              ar_link: "assets/mask_geometric.png",
+              image:
+                  "https://cdn.shopify.com/s/files/1/2090/9839/products/Geometric-Pattern_face-mask-model_530x@2x.jpg?v=1603273048"),
+        );
+
+    // Brand Adding
     context.read<BrandProvider>().addItem(
           Brand(
               name: "Nike",
@@ -240,15 +271,13 @@ class _MyHomePageState extends State<MyHomePage> {
               image:
                   "https://cdn.shopify.com/s/files/1/2290/7887/files/1200X628_aa0ccfa6-5e3d-4788-ae21-c97f6d74ba2e.jpg?v=1597126538"),
         );
-    context.read<ItemProvider>().addItem(
-          Item(
-              name: "RayBank Sunlit",
-              description: "SunGlasses",
-              price: 56000,
-              isFav: false,
+    context.read<BrandProvider>().addItem(
+          Brand(
+              name: "Khaadi",
+              address: "Karachi, Pakistan",
+              hasAR: true,
               image:
-                  "https://www.ray-ban.com/_repository/_resources/productscatalog/optics/images/most_popular_launches_section_sunpage.jpg",
-              ar_link: "assets/rayban_exotic_blue.png"),
+                  "https://fashiontimesmagazine.com/wp-content/uploads/2021/10/ff0fb676-bc35-4126-ab5f-ab85abd6dc1b.jpeg"),
         );
   }
 }
