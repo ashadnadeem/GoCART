@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/item_card_widget.dart';
+import 'package:gocart/Models/item_model.dart';
+import 'package:gocart/Models/item_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
-  const Home({
+  Home({
     Key? key,
   }) : super(key: key);
+
+  List<Item> list = [];
 
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
+
+    list = context.read<ItemProvider>().items;
+
     return SingleChildScrollView(
       child: Center(
         child: Column(
@@ -46,6 +54,7 @@ class Home extends StatelessWidget {
               cardWidth: 175,
               hasSubtext: false,
               isTrending: false,
+              list: list,
             ),
             SizedBox(
               height: screenHeight * 0.015,
@@ -76,6 +85,7 @@ class Home extends StatelessWidget {
               cardWidth: 100,
               hasSubtext: true,
               isTrending: true,
+              list: list,
             ),
             SizedBox(
               height: screenHeight * 0.015,
@@ -106,6 +116,7 @@ class Home extends StatelessWidget {
               cardWidth: 175,
               hasSubtext: true,
               isTrending: false,
+              list: list,
             ),
           ],
         ),

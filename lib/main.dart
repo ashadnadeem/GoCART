@@ -170,7 +170,8 @@ class _MyHomePageState extends State<MyHomePage> {
               description: "Contour 40",
               price: 12000,
               isFav: false,
-              image: "No Image"),
+              image:
+                  "https://cdn.britannica.com/50/213250-050-02322AA8/Nike-logo.jpg"),
         );
     context.read<ItemProvider>().addItem(
           Item(
@@ -178,7 +179,8 @@ class _MyHomePageState extends State<MyHomePage> {
               description: "Sunlit",
               price: 45000,
               isFav: true,
-              image: "No Image"),
+              image:
+                  "https://media.designrush.com/inspirations/129359/conversions/_1513769873_94_Ray-Ban-preview.jpg"),
         );
     context.read<ItemProvider>().addItem(
           Item(
@@ -186,7 +188,8 @@ class _MyHomePageState extends State<MyHomePage> {
               description: "T-Shirt",
               price: 4500,
               isFav: true,
-              image: "No Image"),
+              image:
+                  "https://cdn.shopify.com/s/files/1/2290/7887/files/1200X628_aa0ccfa6-5e3d-4788-ae21-c97f6d74ba2e.jpg?v=1597126538"),
         );
     context.read<ItemProvider>().addItem(
           Item(
@@ -194,7 +197,8 @@ class _MyHomePageState extends State<MyHomePage> {
               description: "T-Shirt 2",
               price: 45004,
               isFav: false,
-              image: "No Image"),
+              image:
+                  "https://cdn.shopify.com/s/files/1/2290/7887/files/1200X628_aa0ccfa6-5e3d-4788-ae21-c97f6d74ba2e.jpg?v=1597126538"),
         );
   }
 }
