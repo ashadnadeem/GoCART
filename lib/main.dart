@@ -197,7 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
               isFav: true,
               image:
                   "https://i.guim.co.uk/img/media/825ada31cf787c1bd2e3051329c5829145f02d07/307_205_1429_857/master/1429.jpg?width=620&quality=85&auto=format&fit=max&s=2668748e6db848315c59748c0b35d869",
-                  ar_link: "assets/glasses_round_golden.png"),),
+              ar_link: "assets/glasses_round_golden.png"),
         );
     context.read<ItemProvider>().addItem(
           Item(
@@ -231,7 +231,7 @@ class _MyHomePageState extends State<MyHomePage> {
               hasAR: true,
               image:
                   "https://media.designrush.com/inspirations/129359/conversions/_1513769873_94_Ray-Ban-preview.jpg",
-                  ar_link: "assets/glasses_round_gold.png"),
+              ar_link: "assets/glasses_round_gold.png"),
         );
     context.read<BrandProvider>().addItem(
           Brand(

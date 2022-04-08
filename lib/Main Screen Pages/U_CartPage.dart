@@ -76,7 +76,7 @@ class _CartPageState extends State<CartPage> {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => const ItemDetail(),
+                  builder: (context) => ItemDetail(product: cart[index]),
                 ),
               );
             },

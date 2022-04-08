@@ -46,7 +46,7 @@ class ItemCardList extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => ItemDetail(product: list[index]),
+                      builder: (context) => ItemDetail(product: items[index]),
                     ),
                   );
                 },
@@ -92,7 +92,8 @@ class ItemCardList extends StatelessWidget {
               ),
             ),
           ),
-          (hasSubtext && !isTrending) || (isTrending && items[index].ar_link != null)
+          (hasSubtext && !isTrending) ||
+                  (isTrending && items[index].ar_link != null)
               ? const Positioned(
                   right: 10,
                   top: 10,

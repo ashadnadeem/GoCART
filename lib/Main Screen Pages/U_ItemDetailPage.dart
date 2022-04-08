@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/item_list_widgets.dart';
+import 'package:gocart/Models/cart_provider.dart';
 import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/product_ar.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ItemDetail extends StatelessWidget {
   const ItemDetail({required this.product, Key? key}) : super(key: key);
@@ -66,7 +68,7 @@ class ProductDrawer extends StatelessWidget {
         height: screenHeight,
         // Add radius
         decoration: const BoxDecoration(
-          color: Colors.white70,
+          color: Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(35),
             topRight: Radius.circular(35),
@@ -79,7 +81,7 @@ class ProductDrawer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Brand Name
-              Text('Ray.Ban',
+              Text(product.name,
                   style: GoogleFonts.poppins(
                       fontSize: screenHeight * 0.025,
                       fontWeight: FontWeight.w300),
@@ -88,7 +90,7 @@ class ProductDrawer extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Sunlit',
+                  Text(product.description,
                       style: GoogleFonts.poppins(
                           fontSize: screenHeight * 0.04,
                           fontWeight: FontWeight.w600),
@@ -99,14 +101,14 @@ class ProductDrawer extends StatelessWidget {
                 ],
               ),
               // Product Price
-              Text('PKR: 45000',
+              Text(product.price.toString(),
                   style: GoogleFonts.poppins(
                       fontSize: screenHeight * 0.03,
                       fontWeight: FontWeight.w300),
                   textAlign: TextAlign.center),
               SizedBox(height: screenHeight * 0.02),
               // Product Description
-              Text('Ray.Ban RB3200-01',
+              Text('RB3200-01',
                   maxLines: 5,
                   overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.poppins(
@@ -123,6 +125,8 @@ class ProductDrawer extends StatelessWidget {
                     text: 'ADD TO CART',
                     functionToComply: () {
                       // Add in the cart
+                      context.read<CartProvider>().addToCart(product);
+                      Navigator.of(context).pop();
                     },
                   ),
                   FavIcon(item: product),

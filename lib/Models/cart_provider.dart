@@ -13,7 +13,7 @@ class CartProvider extends ChangeNotifier {
 
   void removeFromCart(Item item) {
     int index = list.indexOf(item);
-
     list.removeAt(index);
+    notifyListeners();
   }
 }

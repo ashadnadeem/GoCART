@@ -43,7 +43,6 @@ dependencies:
   ar_core: ^0.0.2+7
   arcore_flutter_plugin: ^0.1.0-null-safety.0
   provider: ^6.0.2
-  url_launcher: ^6.0.20
 
 dev_dependencies:
   flutter_test:
