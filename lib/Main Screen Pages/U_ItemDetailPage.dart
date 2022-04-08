@@ -93,7 +93,9 @@ class ProductDrawer extends StatelessWidget {
                           fontSize: screenHeight * 0.04,
                           fontWeight: FontWeight.w600),
                       textAlign: TextAlign.center),
-                  // ArCamButton(product: product),
+                  product.ar_link != null
+                      ? ArCamButton(product: product)
+                      : Container(),
                 ],
               ),
               // Product Price

@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/U_ItemDetailPage.dart';
+import 'package:gocart/Models/brand_model.dart';
 import 'package:gocart/Models/item_model.dart';
 
 //Homepage Item Card
 class ItemCardList extends StatelessWidget {
-  const ItemCardList(
-      {Key? key,
-      required this.screenWidth,
-      required this.cardWidth,
-      required this.hasSubtext,
-      required this.isTrending,
-      required this.list
-      //required this.cardHeigth,
-      })
-      : super(key: key);
+  const ItemCardList({
+    Key? key,
+    required this.screenWidth,
+    required this.cardWidth,
+    required this.hasSubtext,
+    required this.isTrending,
+    required this.items,
+    required this.brands,
+    //required this.cardHeigth,
+  }) : super(key: key);
 
   final double screenWidth;
   final double cardWidth;
   final bool hasSubtext;
   final bool isTrending;
-  final List<Item> list;
+  final List<Item> items;
+  final List<Brand> brands;
   //final double cardHeigth;
 
   @override
@@ -31,7 +33,7 @@ class ItemCardList extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         clipBehavior: Clip.none,
-        itemCount: list.length,
+        itemCount: isTrending ? items.length : brands.length,
         itemBuilder: (context, index) {
           return Column(
             // mainAxisAlignment: MainAxisAlignment.start,
@@ -48,10 +50,18 @@ class ItemCardList extends StatelessWidget {
                     ),
                   );
                 },
-                child: buildCard(index),
+                child: (isTrending || !hasSubtext)
+                    ? buildCard(index)
+                    : (brands[index].hasAR && hasSubtext)
+                        ? buildCard(index)
+                        : const SizedBox(),
               ),
               if (hasSubtext)
-                isTrending ? buildTrendingSubtext(index) : buildARSubtext(index)
+                isTrending
+                    ? buildTrendingSubtext(index)
+                    : items[index].ar_link != null
+                        ? buildARSubtext(index)
+                        : const SizedBox()
             ],
           );
         },
@@ -67,20 +77,33 @@ class ItemCardList extends StatelessWidget {
       ),
       color:
           index % 2 == 0 ? Colors.red : const Color.fromARGB(255, 46, 44, 44),
-      child: Expanded(
-        child: Container(
-          width: cardWidth,
-          height: 100,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(27),
-            image: DecorationImage(
-              image: NetworkImage(
-                list[index].image,
+      child: Stack(
+        children: [
+          Container(
+            width: cardWidth,
+            height: 100,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(27),
+              image: DecorationImage(
+                image: NetworkImage(
+                  isTrending ? items[index].image : brands[index].image,
+                ),
+                fit: BoxFit.cover,
               ),
-              fit: BoxFit.cover,
             ),
           ),
-        ),
+          (hasSubtext && !isTrending) || (isTrending && items[index].ar_link != null)
+              ? const Positioned(
+                  right: 10,
+                  top: 10,
+                  child: Icon(
+                    Icons.camera,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                )
+              : const SizedBox(),
+        ],
       ),
     );
   }
@@ -88,7 +111,7 @@ class ItemCardList extends StatelessWidget {
   // build subtext for AR Compatible section
   Text buildARSubtext(int index) {
     return Text(
-      list[index].name,
+      brands[index].name,
       style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
     );
   }
@@ -101,21 +124,21 @@ class ItemCardList extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            list[index].name,
+            items[index].name,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
           ),
           Text(
-            list[index].description,
+            items[index].description,
             style: const TextStyle(
               fontWeight: FontWeight.normal,
               fontSize: 12,
             ),
           ),
           Text(
-            list[index].price.toString(),
+            items[index].price.toString(),
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 14,
