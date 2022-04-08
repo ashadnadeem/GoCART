@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/main_page.dart';
+import 'package:gocart/success_screen.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -84,7 +85,8 @@ class _TellUsMorePageState extends State<TellUsMorePage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const MainPage(),
+                            builder: (context) =>
+                                const SuccessScreen(nextPage: MainPage()),
                           ),
                         );
                       },
@@ -107,7 +109,8 @@ class _TellUsMorePageState extends State<TellUsMorePage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const MainPage(),
+                              builder: (context) =>
+                                  const SuccessScreen(nextPage: MainPage()),
                             ),
                           );
                         },
