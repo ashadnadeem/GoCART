@@ -48,7 +48,7 @@ class _ItemListState extends State<ItemList> {
                     isThreeLine: true,
                     subtitle: Text(
                         "${widget.items[index].description}\nPKR ${widget.items[index].price.toString()}"),
-                    trailing: const ArrowButton(),
+                    trailing: ArrowButton(item: widget.items[index]),
                   )
                 : null,
           );
@@ -68,9 +68,10 @@ class _ItemListState extends State<ItemList> {
 // Arrow button in each list tile
 class ArrowButton extends StatelessWidget {
   const ArrowButton({
+    required this.item,
     Key? key,
   }) : super(key: key);
-
+  final Item item;
   @override
   Widget build(BuildContext context) {
     return IconButton(
@@ -81,7 +82,7 @@ class ArrowButton extends StatelessWidget {
       onPressed: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => const ItemDetail(),
+            builder: (context) => ItemDetail(product: item),
           ),
         );
       },

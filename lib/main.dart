@@ -200,5 +200,15 @@ class _MyHomePageState extends State<MyHomePage> {
               image:
                   "https://cdn.shopify.com/s/files/1/2290/7887/files/1200X628_aa0ccfa6-5e3d-4788-ae21-c97f6d74ba2e.jpg?v=1597126538"),
         );
+    context.read<ItemProvider>().addItem(
+          Item(
+              name: "RayBank Sunlit",
+              description: "SunGlasses",
+              price: 56000,
+              isFav: false,
+              image:
+                  "https://www.ray-ban.com/_repository/_resources/productscatalog/optics/images/most_popular_launches_section_sunpage.jpg",
+              ar_link: "assets/glasses.png"),
+        );
   }
 }

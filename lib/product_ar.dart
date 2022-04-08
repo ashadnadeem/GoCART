@@ -3,32 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/services.dart';
 
-class AugmentedFacesScreen extends StatefulWidget {
-  const AugmentedFacesScreen({Key? key}) : super(key: key);
+class FaceProductAR extends StatefulWidget {
+  const FaceProductAR({required this.link, Key? key}) : super(key: key);
+  final String link;
   @override
-  _AugmentedFacesScreenState createState() => _AugmentedFacesScreenState();
+  _FaceProductARState createState() => _FaceProductARState();
 }
 
-class _AugmentedFacesScreenState extends State<AugmentedFacesScreen> {
+class _FaceProductARState extends State<FaceProductAR> {
   late ArCoreFaceController arCoreFaceController;
-  List<String> filters = [
-    "assets/fox_face_mesh_texture.png",
-    "assets/glasses_round_gold.png",
-    "assets/glasses_round_golden.png",
-    "assets/glasses.png",
-    "assets/rayban_classic_transparent.png",
-    "assets/rayban_exotic_blue.png",
-    "assets/mask_camo_green.png",
-    "assets/mask_geometric.png",
-    "assets/mask_iba.png",
-    // 'assets/face_mesh.png',
-  ];
-  int filterIndex = 8;
   bool isLoaded = false;
-  void updateFilter() {
-    filterIndex = ((filterIndex + 1) % filters.length);
-    loadMesh();
-  }
 
   @override
   void initState() {
@@ -51,7 +35,7 @@ class _AugmentedFacesScreenState extends State<AugmentedFacesScreen> {
         appBar: const MyAppBar(
           implyLeading: true,
         ),
-        body: isLoaded ? ArCam() : Center(child: const JumpingLogo()),
+        body: isLoaded ? ArCam() : const Center(child: JumpingLogo()),
       ),
     );
   }
@@ -68,8 +52,8 @@ class _AugmentedFacesScreenState extends State<AugmentedFacesScreen> {
           child: Align(
             alignment: Alignment.bottomCenter,
             child: ElevatedButton(
-              onPressed: updateFilter,
-              child: const Text('Try Next Filter'),
+              onPressed: () {},
+              child: const Text('Take A Picture'),
             ),
           ),
         ),
@@ -85,7 +69,7 @@ class _AugmentedFacesScreenState extends State<AugmentedFacesScreen> {
   loadMesh() async {
     ByteData textureBytes =
         // await rootBundle.load('assets/fox_face_mesh_texture.png');
-        await rootBundle.load(filters[filterIndex]);
+        await rootBundle.load(widget.link);
 
     arCoreFaceController.loadMesh(
         textureBytes: textureBytes.buffer.asUint8List(),

@@ -44,7 +44,7 @@ class ItemCardList extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => const ItemDetail(),
+                      builder: (context) => ItemDetail(product: list[index]),
                     ),
                   );
                 },

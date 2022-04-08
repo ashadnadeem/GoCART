@@ -5,6 +5,7 @@ class Item {
     required this.price,
     this.isFav = false,
     required this.image,
+    this.ar_link,
   });
 
   final String name;
@@ -12,6 +13,7 @@ class Item {
   final int price;
   bool isFav;
   final String image;
+  String? ar_link;
 
   bool get getFav => isFav;
 }
