@@ -202,7 +202,7 @@ class _MyHomePageState extends State<MyHomePage> {
               name: "Ray.Ban",
               description: "Sunlit",
               price: 45000,
-              isFav: true,
+              isFav: false,
               image:
                   "https://i.guim.co.uk/img/media/825ada31cf787c1bd2e3051329c5829145f02d07/307_205_1429_857/master/1429.jpg?width=620&quality=85&auto=format&fit=max&s=2668748e6db848315c59748c0b35d869",
               ar_link: "assets/glasses_round_golden.png"),
@@ -212,7 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
               name: "Outfitters",
               description: "Red Dragon",
               price: 4500,
-              isFav: true,
+              isFav: false,
               image:
                   "https://cdn.shopify.com/s/files/1/2290/7887/products/F0098103302_2_1024x1024.jpg?v=1643975070"),
         );
@@ -287,16 +287,6 @@ class _MyHomePageState extends State<MyHomePage> {
               hasAR: true,
               image:
                   "https://fashiontimesmagazine.com/wp-content/uploads/2021/10/ff0fb676-bc35-4126-ab5f-ab85abd6dc1b.jpeg"),
-        );
-    context.read<CartProvider>().addToCart(
-          Item(
-              name: "RayBank Sunlit",
-              description: "SunGlasses",
-              price: 56000,
-              isFav: false,
-              image:
-                  "https://www.ray-ban.com/_repository/_resources/productscatalog/optics/images/most_popular_launches_section_sunpage.jpg",
-              ar_link: "assets/rayban_exotic_blue.png"),
         );
   }
 }

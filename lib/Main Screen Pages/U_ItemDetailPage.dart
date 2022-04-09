@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/item_list_widgets.dart';
+import 'package:gocart/Models/cart_provider.dart';
 import 'package:gocart/Models/item_model.dart';
+import 'package:gocart/Models/total_provider.dart';
 import 'package:gocart/product_ar.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ItemDetail extends StatelessWidget {
   const ItemDetail({required this.product, Key? key}) : super(key: key);
@@ -70,7 +73,12 @@ class ProductDrawer extends StatelessWidget {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           shadowColor: Colors.grey.shade900,
         ),
-        onPressed: () {},
+        onPressed: () {
+          context.read<CartProvider>().addToCart(product);
+          context.read<TotalProvider>().add(product.price);
+          context.read<CartProvider>().incCount(product);
+          Navigator.of(context).pop();
+        },
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[

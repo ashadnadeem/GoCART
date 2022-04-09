@@ -10,6 +10,7 @@ import 'package:gocart/Models/total_provider.dart';
 import 'package:gocart/success_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'dart:math';
 
 class CartListWidget extends StatefulWidget {
   const CartListWidget({
@@ -186,12 +187,22 @@ class CartTotalWidget extends StatelessWidget {
                   ),
                 );
               } else {
-                context.read<OrderHistoryProvider>().addItem(OrderHistory(
-                    orderID: "1234",
-                    status: "Booked",
-                    quantity: 1,
-                    total: total,
-                    cart: cart));
+                int count = 0;
+                for (Item i in cart) {
+                  count = count + i.itemCount;
+                }
+                context.read<OrderHistoryProvider>().addItem(
+                      OrderHistory(
+                          orderID: (Random().nextInt(10000000)).toString(),
+                          status: "Booked",
+                          quantity: count,
+                          total: total,
+                          cart: cart),
+                    );
+
+                // for some reason this is not working properly
+                // context.read<CartProvider>().clearCart();
+                // context.read<TotalProvider>().clearTotal();
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) =>

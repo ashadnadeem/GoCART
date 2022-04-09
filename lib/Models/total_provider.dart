@@ -12,4 +12,8 @@ class TotalProvider extends ChangeNotifier {
     total -= price;
     notifyListeners();
   }
+
+  void clearTotal() {
+    total = 0;
+  }
 }

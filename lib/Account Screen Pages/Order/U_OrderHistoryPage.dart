@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gocart/Account%20Screen%20Pages/Order/order_history_details_page.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/item_list_widgets.dart';
 import 'package:gocart/Models/order_history_model.dart';
 import 'package:gocart/Models/order_history_provider.dart';
@@ -74,7 +75,12 @@ class OrderHistoryPage extends StatelessWidget {
                           primary: Colors.red,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(27))),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              OrderHistoryDetailPage(history: history[index]),
+                        ));
+                      },
                       child: const Text(
                         "View Details",
                         style: TextStyle(color: Colors.white),
@@ -93,6 +99,7 @@ class OrderHistoryPage extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(height: screenHeight * 0.05)
         ],
       ),
     );

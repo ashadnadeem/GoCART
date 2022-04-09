@@ -28,4 +28,9 @@ class CartProvider extends ChangeNotifier {
     list[index].itemCount--;
     notifyListeners();
   }
+
+  void clearCart() {
+    list.clear();
+    notifyListeners();
+  }
 }
