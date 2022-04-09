@@ -4,7 +4,7 @@ class Item {
     required this.description,
     required this.price,
     required this.image,
-    this.itemCount = 1,
+    this.itemCount = 0,
     this.isFav = false,
     this.ar_link,
   });

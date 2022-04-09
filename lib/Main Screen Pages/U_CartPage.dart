@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/U_ItemDetailPage.dart';
 import 'package:gocart/Models/cart_provider.dart';
 import 'package:gocart/Models/item_model.dart';
+import 'package:gocart/Models/total_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -14,20 +15,24 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   List<Item> cart = [];
+//  final TextEditingController _totalController = TextEditingController();
   int total = 0;
 
-  @override
-  void initState() {
-    for (Item i in cart) {
-      total = total + i.price * i.itemCount;
-    }
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   for (Item index in cart) {
+  //     total = total + index.price * index.itemCount;
+  //     _totalController.text = total.toString();
+  //   }
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     cart = context.watch<CartProvider>().cart;
+    total = context.read<TotalProvider>().total;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,9 +64,11 @@ class _CartPageState extends State<CartPage> {
                         child: InkWell(
                           onTap: () {
                             context.read<CartProvider>().incCount(cart[index]);
-                            total = total +
-                                (cart[index].price * cart[index].itemCount);
-
+                            // total = total + (cart[index].price);
+                            context
+                                .read<TotalProvider>()
+                                .add(cart[index].price);
+                            // _totalController.text = total.toString();
                             setState(() {});
                           },
                           child: const Icon(
@@ -73,6 +80,7 @@ class _CartPageState extends State<CartPage> {
                         flex: 0,
                         child: Text(
                           cart[index].itemCount.toString(),
+                          // _totalController.text,
                         ),
                       ),
                       Expanded(
@@ -80,7 +88,11 @@ class _CartPageState extends State<CartPage> {
                         child: InkWell(
                           onTap: () {
                             context.read<CartProvider>().decCount(cart[index]);
-                            total = total - (cart[index].price);
+                            // total = total - (cart[index].price);
+                            context
+                                .read<TotalProvider>()
+                                .sub(cart[index].price);
+                            // _totalController.text = total.toString();
                             setState(() {});
                           },
                           child: const Icon(
@@ -140,9 +152,35 @@ class _CartPageState extends State<CartPage> {
         Container(width: screenWidth, height: 3, color: Colors.grey[700]),
         Row(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text("Total: ${total}"),
+            Text(
+              "Total: ",
+              style: GoogleFonts.poppins(
+                fontWeight: FontWeight.bold,
+                fontSize: 24,
+              ),
+            ),
+            Text(
+              total.toString(),
+              style: GoogleFonts.poppins(
+                fontSize: 22,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 16),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(27),
+                  ),
+                ),
+                onPressed: () {
+                  //Checkout page
+                },
+                child: const Text("Checkout"),
+              ),
+            ),
           ],
         )
       ],

@@ -1,10 +1,12 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:gocart/Main%20Screen%20Pages/U_CartPage.dart';
 import 'package:gocart/Models/brand_model.dart';
 import 'package:gocart/Models/brand_provider.dart';
 import 'package:gocart/Models/cart_provider.dart';
 import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/Models/item_provider.dart';
+import 'package:gocart/Models/total_provider.dart';
 import 'package:gocart/tryFile.dart';
 import 'package:gocart/utils.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +33,9 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => CartProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => TotalProvider(),
         )
       ],
       child: const MyApp(),
