@@ -125,6 +125,7 @@ class ProductDrawer extends StatelessWidget {
                     text: 'ADD TO CART',
                     functionToComply: () {
                       // Add in the cart
+
                       context.read<CartProvider>().addToCart(product);
                       Navigator.of(context).pop();
                     },
