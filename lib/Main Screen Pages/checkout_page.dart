@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Account%20Screen%20Pages/Widgets/address_tile_widget.dart';
+import 'package:gocart/Main%20Screen%20Pages/U_ItemDetailPage.dart';
+import 'package:gocart/Main%20Screen%20Pages/Widgets/cart_list_widget.dart';
+import 'package:gocart/Models/total_provider.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -17,20 +20,34 @@ class CheckoutPage extends StatefulWidget {
 }
 
 class _CheckoutPageState extends State<CheckoutPage> {
+  List<Item> cart = [];
+//  final TextEditingController _totalController = TextEditingController();
+  int total = 0;
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    cart = context.watch<CartProvider>().cart;
+    total = context.read<TotalProvider>().total;
+
     return Scaffold(
       appBar: const MyAppBar(implyLeading: false),
-      body: Column(
-        children: <Widget>[
-          const HeaderBar(title: "Checkout"),
-          delieryAddressCard(),
-          paymentMethodCard(),
-          orderDetailsCard(),
-          Container(height: 30),
-          Container(height: 3, color: Colors.black26),
-          // orderSummaryCard(),//From the Cart Page reuse
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        child: Column(
+          children: <Widget>[
+            const HeaderBar(title: "Checkout"),
+            delieryAddressCard(),
+            paymentMethodCard(),
+            //orderDetailsCard(),
+            Container(height: 16),
+            // Container(height: 1, color: Colors.black26),
+            dividerRow("Order details", null),
+            CartListWidget(cart: cart),
+            Container(width: screenWidth, height: 3, color: Colors.grey[700]),
+            CartTotalWidget(total: total, text: "Confirm"),
+            // orderSummaryCard(),//From the Cart Page reuse
+          ],
+        ),
       ),
       // bottomNavigationBar: bottomNavBar(),
     );
@@ -70,72 +87,72 @@ class _CheckoutPageState extends State<CheckoutPage> {
     );
   }
 
-  Widget orderDetailsCard() {
-    List<Item> items = context.watch<CartProvider>().list;
-    return SingleChildScrollView(
-      child: Column(children: [
-        dividerRow("Order Details", null),
-        Container(height: 8),
-        for (Item item in items) OrderTile(item),
-      ]),
-    );
-  }
+  // Widget orderDetailsCard() {
+  //   List<Item> items = context.watch<CartProvider>().list;
+  //   return SingleChildScrollView(
+  //     child: Column(children: [
+  //       dividerRow("Order Details", null),
+  //       Container(height: 8),
+  //       for (Item item in items) OrderTile(item),
+  //     ]),
+  //   );
+  // }
 
-  Widget OrderTile(Item item) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        children: [
-          Container(height: 2, color: Colors.black26),
-          Container(height: 8),
-          Row(
-            children: [
-              // Circle avatar of items image
-              CircleAvatar(
-                backgroundImage: NetworkImage(item.image),
-                radius: 20,
-              ),
-              // Small Gap
-              const SizedBox(width: 15),
-              // Column for item name and Description
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    item.name,
-                    style: GoogleFonts.poppins(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Text(
-                    item.description,
-                    style: GoogleFonts.poppins(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
-              // Expanded Container
-              Expanded(child: Container()),
-              // Price Text
-              Text(
-                "\PKR ${item.price}",
-                style: GoogleFonts.poppins(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-          Container(),
-          Container(height: 2, color: Colors.black26),
-          // Container(height: 8),
-        ],
-      ),
-    );
-  }
+  // Widget OrderTile(Item item) {
+  //   return Padding(
+  //     padding: const EdgeInsets.symmetric(horizontal: 20),
+  //     child: Column(
+  //       children: [
+  //         Container(height: 2, color: Colors.black26),
+  //         Container(height: 8),
+  //         Row(
+  //           children: [
+  //             // Circle avatar of items image
+  //             CircleAvatar(
+  //               backgroundImage: NetworkImage(item.image),
+  //               radius: 20,
+  //             ),
+  //             // Small Gap
+  //             const SizedBox(width: 15),
+  //             // Column for item name and Description
+  //             Column(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 Text(
+  //                   item.name,
+  //                   style: GoogleFonts.poppins(
+  //                     fontSize: 18,
+  //                     fontWeight: FontWeight.w500,
+  //                   ),
+  //                 ),
+  //                 Text(
+  //                   item.description,
+  //                   style: GoogleFonts.poppins(
+  //                     fontSize: 14,
+  //                     fontWeight: FontWeight.w400,
+  //                   ),
+  //                 ),
+  //               ],
+  //             ),
+  //             // Expanded Container
+  //             Expanded(child: Container()),
+  //             // Price Text
+  //             Text(
+  //               "PKR ${item.price}",
+  //               style: GoogleFonts.poppins(
+  //                 fontSize: 18,
+  //                 fontWeight: FontWeight.w500,
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //         Container(),
+  //         Container(height: 1, color: Colors.black26),
+  //         // Container(height: 8),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget paymentButton(text, isSelected) {
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -176,7 +193,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
         ),
         Container(width: screenWidth * 0.04),
         icon != null
-            ? Icon(icon, color: Colors.black54, size: screenHeight * 0.04)
+            ? Padding(
+                padding: const EdgeInsets.only(right: 16.0),
+                child: Icon(icon,
+                    color: Colors.black54, size: screenHeight * 0.04),
+              )
             : Container(),
       ],
     );
