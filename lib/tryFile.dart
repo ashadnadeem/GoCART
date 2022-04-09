@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gocart/Main%20Screen%20Pages/checkout_page.dart';
 import 'package:gocart/augmented_faces.dart';
 import 'package:gocart/cameraScreen.dart';
 import 'package:gocart/custom_object.dart';
@@ -54,6 +55,13 @@ class _tryMeState extends State<tryMe> {
                     MaterialPageRoute(builder: (context) => CustomObject()));
               },
               child: const Text("Custom Anchored Object with onTap"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const CheckoutPage()));
+              },
+              child: const Text("Checkout Page"),
             ),
             // ListTile(
             // onTap: () {

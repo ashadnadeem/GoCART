@@ -62,6 +62,7 @@ class AddressTile extends StatelessWidget {
                   address.defaultAddress ? editButton() : deleteButton(),
                 ],
               ),
+              // AddressBody(address: address),
               Row(
                 children: <Widget>[
                   Container(width: screenSizeH * 0.03),
