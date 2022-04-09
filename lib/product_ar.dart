@@ -31,7 +31,7 @@ class _FaceProductARState extends State<FaceProductAR> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.yellow,
+        backgroundColor: Colors.white70,
         appBar: const MyAppBar(
           implyLeading: true,
         ),
@@ -51,9 +51,15 @@ class _FaceProductARState extends State<FaceProductAR> {
           padding: const EdgeInsets.only(bottom: 50),
           child: Align(
             alignment: Alignment.bottomCenter,
-            child: ElevatedButton(
-              onPressed: () {},
-              child: const Text('Take A Picture'),
+            child: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                Icons.api_rounded,
+                color: Colors.white,
+              ),
+              iconSize: 60,
             ),
           ),
         ),
