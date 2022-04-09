@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/item_list_widgets.dart';
-import 'package:gocart/Models/cart_provider.dart';
 import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/product_ar.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class ItemDetail extends StatelessWidget {
   const ItemDetail({required this.product, Key? key}) : super(key: key);
@@ -61,7 +59,33 @@ class ProductDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    final double screenWidth = MediaQuery.of(context).size.width;
+
+    Widget addToCartButon() {
+      return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          fixedSize: Size(screenHeight * 0.25, screenHeight * 0.07),
+          primary: Colors.redAccent,
+          onPrimary: Colors.white,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shadowColor: Colors.grey.shade900,
+        ),
+        onPressed: () {},
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Icon(Icons.add_shopping_cart),
+            const SizedBox(width: 10),
+            Text("Add to Cart",
+                style: GoogleFonts.poppins(
+                    color: Colors.white,
+                    fontSize: screenHeight * 0.02,
+                    fontWeight: FontWeight.w500)),
+          ],
+        ),
+      );
+    }
+
     return SingleChildScrollView(
       child: Container(
         // Define size
@@ -121,15 +145,16 @@ class ProductDrawer extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  coolButton(
-                    text: 'ADD TO CART',
-                    functionToComply: () {
-                      // Add in the cart
+                  // coolButton(
+                  //   text: 'ADD TO CART',
+                  //   functionToComply: () {
+                  //     // Add in the cart
 
-                      context.read<CartProvider>().addToCart(product);
-                      Navigator.of(context).pop();
-                    },
-                  ),
+                  //     context.read<CartProvider>().addToCart(product);
+                  //     Navigator.of(context).pop();
+                  //   },
+                  // ),
+                  addToCartButon(),
                   FavIcon(item: product),
                 ],
               ),
