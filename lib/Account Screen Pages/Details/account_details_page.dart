@@ -9,7 +9,7 @@ class AccountDetails extends StatefulWidget {
 }
 
 class _AccountDetailsState extends State<AccountDetails> {
- final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
@@ -37,7 +37,7 @@ class _AccountDetailsState extends State<AccountDetails> {
             SizedBox(height: screenHeight * 0.02),
             // Login Banner
             const HeaderBar(title: "Account Details"),
-            SizedBox(height: screenHeight * 0.08),
+            SizedBox(height: screenHeight * 0.03),
             SizedBox(
               width: screenHeight * 0.8,
               child: Padding(
