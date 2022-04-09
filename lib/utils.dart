@@ -237,10 +237,11 @@ class coolButton extends StatelessWidget {
   final Color primaryColor;
   @override
   Widget build(BuildContext context) {
-    final double textSize = MediaQuery.of(context).size.height * 0.03;
+    final double screenSizeH = MediaQuery.of(context).size.height;
+    final double textSize = screenSizeH * 0.03;
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        fixedSize: Size(200, 60),
+        fixedSize: Size(screenSizeH * 0.25, screenSizeH * 0.07),
         primary: primaryColor,
         onPrimary: Colors.white,
         shape: RoundedRectangleBorder(
