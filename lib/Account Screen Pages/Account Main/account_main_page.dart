@@ -81,7 +81,7 @@ class _AccountMainState extends State<AccountMain> {
                   text: 'Order History',
                   functionToComply: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const OrderHistory(),
+                      builder: (context) => OrderHistoryPage(),
                     ));
                   },
                   iconData: Icons.history_outlined,

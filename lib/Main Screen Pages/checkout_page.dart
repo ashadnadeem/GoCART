@@ -44,7 +44,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
             dividerRow("Order details", null),
             CartListWidget(cart: cart),
             Container(width: screenWidth, height: 3, color: Colors.grey[700]),
-            CartTotalWidget(total: total, text: "Confirm"),
+            CartTotalWidget(total: total, text: "Confirm", cart: cart),
             // orderSummaryCard(),//From the Cart Page reuse
           ],
         ),

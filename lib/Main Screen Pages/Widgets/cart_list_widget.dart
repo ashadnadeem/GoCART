@@ -4,6 +4,8 @@ import 'package:gocart/Main%20Screen%20Pages/checkout_page.dart';
 import 'package:gocart/Main%20Screen%20Pages/main_page.dart';
 import 'package:gocart/Models/cart_provider.dart';
 import 'package:gocart/Models/item_model.dart';
+import 'package:gocart/Models/order_history_model.dart';
+import 'package:gocart/Models/order_history_provider.dart';
 import 'package:gocart/Models/total_provider.dart';
 import 'package:gocart/success_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -140,10 +142,12 @@ class CartTotalWidget extends StatelessWidget {
     Key? key,
     required this.total,
     required this.text,
+    required this.cart,
   }) : super(key: key);
 
   final int total;
   final String text;
+  final List<Item> cart;
 
   @override
   Widget build(BuildContext context) {
@@ -175,18 +179,26 @@ class CartTotalWidget extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              text == "Checkout"
-                  ? Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const CheckoutPage(),
-                      ),
-                    )
-                  : Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const SuccessScreen(nextPage: MainPage()),
-                      ),
-                    );
+              if (text == "Checkout") {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const CheckoutPage(),
+                  ),
+                );
+              } else {
+                context.read<OrderHistoryProvider>().addItem(OrderHistory(
+                    orderID: "1234",
+                    status: "Booked",
+                    quantity: 1,
+                    total: total,
+                    cart: cart));
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        const SuccessScreen(nextPage: MainPage()),
+                  ),
+                );
+              }
             },
             child: Text(
               text,

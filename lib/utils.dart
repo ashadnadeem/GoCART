@@ -161,7 +161,7 @@ class HeaderBar extends StatelessWidget {
             Text(
               title,
               style: GoogleFonts.poppins(
-                fontSize: screenSizeH * 0.03,
+                fontSize: screenSizeH * 0.04,
                 fontWeight: FontWeight.w900,
                 color: const Color.fromARGB(255, 59, 59, 61),
               ),

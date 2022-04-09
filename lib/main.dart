@@ -6,6 +6,7 @@ import 'package:gocart/Models/brand_provider.dart';
 import 'package:gocart/Models/cart_provider.dart';
 import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/Models/item_provider.dart';
+import 'package:gocart/Models/order_history_provider.dart';
 import 'package:gocart/Models/total_provider.dart';
 import 'package:gocart/tryFile.dart';
 import 'package:gocart/utils.dart';
@@ -36,6 +37,9 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => TotalProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => OrderHistoryProvider(),
         )
       ],
       child: const MyApp(),

@@ -48,10 +48,7 @@ class _CartPageState extends State<CartPage> {
         ),
         CartListWidget(cart: cart),
         Container(width: screenWidth, height: 3, color: Colors.grey[700]),
-        CartTotalWidget(
-          total: total,
-          text: "Checkout",
-        )
+        CartTotalWidget(total: total, text: "Checkout", cart: cart)
       ],
     );
   }
