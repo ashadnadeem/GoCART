@@ -10,5 +10,7 @@ under one roof
 - flutter run
 
 ## Demo Gif
-https://user-images.githubusercontent.com/58692788/163390458-f50ac5ff-058f-4a84-94b7-089e28bdba56.mp4
+https://user-images.githubusercontent.com/58692788/163390769-040cfcc6-d212-4f9f-bbd5-52cf9d73c35c.mp4
+
+
 
