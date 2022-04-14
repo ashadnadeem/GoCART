@@ -1,16 +1,14 @@
-# gocart
+# GOCART
+A simple, efficient and easy to use interface with all of your favorite brands aboard,
+you are able to virtually try on the products that fits you best and order it online. No
+need to visit different websites/apps to find the perfect product; we have it all
+under one roof
 
-A new Flutter project.
+## A fluter project
+- git clone https://github.com/ashadnadeem/gocart.git
+- cd gocart
+- flutter run
 
-## Getting Started
+## Demo Gif
+https://user-images.githubusercontent.com/58692788/163390458-f50ac5ff-058f-4a84-94b7-089e28bdba56.mp4
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
