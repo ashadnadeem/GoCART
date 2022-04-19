@@ -77,6 +77,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    // Load dummy data
+    addItemData(context);
     Future.delayed(Duration(seconds: 6), () {
       setState(() {
         _isLoading = false;
@@ -141,7 +143,6 @@ class _MyHomePageState extends State<MyHomePage> {
       coolButton(
           text: "Get Started",
           functionToComply: () {
-            addItemData(context);
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const SignupPage()),
