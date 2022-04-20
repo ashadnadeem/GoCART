@@ -30,7 +30,7 @@ class CartProvider extends ChangeNotifier {
   }
 
   void clearCart() {
-    list.clear();
+    list = [];
     notifyListeners();
   }
 }

@@ -199,10 +199,8 @@ class CartTotalWidget extends StatelessWidget {
                           total: total,
                           cart: cart),
                     );
-
-                // for some reason this is not working properly
-                // context.read<CartProvider>().clearCart();
-                // context.read<TotalProvider>().clearTotal();
+                context.read<CartProvider>().clearCart();
+                context.read<TotalProvider>().clearTotal();
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) =>
