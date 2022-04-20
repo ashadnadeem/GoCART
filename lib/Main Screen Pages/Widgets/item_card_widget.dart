@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/Main%20Screen%20Pages/U_ItemDetailPage.dart';
+import 'package:gocart/Main%20Screen%20Pages/ItemDetailPage.dart';
 import 'package:gocart/Models/brand_model.dart';
 import 'package:gocart/Models/item_model.dart';
 

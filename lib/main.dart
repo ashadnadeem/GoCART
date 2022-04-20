@@ -1,6 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:gocart/Main%20Screen%20Pages/U_CartPage.dart';
+import 'package:gocart/Main%20Screen%20Pages/CartPage.dart';
 import 'package:gocart/Models/brand_model.dart';
 import 'package:gocart/Models/brand_provider.dart';
 import 'package:gocart/Models/cart_provider.dart';

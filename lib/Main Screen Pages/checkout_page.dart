@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Account%20Screen%20Pages/Widgets/address_tile_widget.dart';
-import 'package:gocart/Main%20Screen%20Pages/U_ItemDetailPage.dart';
+import 'package:gocart/Main%20Screen%20Pages/ItemDetailPage.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/cart_list_widget.dart';
 import 'package:gocart/Models/total_provider.dart';
 import 'package:gocart/utils.dart';
