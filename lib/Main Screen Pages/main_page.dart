@@ -1,6 +1,6 @@
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:gocart/Main%20Screen%20Pages/U_CartPage.dart';
+import 'package:gocart/Main%20Screen%20Pages/CartPage.dart';
 import 'package:gocart/Main%20Screen%20Pages/home_page.dart';
 import 'package:gocart/Main%20Screen%20Pages/search_page.dart';
 import 'package:gocart/Main%20Screen%20Pages/wishlist_page.dart';
