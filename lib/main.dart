@@ -10,6 +10,8 @@ import 'package:gocart/Models/order_history_provider.dart';
 import 'package:gocart/Models/total_provider.dart';
 import 'package:gocart/tryFile.dart';
 import 'package:gocart/utils.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 
 import 'OnBoarding Pages/login_page.dart';
@@ -17,6 +19,8 @@ import 'OnBoarding Pages/signup_page.dart';
 
 late List<CameraDescription> cameras;
 Future<void> main() async {
+  // For Flutter firebase
+  await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
   print('ARCORE IS AVAILABLE?');
   // print(await ArCoreController.checkArCoreAvailability());
@@ -26,21 +30,11 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => ItemProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => BrandProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => CartProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => TotalProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => OrderHistoryProvider(),
-        )
+        ChangeNotifierProvider(create: (_) => ItemProvider()),
+        ChangeNotifierProvider(create: (_) => BrandProvider()),
+        ChangeNotifierProvider(create: (_) => CartProvider()),
+        ChangeNotifierProvider(create: (_) => TotalProvider()),
+        ChangeNotifierProvider(create: (_) => OrderHistoryProvider())
       ],
       child: const MyApp(),
     ),
