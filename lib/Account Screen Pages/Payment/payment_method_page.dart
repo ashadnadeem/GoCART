@@ -3,6 +3,8 @@ import 'package:gocart/Account%20Screen%20Pages/Payment/add_card_page.dart';
 import 'package:gocart/Account%20Screen%20Pages/Widgets/debitcard_widget.dart';
 import 'package:gocart/Models/debitcard_model.dart';
 import 'package:gocart/utils.dart';
+import 'package:provider/provider.dart';
+import '../../Models/debitcard_provider.dart';
 
 class PaymentMethods extends StatefulWidget {
   const PaymentMethods({Key? key}) : super(key: key);
@@ -17,28 +19,11 @@ class _PaymentMethodsState extends State<PaymentMethods> {
   @override
   void initState() {
     super.initState();
-    myCards.add(DebitCard(
-      cardNumber: "6216510051005100",
-      cardHolderName: "Ashad Nadeem",
-      expiryDate: "12/26",
-      cvv: "123",
-    ));
-    myCards.add(DebitCard(
-      cardNumber: "5245444444444444",
-      cardHolderName: "Ameer Party",
-      expiryDate: "12/23",
-      cvv: "456",
-    ));
-    myCards.add(DebitCard(
-      cardNumber: "4224510051005100",
-      cardHolderName: "Waderey Ka Beta",
-      expiryDate: "12/24",
-      cvv: "789",
-    ));
   }
 
   @override
   Widget build(BuildContext context) {
+    myCards = context.watch<CardProvider>().Cards;
     final double screenHeight = MediaQuery.of(context).size.height;
     print(myCards.length);
     return Scaffold(
@@ -54,7 +39,6 @@ class _PaymentMethodsState extends State<PaymentMethods> {
           ],
         ),
       ),
-     
     );
   }
 

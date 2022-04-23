@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Account%20Screen%20Pages/Widgets/debitcard_widget.dart';
 import 'package:gocart/Models/debitcard_model.dart';
+import 'package:gocart/Models/debitcard_provider.dart';
 import 'package:gocart/utils.dart';
+import 'package:provider/provider.dart';
 
 class AddCard extends StatefulWidget {
   AddCard({Key? key, this.card}) : super(key: key);
@@ -16,7 +18,7 @@ class _AddCardState extends State<AddCard> {
   final TextEditingController _expiryDateController = TextEditingController();
   final TextEditingController _cvvController = TextEditingController();
   final TextEditingController _bankNameController = TextEditingController();
-  late DebitCard card1;
+  late DebitCard card;
   String title = "Add Card";
   @override
   void initState() {
@@ -24,15 +26,14 @@ class _AddCardState extends State<AddCard> {
     // If there is a card Passing means editing
     if (widget.card != null) {
       title = "Edit Card";
-      card1 = widget.card!;
-      _cardNumberController.text =
-          "*" * 12 + card1.cardNumber.substring(12, 16);
-      _nameOnCardController.text = card1.cardHolderName;
-      _expiryDateController.text = card1.expiryDate;
+      card = widget.card!;
+      _cardNumberController.text = "*" * 12 + card.cardNumber.substring(12, 16);
+      _nameOnCardController.text = card.cardHolderName;
+      _expiryDateController.text = card.expiryDate;
       _cvvController.text = "";
-      _bankNameController.text = card1.bankName;
+      _bankNameController.text = card.bankName;
     } else {
-      card1 = DebitCard(
+      card = DebitCard(
           cardNumber: "", cardHolderName: "", expiryDate: "", cvv: "");
     }
   }
@@ -41,12 +42,12 @@ class _AddCardState extends State<AddCard> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    card1.cardNumber = _cardNumberController.text;
-    card1.cardHolderName = _nameOnCardController.text;
-    card1.expiryDate = _expiryDateController.text;
-    card1.cvv = _cvvController.text;
-    card1.bankName = _bankNameController.text;
-    card1.cardFront = !back;
+    card.cardNumber = _cardNumberController.text;
+    card.cardHolderName = _nameOnCardController.text;
+    card.expiryDate = _expiryDateController.text;
+    card.cvv = _cvvController.text;
+    card.bankName = _bankNameController.text;
+    card.cardFront = !back;
     return Scaffold(
       appBar: const MyAppBar(implyLeading: false),
       body: SingleChildScrollView(
@@ -57,7 +58,7 @@ class _AddCardState extends State<AddCard> {
             SizedBox(height: screenHeight * 0.03),
             BankCard(
               options: false,
-              card: card1,
+              card: card,
             ),
             SizedBox(height: screenHeight * 0.03),
             SizedBox(
@@ -73,7 +74,7 @@ class _AddCardState extends State<AddCard> {
                       control: _nameOnCardController,
                       onChangedFunction: (value) {
                         back = false;
-                        card1.cardHolderName = value;
+                        card.cardHolderName = value;
                         setState(() {});
                       },
                     ),
@@ -86,7 +87,7 @@ class _AddCardState extends State<AddCard> {
                       length: 16,
                       onChangedFunction: (value) {
                         back = false;
-                        card1.cardNumber = value;
+                        card.cardNumber = value;
                         setState(() {});
                       },
                     ),
@@ -97,7 +98,7 @@ class _AddCardState extends State<AddCard> {
                       control: _bankNameController,
                       onChangedFunction: (value) {
                         back = false;
-                        card1.bankName = value;
+                        card.bankName = value;
                         setState(() {});
                       },
                     ),
@@ -109,7 +110,7 @@ class _AddCardState extends State<AddCard> {
                       control: _expiryDateController,
                       onChangedFunction: (value) {
                         back = false;
-                        card1.expiryDate = value;
+                        card.expiryDate = value;
                         setState(() {});
                       },
                     ),
@@ -122,7 +123,7 @@ class _AddCardState extends State<AddCard> {
                       length: 3,
                       onChangedFunction: (value) {
                         back = true;
-                        card1.cardHolderName = value;
+                        card.cardHolderName = value;
                         setState(() {});
                       },
                     ),
@@ -135,6 +136,19 @@ class _AddCardState extends State<AddCard> {
             coolButton(
               text: "Save",
               functionToComply: () {
+                card.cardNumber = _cardNumberController.text;
+                card.cardHolderName = _nameOnCardController.text;
+                card.expiryDate = _expiryDateController.text;
+                card.cvv = _cvvController.text;
+                card.bankName = _bankNameController.text;
+                // Check if edit or add
+                if (widget.card != null) {
+                  // Edit
+                  context.read<CardProvider>().updateCard(card);
+                } else {
+                  // Add
+                  context.read<CardProvider>().addCard(card);
+                }
                 Navigator.pop(context);
               },
             ),

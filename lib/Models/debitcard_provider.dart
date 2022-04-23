@@ -21,7 +21,7 @@ class CardProvider extends ChangeNotifier {
           cvv: cardModel.cvv,
           cardHolderName: cardModel.cardHolderName,
           bankName: cardModel.bankName,
-          cardFront: cardModel.cardFront,
+          cardFront: true,
         );
         card.id = doc.id;
         list.add(card);
@@ -40,7 +40,7 @@ class CardProvider extends ChangeNotifier {
         cvv: card.cvv,
         cardHolderName: card.cardHolderName,
         bankName: card.bankName,
-        cardFront: card.cardFront,
+        cardFront: true,
       ).toJson(),
     );
     card.id = newRef.id;
@@ -49,9 +49,9 @@ class CardProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteCard(DebitCard Card) {
-    list.remove(Card);
-    firebaseCard.doc(Card.id).delete();
+  void deleteCard(DebitCard card) {
+    list.remove(card);
+    firebaseCard.doc(card.id).delete();
     notifyListeners();
   }
 
@@ -63,7 +63,7 @@ class CardProvider extends ChangeNotifier {
             cvv: card.cvv,
             cardHolderName: card.cardHolderName,
             bankName: card.bankName,
-            cardFront: card.cardFront,
+            cardFront: true,
           ).toJson(),
         );
     notifyListeners();

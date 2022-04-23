@@ -2,6 +2,9 @@ import 'package:awesome_card/awesome_card.dart';
 import 'package:flutter/material.dart';
 import 'package:gocart/Account%20Screen%20Pages/Payment/add_card_page.dart';
 import 'package:gocart/Models/debitcard_model.dart';
+import 'package:provider/provider.dart';
+
+import '../../Models/debitcard_provider.dart';
 
 // DebitCard Container
 // ignore: must_be_immutable
@@ -38,6 +41,28 @@ class BankCard extends StatelessWidget {
       // Unknown
       cardColor = Colors.black;
     }
+
+    Widget deleteButton() {
+      return IconButton(
+        icon: Icon(Icons.delete_forever_outlined,
+            color: Colors.red, size: screenSizeH * 0.04),
+        onPressed: () {
+          context.read<CardProvider>().deleteCard(card);
+        },
+      );
+    }
+
+    Widget editButton() {
+      return IconButton(
+        icon: Icon(Icons.edit_note_outlined, size: screenSizeH * 0.04),
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => AddCard(card: card),
+          ));
+        },
+      );
+    }
+
     return Container(
       width: MediaQuery.of(context).size.height * 0.8,
       child: Row(
@@ -74,26 +99,14 @@ class BankCard extends StatelessWidget {
               ? Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    IconButton(
-                      icon: Icon(Icons.edit_note_outlined,
-                          size: screenSizeH * 0.04),
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => AddCard(card: card),
-                        ));
-                      },
-                    ),
+                    editButton(),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Container(),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(right: 4.0),
-                      child: IconButton(
-                        icon: Icon(Icons.delete_forever_outlined,
-                            color: Colors.red, size: screenSizeH * 0.04),
-                        onPressed: () {},
-                      ),
+                      child: deleteButton(),
                     ),
                   ],
                 )
