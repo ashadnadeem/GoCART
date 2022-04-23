@@ -12,8 +12,11 @@ import 'package:gocart/tryFile.dart';
 import 'package:gocart/utils.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
+import 'Models/address_model.dart';
+import 'Models/address_provider.dart';
 import 'OnBoarding Pages/login_page.dart';
 import 'OnBoarding Pages/signup_page.dart';
 
@@ -30,11 +33,13 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ItemProvider()),
+        // Providers Sorted Alphabetically
+        ChangeNotifierProvider(create: (_) => AddressProvider()),
         ChangeNotifierProvider(create: (_) => BrandProvider()),
         ChangeNotifierProvider(create: (_) => CartProvider()),
+        ChangeNotifierProvider(create: (_) => ItemProvider()),
+        ChangeNotifierProvider(create: (_) => OrderHistoryProvider()),
         ChangeNotifierProvider(create: (_) => TotalProvider()),
-        ChangeNotifierProvider(create: (_) => OrderHistoryProvider())
       ],
       child: const MyApp(),
     ),
@@ -182,6 +187,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // This method is only for testing purposes
   void addItemData(BuildContext context) {
+    // Load Saved Address
+    context.read<AddressProvider>().loadAddress();
     // Item Adding
     context.read<ItemProvider>().addItem(
           Item(

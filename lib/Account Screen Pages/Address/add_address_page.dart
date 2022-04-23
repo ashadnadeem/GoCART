@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Models/address_model.dart';
+import 'package:gocart/Models/address_provider.dart';
 import 'package:gocart/utils.dart';
+import 'package:provider/provider.dart';
 
 class AddAddress extends StatefulWidget {
   AddAddress({this.address, Key? key}) : super(key: key);
@@ -38,11 +40,6 @@ class _AddAddressState extends State<AddAddress> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    address.name = _titleController.text;
-    address.address = _addressController.text;
-    address.city = _cityController.text;
-    address.zip = _zipController.text;
-    address.phone = _phoneController.text;
     return Scaffold(
       appBar: const MyAppBar(implyLeading: false),
       body: SingleChildScrollView(
@@ -89,10 +86,23 @@ class _AddAddressState extends State<AddAddress> {
                 ]),
               ),
             ),
-            // Login Button
+            // Save Button
             coolButton(
                 text: "Save",
                 functionToComply: () {
+                  address.name = _titleController.text;
+                  address.address = _addressController.text;
+                  address.city = _cityController.text;
+                  address.zip = _zipController.text;
+                  address.phone = _phoneController.text;
+                  // Check if Edit or Add
+                  if (widget.address != null) {
+                    // Edit
+                    context.read<AddressProvider>().updateAddress(address);
+                  } else {
+                    // Add
+                    context.read<AddressProvider>().addAddress(address);
+                  }
                   Navigator.pop(context);
                 }),
           ],

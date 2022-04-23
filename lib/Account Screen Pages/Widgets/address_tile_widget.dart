@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:gocart/Account%20Screen%20Pages/Address/add_address_page.dart';
 import 'package:gocart/Models/address_model.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import '../../Models/address_provider.dart';
 
 // ignore: must_be_immutable
 class AddressTile extends StatelessWidget {
@@ -26,7 +29,7 @@ class AddressTile extends StatelessWidget {
       return IconButton(
         icon: Icon(Icons.delete_forever_outlined,
             color: Colors.red, size: screenSizeH * 0.03),
-        onPressed: () {},
+        onPressed: () => context.read<AddressProvider>().deleteAddress(address),
       );
     }
 
