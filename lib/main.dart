@@ -12,7 +12,7 @@ import 'package:gocart/tryFile.dart';
 import 'package:gocart/utils.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
 import 'Models/address_model.dart';
@@ -23,8 +23,8 @@ import 'OnBoarding Pages/signup_page.dart';
 late List<CameraDescription> cameras;
 Future<void> main() async {
   // For Flutter firebase
-  await Firebase.initializeApp();
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   print('ARCORE IS AVAILABLE?');
   // print(await ArCoreController.checkArCoreAvailability());
   print('\nAR SERVICES INSTALLED?');

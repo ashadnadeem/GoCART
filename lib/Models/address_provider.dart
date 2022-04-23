@@ -25,7 +25,7 @@ class AddressProvider extends ChangeNotifier {
         );
         address.id = doc.id;
         list.add(address);
-        print(address.name);
+        // print(address.name);
       });
     });
     sortAddress();
