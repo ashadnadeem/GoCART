@@ -175,6 +175,48 @@ class HeaderBar extends StatelessWidget {
 // Dialog for confirm delete
 // ignore: camel_case_types
 class dialogs {
+  static Future errorDialog(
+      BuildContext context, String title, String message) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(
+            title,
+            style: GoogleFonts.poppins(
+                fontSize: 20,
+                fontWeight: FontWeight.w900,
+                // color: const Color.fromARGB(255, 59, 59, 61),
+                color: Colors.redAccent),
+          ),
+          content: Text(
+            message,
+            style: GoogleFonts.poppins(
+              fontSize: 15,
+              fontWeight: FontWeight.w300,
+              color: const Color.fromARGB(255, 59, 59, 61),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(
+                'OK',
+                style: GoogleFonts.poppins(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                  color: const Color.fromARGB(255, 59, 59, 61),
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   static Future showDeleteConfirmationDialog(BuildContext context) async {
     return showDialog<bool>(
       context: context,

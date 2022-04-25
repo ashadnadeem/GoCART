@@ -1,6 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:gocart/Main%20Screen%20Pages/CartPage.dart';
+import 'package:gocart/Main%20Screen%20Pages/main_page.dart';
 import 'package:gocart/Models/brand_model.dart';
 import 'package:gocart/Models/brand_provider.dart';
 import 'package:gocart/Models/cart_provider.dart';
@@ -9,16 +9,15 @@ import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/Models/item_provider.dart';
 import 'package:gocart/Models/order_history_provider.dart';
 import 'package:gocart/Models/total_provider.dart';
+import 'package:gocart/Models/user_model.dart';
+import 'package:gocart/Services/auth.dart';
 import 'package:gocart/tryFile.dart';
 import 'package:gocart/utils.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
-import 'Models/address_model.dart';
 import 'Models/address_provider.dart';
-import 'Models/debitcard_model.dart';
+import 'Models/user_provider.dart';
 import 'OnBoarding Pages/login_page.dart';
 import 'OnBoarding Pages/signup_page.dart';
 
@@ -43,6 +42,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => ItemProvider()),
         ChangeNotifierProvider(create: (_) => OrderHistoryProvider()),
         ChangeNotifierProvider(create: (_) => TotalProvider()),
+        ChangeNotifierProvider(create: (_) => UserProvider()),
       ],
       child: const MyApp(),
     ),
@@ -55,13 +55,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'GoCart',
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
+    return StreamProvider<UserProfile?>.value(
+      value: AuthService().user,
+      initialData: null,
+      child: MaterialApp(
+        title: 'GoCart',
+        theme: ThemeData(
+          primarySwatch: Colors.grey,
+        ),
+        home: const MyHomePage(title: 'GoCart'),
+        debugShowCheckedModeBanner: false,
       ),
-      home: const MyHomePage(title: 'GoCart'),
-      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -114,6 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Widget> showOnboardingScreen(BuildContext context) {
+    final user = Provider.of<UserProfile?>(context);
     return <Widget>[
       Hero(tag: 'logo', child: logo()),
       Padding(
@@ -147,7 +152,9 @@ class _MyHomePageState extends State<MyHomePage> {
           functionToComply: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const SignupPage()),
+              MaterialPageRoute(
+                  builder: (context) =>
+                      user == null ? const SignupPage() : const MainPage()),
               // MaterialPageRoute(builder: (context) => const MainPage()),
             );
           }),

@@ -5,6 +5,8 @@ import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../Main Screen Pages/main_page.dart';
+import '../Models/user_model.dart';
+import '../Services/auth.dart';
 import '../success_screen.dart';
 
 class LoginPage extends StatefulWidget {
@@ -15,9 +17,32 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
+    final _auth = AuthService();
+
+    void signin() async {
+      // Signin with Email and Password
+      dynamic result = await _auth.signInWithEmailAndPassword(
+          _emailController.text.trim(), _passwordController.text.trim());
+      // Check if result is of type UserProfile
+      if (result is UserProfile) {
+        // Navigate to Home Page
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => const SuccessScreen(
+            nextPage: MainPage(),
+          ),
+        ));
+      } else {
+        // Show error message
+        dialogs.errorDialog(
+            context, "Try again", result.toString().split("]").last.trim());
+      }
+    }
+
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -47,12 +72,12 @@ class _LoginPageState extends State<LoginPage> {
                     // Email TextField
                     gocartTextField(
                         hint: "Email",
-                        control: TextEditingController(),
+                        control: _emailController,
                         textType: TextInputType.emailAddress),
                     // Password TextField
                     gocartTextField(
                       hint: "Password",
-                      control: TextEditingController(),
+                      control: _passwordController,
                       pswd: true,
                     ),
                     // Forgot Password
@@ -62,15 +87,9 @@ class _LoginPageState extends State<LoginPage> {
               ),
               // Login Button
               coolButton(
-                  text: "Login",
-                  functionToComply: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const SuccessScreen(nextPage: MainPage()),
-                        ));
-                  }),
+                text: "Login",
+                functionToComply: signin,
+              ),
               const SizedBox(height: 10),
               // Dont have an account?
               Row(
