@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/Main%20Screen%20Pages/Widgets/item_list_widgets.dart';
+import 'package:gocart/Main%20Screen%20Pages/Widgets/wishlist_builder_widget.dart';
 import 'package:gocart/Models/item_model.dart';
-import 'package:gocart/Models/item_provider.dart';
+import 'package:gocart/Models/wishlist_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -17,9 +17,7 @@ class _WishlistPageState extends State<WishlistPage> {
 
   @override
   Widget build(BuildContext context) {
-    // final double screenHeight = MediaQuery.of(context).size.height;
-    // final double screenWidth = MediaQuery.of(context).size.width;
-    list = context.read<ItemProvider>().list;
+    list = context.read<WishListProvider>().wishlist;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 32),
       child: Column(
@@ -33,9 +31,8 @@ class _WishlistPageState extends State<WishlistPage> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          ItemList(
-            isWishlist: true,
-            items: list,
+          WishListBuilder(
+            wishlist: list,
           ),
         ],
       ),

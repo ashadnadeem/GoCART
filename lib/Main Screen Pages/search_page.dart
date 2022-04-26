@@ -32,10 +32,7 @@ class _SearchPageState extends State<SearchPage> {
             height: screenHeight * 0.02,
           ),
           filterButton(screenHeight),
-          ItemList(
-              items: list,
-              isWishlist: false,
-              searchQuery: _searchController.text)
+          ItemList(items: list, searchQuery: _searchController.text)
         ],
       ),
     );

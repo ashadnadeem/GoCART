@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/item_list_widgets.dart';
+import 'package:gocart/Main%20Screen%20Pages/wishlist_page.dart';
 import 'package:gocart/Models/cart_provider.dart';
 import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/Models/total_provider.dart';
+import 'package:gocart/Models/wishlist_provider.dart';
 import 'package:gocart/product_ar.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -163,7 +165,9 @@ class ProductDrawer extends StatelessWidget {
                   //   },
                   // ),
                   addToCartButon(),
-                  FavIcon(item: product),
+                  FavButton(
+                    item: product,
+                  ),
                 ],
               ),
             ],
@@ -171,6 +175,51 @@ class ProductDrawer extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class FavButton extends StatefulWidget {
+  const FavButton({Key? key, required this.item}) : super(key: key);
+
+  final Item item;
+
+  @override
+  State<FavButton> createState() => _FavButtonState();
+}
+
+class _FavButtonState extends State<FavButton> {
+  List<Item> wishlist = [];
+  @override
+  Widget build(BuildContext context) {
+    wishlist = context.read<WishListProvider>().wishlist;
+    return IconButton(
+      onPressed: () {
+        isInWishList()
+            ? context.read<WishListProvider>().removeItem(widget.item)
+            : context.read<WishListProvider>().addItem(widget.item);
+        setState(() {});
+      },
+      icon: isInWishList()
+          ? const Icon(
+              Icons.favorite_rounded,
+              color: Colors.red,
+            )
+          : const Icon(
+              Icons.favorite_border,
+              color: Colors.black,
+            ),
+    );
+  }
+
+  bool isInWishList() {
+    bool flag = false;
+    for (Item i in wishlist) {
+      if (i.id == widget.item.id) {
+        flag = true;
+        break;
+      }
+    }
+    return flag;
   }
 }
 

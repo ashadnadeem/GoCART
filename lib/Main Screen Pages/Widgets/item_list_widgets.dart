@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/ItemDetailPage.dart';
+import 'package:gocart/Main%20Screen%20Pages/wishlist_page.dart';
 import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/Models/item_provider.dart';
+import 'package:gocart/Models/wishlist_provider.dart';
 import 'package:provider/provider.dart';
 
 // Final list of items widget
@@ -10,12 +12,10 @@ class ItemList extends StatefulWidget {
   ItemList({
     Key? key,
     required this.items,
-    required this.isWishlist,
     this.searchQuery = "",
   }) : super(key: key);
 
   List<Item> items;
-  bool isWishlist;
   String searchQuery;
 
   @override
@@ -31,19 +31,9 @@ class _ItemListState extends State<ItemList> {
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.only(bottom: 8, top: 8),
-            child: widget.items[index].name == widget.searchQuery ||
-                    (widget.isWishlist == true && widget.items[index].isFav)
+            child: widget.items[index].name == widget.searchQuery
                 ? ListTile(
-                    leading: !widget.isWishlist
-                        ? ItemThumbnail(item: widget.items[index])
-                        : Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              FavIcon(item: widget.items[index]),
-                              ItemThumbnail(item: widget.items[index]),
-                            ],
-                          ),
+                    leading: ItemThumbnail(item: widget.items[index]),
                     title: Text(widget.items[index].name),
                     isThreeLine: true,
                     subtitle: Text(
@@ -54,8 +44,7 @@ class _ItemListState extends State<ItemList> {
           );
         },
         separatorBuilder: (context, index) =>
-            (widget.items[index].name == widget.searchQuery) ||
-                    (widget.items[index].isFav && widget.isWishlist)
+            (widget.items[index].name == widget.searchQuery)
                 ? const Divider(
                     height: 2,
                     color: Colors.black,
@@ -111,41 +100,6 @@ class ItemThumbnail extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-    );
-  }
-}
-
-// Favourites Icon used in list - Only in wishlist page
-class FavIcon extends StatefulWidget {
-  const FavIcon({
-    Key? key,
-    required this.item,
-  }) : super(key: key);
-
-  final Item item;
-
-  @override
-  State<FavIcon> createState() => _FavIconState();
-}
-
-class _FavIconState extends State<FavIcon> {
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      padding: const EdgeInsets.only(right: 20),
-      onPressed: () {
-        widget.item.isFav
-            ? context.read<ItemProvider>().removeFromWishlist(widget.item)
-            : context.read<ItemProvider>().addToWishlist(widget.item);
-        setState(() {});
-      },
-      icon: !widget.item.isFav
-          ? const Icon(
-              Icons.favorite_border_outlined,
-              color: Color.fromARGB(255, 46, 44, 44),
-            )
-          : const Icon(Icons.favorite_rounded),
-      color: Colors.red,
     );
   }
 }
