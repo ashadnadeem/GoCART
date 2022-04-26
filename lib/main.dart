@@ -10,6 +10,7 @@ import 'package:gocart/Models/item_provider.dart';
 import 'package:gocart/Models/order_history_provider.dart';
 import 'package:gocart/Models/total_provider.dart';
 import 'package:gocart/Models/user_model.dart';
+import 'package:gocart/Models/wishlist_provider.dart';
 import 'package:gocart/Services/auth.dart';
 import 'package:gocart/tryFile.dart';
 import 'package:gocart/utils.dart';
@@ -43,6 +44,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => OrderHistoryProvider()),
         ChangeNotifierProvider(create: (_) => TotalProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => WishListProvider()),
       ],
       child: const MyApp(),
     ),
@@ -84,11 +86,14 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     // Load dummy data
-    addItemData(context);
+    // addItemData(context);
     Future.delayed(Duration(seconds: 6), () {
       setState(() {
         _isLoading = false;
       });
+    });
+    Future.delayed(Duration.zero, () async {
+      addItemData(context);
     });
   }
 
@@ -204,6 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // Item Adding
     context.read<ItemProvider>().addItem(
           Item(
+              id: "001",
               name: "Nike",
               description: "Contour 40",
               price: 12000,
@@ -213,6 +219,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
     context.read<ItemProvider>().addItem(
           Item(
+              id: "002",
               name: "Ray.Ban",
               description: "Sunlit",
               price: 45000,
@@ -223,6 +230,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
     context.read<ItemProvider>().addItem(
           Item(
+              id: "003",
               name: "Outfitters",
               description: "Red Dragon",
               price: 4500,
@@ -232,6 +240,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
     context.read<ItemProvider>().addItem(
           Item(
+              id: "004",
               name: "Outfitters",
               description: "Chill Pill",
               price: 45004,
@@ -241,6 +250,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
     context.read<ItemProvider>().addItem(
           Item(
+              id: "005",
               name: "Ray.Ban",
               description: "Aviator",
               price: 56000,
@@ -251,6 +261,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
     context.read<ItemProvider>().addItem(
           Item(
+              id: "006",
               name: "Khaadi",
               description: "Camo Mask",
               price: 100,
@@ -261,6 +272,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
     context.read<ItemProvider>().addItem(
           Item(
+              id: "007",
               name: "Khaadi",
               description: "Spring Mask",
               price: 75,
