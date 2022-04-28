@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/ItemDetailPage.dart';
-import 'package:gocart/Main%20Screen%20Pages/wishlist_page.dart';
 import 'package:gocart/Models/item_model.dart';
-import 'package:gocart/Models/item_provider.dart';
-import 'package:gocart/Models/wishlist_provider.dart';
-import 'package:provider/provider.dart';
 
 // Final list of items widget
 // ignore: must_be_immutable
-class ItemList extends StatefulWidget {
-  ItemList({
+class SearchListBuilder extends StatefulWidget {
+  SearchListBuilder({
     Key? key,
     required this.items,
     this.searchQuery = "",
@@ -19,10 +15,10 @@ class ItemList extends StatefulWidget {
   String searchQuery;
 
   @override
-  State<ItemList> createState() => _ItemListState();
+  State<SearchListBuilder> createState() => _SearchListBuilderState();
 }
 
-class _ItemListState extends State<ItemList> {
+class _SearchListBuilderState extends State<SearchListBuilder> {
   @override
   Widget build(BuildContext context) {
     return Expanded(

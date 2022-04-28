@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/Main%20Screen%20Pages/Widgets/item_card_widget.dart';
+import 'package:gocart/Main%20Screen%20Pages/Widgets/brand_builder_widget.dart';
+import 'package:gocart/Main%20Screen%20Pages/Widgets/trending_builder_widget.dart';
 import 'package:gocart/Models/brand_model.dart';
 import 'package:gocart/Models/brand_provider.dart';
 import 'package:gocart/Models/item_model.dart';
@@ -53,12 +54,9 @@ class Home extends StatelessWidget {
             SizedBox(
               height: screenHeight * 0.015,
             ),
-            ItemCardList(
+            BrandListBuilder(
               screenWidth: screenWidth,
-              cardWidth: 175,
               hasSubtext: false,
-              isTrending: false,
-              items: items,
               brands: brands,
             ),
             SizedBox(
@@ -85,14 +83,15 @@ class Home extends StatelessWidget {
             SizedBox(
               height: screenHeight * 0.015,
             ),
-            ItemCardList(
-              screenWidth: screenWidth,
-              cardWidth: 100,
-              hasSubtext: true,
-              isTrending: true,
-              items: items,
-              brands: brands,
-            ),
+            // ItemCardList(
+            //   screenWidth: screenWidth,
+            //   cardWidth: 100,
+            //   hasSubtext: true,
+            //   isTrending: true,
+            //   items: items,
+            //   brands: brands,
+            // ),
+            TrendingListBuilder(screenWidth: screenWidth, items: items),
             SizedBox(
               height: screenHeight * 0.015,
             ),
@@ -117,12 +116,9 @@ class Home extends StatelessWidget {
             SizedBox(
               height: screenHeight * 0.015,
             ),
-            ItemCardList(
+            BrandListBuilder(
               screenWidth: screenWidth,
-              cardWidth: 175,
               hasSubtext: true,
-              isTrending: false,
-              items: items,
               brands: brands,
             ),
           ],
