@@ -10,21 +10,4 @@ class ItemProvider extends ChangeNotifier {
     list.add(item);
     notifyListeners();
   }
-
-  void addToWishlist(Item item) {
-    int index = list.indexOf(item);
-    list[index].isFav = true;
-    notifyListeners();
-  }
-
-  void removeFromWishlist(Item item) {
-    int index = list.indexOf(item);
-    list[index].isFav = false;
-    notifyListeners();
-  }
-
-  bool getFav(Item item) {
-    int index = list.indexOf(item);
-    return list[index].isFav;
-  }
 }

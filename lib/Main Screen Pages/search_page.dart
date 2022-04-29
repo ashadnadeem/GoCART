@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/Main%20Screen%20Pages/Widgets/item_list_widgets.dart';
+import 'package:gocart/Main%20Screen%20Pages/Widgets/searchlist_builder_widget.dart';
 import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/Models/item_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,10 +32,7 @@ class _SearchPageState extends State<SearchPage> {
             height: screenHeight * 0.02,
           ),
           filterButton(screenHeight),
-          ItemList(
-              items: list,
-              isWishlist: false,
-              searchQuery: _searchController.text)
+          SearchListBuilder(items: list, searchQuery: _searchController.text)
         ],
       ),
     );

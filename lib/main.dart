@@ -10,6 +10,7 @@ import 'package:gocart/Models/item_provider.dart';
 import 'package:gocart/Models/order_history_provider.dart';
 import 'package:gocart/Models/total_provider.dart';
 import 'package:gocart/Models/user_model.dart';
+import 'package:gocart/Models/wishlist_provider.dart';
 import 'package:gocart/Services/auth.dart';
 import 'package:gocart/tryFile.dart';
 import 'package:gocart/utils.dart';
@@ -44,6 +45,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => TotalProvider()),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => WishListProvider()),
       ],
       child: const MyApp(),
     ),
@@ -85,11 +87,13 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     // Load dummy data
-    addItemData(context);
     Future.delayed(const Duration(seconds: 6), () {
       setState(() {
         _isLoading = false;
       });
+    });
+    Future.delayed(Duration.zero, () async {
+      addItemData(context);
     });
   }
 
@@ -205,67 +209,67 @@ class _MyHomePageState extends State<MyHomePage> {
     // Item Adding
     context.read<ItemProvider>().addItem(
           Item(
+              id: "001",
               name: "Nike",
               description: "Contour 40",
-              price: 12000,
-              isFav: false,
+              price: 1500,
               image:
                   "https://cdn.vox-cdn.com/thumbor/pjcUw1kyqVQA8sbGFd1mz2g9pog=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/22406771/Exbfpl2WgAAQkl8_resized.jpeg"),
         );
     context.read<ItemProvider>().addItem(
           Item(
+              id: "002",
               name: "Ray.Ban",
               description: "Sunlit",
-              price: 45000,
-              isFav: false,
+              price: 5000,
               image:
                   "https://i.guim.co.uk/img/media/825ada31cf787c1bd2e3051329c5829145f02d07/307_205_1429_857/master/1429.jpg?width=620&quality=85&auto=format&fit=max&s=2668748e6db848315c59748c0b35d869",
               ar_link: "assets/glasses_round_golden.png"),
         );
     context.read<ItemProvider>().addItem(
           Item(
+              id: "003",
               name: "Outfitters",
               description: "Red Dragon",
-              price: 4500,
-              isFav: false,
+              price: 2500,
               image:
                   "https://cdn.shopify.com/s/files/1/2290/7887/products/F0098103302_2_1024x1024.jpg?v=1643975070"),
         );
     context.read<ItemProvider>().addItem(
           Item(
+              id: "004",
               name: "Outfitters",
               description: "Chill Pill",
-              price: 45004,
-              isFav: false,
+              price: 2500,
               image:
                   "https://cdn.shopify.com/s/files/1/2290/7887/products/F0071103998_3_8f63c89e-8f15-4da4-8f17-fe257221a68b_1024x1024.jpg?v=1644228010"),
         );
     context.read<ItemProvider>().addItem(
           Item(
+              id: "005",
               name: "Ray.Ban",
               description: "Aviator",
-              price: 56000,
-              isFav: false,
+              price: 10000,
               image:
                   "https://www.ray-ban.com/_repository/_resources/productscatalog/optics/images/most_popular_launches_section_sunpage.jpg",
               ar_link: "assets/rayban_exotic_blue.png"),
         );
     context.read<ItemProvider>().addItem(
           Item(
+              id: "006",
               name: "Khaadi",
               description: "Camo Mask",
               price: 100,
-              isFav: false,
               ar_link: "assets/mask_camo_green.png",
               image:
                   "https://image.made-in-china.com/2f0j00hjVaGiPYvIfN/Green-Camouflage-Women-Men-Face-Mask-Unisex-Outdoor-Protection-From-Dust-and-Wind.jpg"),
         );
     context.read<ItemProvider>().addItem(
           Item(
+              id: "007",
               name: "Khaadi",
               description: "Spring Mask",
-              price: 75,
-              isFav: false,
+              price: 50,
               ar_link: "assets/mask_geometric.png",
               image:
                   "https://cdn.shopify.com/s/files/1/2090/9839/products/Geometric-Pattern_face-mask-model_530x@2x.jpg?v=1603273048"),
