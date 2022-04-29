@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/Main%20Screen%20Pages/home_page.dart';
 import 'package:gocart/Models/user_model.dart';
-import 'package:gocart/Models/user_provider.dart';
 import 'package:gocart/OnBoarding%20Pages/tellusmore_page.dart';
 import 'package:gocart/Services/auth.dart';
 import 'package:gocart/utils.dart';
@@ -25,7 +23,7 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProfile?>(context);
+    final user = Provider.of<UserAuth?>(context);
     print(user);
     final double screenHeight = MediaQuery.of(context).size.height;
 
@@ -39,7 +37,7 @@ class _SignupPageState extends State<SignupPage> {
           // Google Signin
           dynamic res = await _auth.signInWithGoogle();
           // Check if result is of type UserProfile
-          if (res is UserProfile) {
+          if (res is UserAuth) {
             // Navigate to Home Page
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => const SuccessScreen(nextPage: MainPage()),
@@ -140,7 +138,7 @@ class _SignupPageState extends State<SignupPage> {
       dynamic result = await _auth.registerWithEmailAndPassword(
           _emailController.text, _passwordController.text);
       // Check if result is of type UserProfile
-      if (result is UserProfile) {
+      if (result is UserAuth) {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const TellUsMorePage()));
       } else {

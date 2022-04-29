@@ -7,6 +7,9 @@ import 'package:gocart/Account%20Screen%20Pages/Widgets/settings_cards_widget.da
 
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+import '../../Models/user_provider.dart';
 
 class AccountMain extends StatefulWidget {
   const AccountMain({Key? key}) : super(key: key);
@@ -21,6 +24,7 @@ class _AccountMainState extends State<AccountMain> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
+    final userProfile = context.watch<UserProvider>().userProfile;
     return Scaffold(
       appBar: const MyAppBar(implyLeading: true),
       body: Center(
@@ -45,7 +49,8 @@ class _AccountMainState extends State<AccountMain> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => AccountDetails()));
+                            builder: (context) =>
+                                AccountDetails(userProfile: userProfile)));
                   },
                   iconData: Icons.account_circle_outlined,
                 ),
@@ -71,7 +76,7 @@ class _AccountMainState extends State<AccountMain> {
                   text: 'Payment Methods',
                   functionToComply: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => PaymentMethods()));
+                        builder: (context) => const PaymentMethods()));
                   },
                   iconData: Icons.account_balance_wallet_outlined,
                   primaryColor: color1,

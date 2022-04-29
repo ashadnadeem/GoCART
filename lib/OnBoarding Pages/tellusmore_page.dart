@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../Main Screen Pages/main_page.dart';
+import '../Models/user_provider.dart';
 import '../success_screen.dart';
 import '../utils.dart';
-import 'login_page.dart';
 
 class TellUsMorePage extends StatefulWidget {
   const TellUsMorePage({Key? key}) : super(key: key);
@@ -14,10 +15,36 @@ class TellUsMorePage extends StatefulWidget {
 }
 
 class _TellUsMorePageState extends State<TellUsMorePage> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    final double screenWidth = MediaQuery.of(context).size.width;
+    void _register() {
+      if (_nameController.text.isEmpty ||
+          _addressController.text.isEmpty ||
+          _cityController.text.isEmpty ||
+          _phoneController.text.isEmpty) {
+        // Blank Details
+        dialogs.errorDialog(context, "Error", "Please fill all the fields");
+      } else {
+        // Update in UserProfile
+        context.read<UserProvider>().updateUserInfo(
+            name: _nameController.text,
+            address: _addressController.text,
+            city: _cityController.text,
+            phone: _phoneController.text);
+        context.read<UserProvider>().saveChanges();
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    const SuccessScreen(nextPage: MainPage())));
+      }
+    }
+
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -45,38 +72,29 @@ class _TellUsMorePageState extends State<TellUsMorePage> {
                       const EdgeInsets.only(left: 50, right: 50, bottom: 10),
                   child: Column(children: <Widget>[
                     // Name TextField
-                    gocartTextField(
-                        hint: "Name", control: TextEditingController()),
+                    gocartTextField(hint: "Name", control: _nameController),
                     // Address TextField
                     gocartTextField(
                       hint: "Address",
-                      control: TextEditingController(),
+                      control: _addressController,
                       textType: TextInputType.streetAddress,
                     ),
                     // City TextField
                     gocartTextField(
                       hint: "City",
-                      control: TextEditingController(),
+                      control: _cityController,
                     ),
                     // Phone Number TextField
                     gocartTextField(
                       hint: "Phone Number",
-                      control: TextEditingController(),
+                      control: _phoneController,
                       textType: TextInputType.number,
                     ),
                   ]),
                 ),
               ),
-              // Login Button
-              coolButton(
-                  text: "Register",
-                  functionToComply: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const SuccessScreen(nextPage: MainPage())));
-                  }),
+              // Register Button
+              coolButton(text: "Register", functionToComply: _register),
               SizedBox(height: screenHeight * 0.02),
               // Fill Details Later?
               Row(
@@ -94,7 +112,7 @@ class _TellUsMorePageState extends State<TellUsMorePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const LoginPage()));
+                                  builder: (context) => const MainPage()));
                         })
                   ]),
             ],

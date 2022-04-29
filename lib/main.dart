@@ -42,6 +42,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => ItemProvider()),
         ChangeNotifierProvider(create: (_) => OrderHistoryProvider()),
         ChangeNotifierProvider(create: (_) => TotalProvider()),
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
       ],
       child: const MyApp(),
@@ -55,7 +56,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<UserProfile?>.value(
+    return StreamProvider<UserAuth?>.value(
       value: AuthService().user,
       initialData: null,
       child: MaterialApp(
@@ -85,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     // Load dummy data
     addItemData(context);
-    Future.delayed(Duration(seconds: 6), () {
+    Future.delayed(const Duration(seconds: 6), () {
       setState(() {
         _isLoading = false;
       });
@@ -94,6 +95,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // Load User Data
+    final userAuth = Provider.of<UserAuth?>(context);
+    context.read<UserProvider>().loadUser(userAuth);
+
     return Scaffold(
       backgroundColor: Colors.yellow,
       body: Column(
@@ -104,11 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => tryMe(),
-              // builder: (context) => paymentMethods(),
-              // builder: (context) => CameraApp(),
-            ),
+            MaterialPageRoute(builder: (context) => tryMe()),
           );
         },
         tooltip: 'Try',
@@ -118,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Widget> showOnboardingScreen(BuildContext context) {
-    final user = Provider.of<UserProfile?>(context);
+    final user = Provider.of<UserAuth?>(context);
     return <Widget>[
       Hero(tag: 'logo', child: logo()),
       Padding(

@@ -329,6 +329,7 @@ class gocartTextField extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(bottom: length == null ? 20 : 0),
       child: TextField(
+        autofocus: false,
         onChanged: onChangedFunction,
         maxLength: length,
         enabled: editable,

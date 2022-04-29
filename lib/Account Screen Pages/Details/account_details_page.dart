@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:gocart/Models/user_model.dart';
 import 'package:gocart/utils.dart';
+import 'package:provider/provider.dart';
+
+import '../../Models/user_provider.dart';
 
 class AccountDetails extends StatefulWidget {
-  const AccountDetails({Key? key}) : super(key: key);
+  UserProfile userProfile;
+  AccountDetails({
+    required this.userProfile,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<AccountDetails> createState() => _AccountDetailsState();
@@ -14,20 +22,38 @@ class _AccountDetailsState extends State<AccountDetails> {
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+  late UserProfile userProfile;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _nameController.text = "Ashad Nadeem";
-    _emailController.text = "ashadnadeem@gmail.com";
-    _cityController.text = "Karachi";
-    _addressController.text = "E-7/2, Block-E, Gulshan-e-Iqbal";
-    _phoneController.text = "0300-1234567";
+    userProfile = widget.userProfile;
+    _nameController.text = userProfile.name;
+    _cityController.text = userProfile.city;
+    _addressController.text = userProfile.address;
+    _phoneController.text = userProfile.phone;
   }
 
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
+    final _user = Provider.of<UserAuth?>(context);
+    _emailController.text = _user!.email;
+
+    // userProfile = context.watch<UserProvider>().user;
+
+    void _register() {
+      // Update in UserProfile
+      context.read<UserProvider>().updateUserInfo(
+          name: _nameController.text,
+          address: _addressController.text,
+          city: _cityController.text,
+          phone: _phoneController.text);
+      context.read<UserProvider>().saveChanges();
+      Navigator.pop(context);
+    }
+
     return Scaffold(
       appBar: const MyAppBar(implyLeading: false),
       body: SingleChildScrollView(
@@ -48,7 +74,7 @@ class _AccountDetailsState extends State<AccountDetails> {
                   // Name TextField
                   Row(children: const <Widget>[Text("  Name")]),
                   gocartTextField(
-                      hint: "Name", editable: false, control: _nameController),
+                      hint: "Name", editable: true, control: _nameController),
                   // Name TextField
                   Row(children: const <Widget>[Text("  Email")]),
                   gocartTextField(
@@ -84,9 +110,7 @@ class _AccountDetailsState extends State<AccountDetails> {
                 // width: screenWidth * 0.5,
                 // height: screenHeight * 0.07,
                 // textSize: screenWidth * 0.05,
-                functionToComply: () {
-                  Navigator.pop(context);
-                }),
+                functionToComply: _register),
           ],
         ),
       ),
@@ -101,12 +125,13 @@ class _AccountDetailsState extends State<AccountDetails> {
         Container(
           height: screenHeight * 0.15,
           width: screenHeight * 0.15,
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: NetworkImage(
-                  "https://avatars.githubusercontent.com/u/58692788?v=4"),
+              image: NetworkImage(userProfile.display.isEmpty
+                  ? "https://img.icons8.com/bubbles/50/000000/user.png"
+                  : userProfile.display),
             ),
           ),
         ),

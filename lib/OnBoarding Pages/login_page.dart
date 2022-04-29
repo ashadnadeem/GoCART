@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
       dynamic result = await _auth.signInWithEmailAndPassword(
           _emailController.text.trim(), _passwordController.text.trim());
       // Check if result is of type UserProfile
-      if (result is UserProfile) {
+      if (result is UserAuth) {
         // Navigate to Home Page
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => const SuccessScreen(
