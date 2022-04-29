@@ -5,6 +5,8 @@ import 'package:gocart/Models/debitcard_provider.dart';
 import 'package:gocart/utils.dart';
 import 'package:provider/provider.dart';
 
+import '../../Models/user_provider.dart';
+
 class AddCard extends StatefulWidget {
   AddCard({Key? key, this.card}) : super(key: key);
   DebitCard? card;
@@ -48,6 +50,28 @@ class _AddCardState extends State<AddCard> {
     card.cvv = _cvvController.text;
     card.bankName = _bankNameController.text;
     card.cardFront = !back;
+
+    void _saveButton() async {
+      card.cardNumber = _cardNumberController.text;
+      card.cardHolderName = _nameOnCardController.text;
+      card.expiryDate = _expiryDateController.text;
+      card.cvv = _cvvController.text;
+      card.bankName = _bankNameController.text;
+      // Check if edit or add
+      if (widget.card != null) {
+        // Edit
+        context.read<CardProvider>().updateCard(card);
+      } else {
+        // Add a new card
+        var cardid = await context.read<CardProvider>().addCard(card);
+        // Link the card to the user
+        context.read<UserProvider>().addNewCard(cardid);
+        // Save changes to the user
+        context.read<UserProvider>().saveChanges();
+      }
+      Navigator.pop(context);
+    }
+
     return Scaffold(
       appBar: const MyAppBar(implyLeading: false),
       body: SingleChildScrollView(
@@ -133,25 +157,7 @@ class _AddCardState extends State<AddCard> {
               ),
             ),
             // Login Button
-            coolButton(
-              text: "Save",
-              functionToComply: () {
-                card.cardNumber = _cardNumberController.text;
-                card.cardHolderName = _nameOnCardController.text;
-                card.expiryDate = _expiryDateController.text;
-                card.cvv = _cvvController.text;
-                card.bankName = _bankNameController.text;
-                // Check if edit or add
-                if (widget.card != null) {
-                  // Edit
-                  context.read<CardProvider>().updateCard(card);
-                } else {
-                  // Add
-                  context.read<CardProvider>().addCard(card);
-                }
-                Navigator.pop(context);
-              },
-            ),
+            coolButton(text: "Save", functionToComply: _saveButton),
           ],
         ),
       ),

@@ -23,6 +23,7 @@ class UserProfile {
   String city;
   String display;
   List<String> addressIDs;
+  List<String> cardIDs;
 
   UserProfile({
     required this.id,
@@ -33,6 +34,7 @@ class UserProfile {
     this.city = '',
     this.display = 'https://img.icons8.com/bubbles/50/000000/user.png',
     this.addressIDs = const [""],
+    this.cardIDs = const [""],
   });
 }
 
@@ -45,6 +47,7 @@ class UserProfileModel {
   final String city;
   final String display;
   final List<String> addresses;
+  final List<String> cards;
 
   UserProfileModel({
     required this.email,
@@ -54,13 +57,19 @@ class UserProfileModel {
     required this.city,
     required this.display,
     required this.addresses,
+    required this.cards,
   });
 
   static fromJson(Map<String, dynamic> json) {
+    // Convert List<dynamic> to List<String> for addresses
     var adressids = json['addressIDs'] as List<dynamic>;
-    // Convert List<dynamic> to List<String>
     List<String> addressIDs = [];
     for (var id in adressids) addressIDs.add(id.toString().trim());
+
+    // Convert List<dynamic> to List<String> for addresses
+    var cardids = json['cardIDs'] as List<dynamic>;
+    List<String> cardIDs = [];
+    for (var id in cardids) cardIDs.add(id.toString().trim());
 
     return UserProfileModel(
       email: json['email'],
@@ -70,6 +79,7 @@ class UserProfileModel {
       city: json['city'],
       display: json['display'],
       addresses: addressIDs,
+      cards: cardIDs,
     );
   }
 
@@ -82,6 +92,7 @@ class UserProfileModel {
       'city': city,
       'display': display,
       'addressIDs': addresses,
+      'cardIDs': cards,
     };
   }
 }

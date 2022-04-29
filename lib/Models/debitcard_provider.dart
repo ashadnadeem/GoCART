@@ -9,29 +9,46 @@ class CardProvider extends ChangeNotifier {
 
   List<DebitCard> get Cards => list;
 
-  void loadCard() async {
+  void loadCard(cardIDs) async {
     list = [];
-    await firebaseCard.get().then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
-        CardModel cardModel =
-            CardModel.fromJson(doc.data() as Map<String, dynamic>);
-        DebitCard card = DebitCard(
-          cardNumber: cardModel.cardNumber,
-          expiryDate: cardModel.expiryDate,
-          cvv: cardModel.cvv,
-          cardHolderName: cardModel.cardHolderName,
-          bankName: cardModel.bankName,
-          cardFront: true,
-        );
-        card.id = doc.id;
-        list.add(card);
-        print(card.cardHolderName);
-      });
-    });
+    // await firebaseCard.get().then((QuerySnapshot querySnapshot) {
+    //   querySnapshot.docs.forEach((doc) {
+    //     CardModel cardModel =
+    //         CardModel.fromJson(doc.data() as Map<String, dynamic>);
+    //     DebitCard card = DebitCard(
+    //       cardNumber: cardModel.cardNumber,
+    //       expiryDate: cardModel.expiryDate,
+    //       cvv: cardModel.cvv,
+    //       cardHolderName: cardModel.cardHolderName,
+    //       bankName: cardModel.bankName,
+    //       cardFront: true,
+    //     );
+    //     card.id = doc.id;
+    //     list.add(card);
+    //     print(card.cardHolderName);
+    //   });
+    // });
+    // Get List of Cards from User Profile
+    for (var id in cardIDs) {
+      if (id == "") continue;
+      var doc = await firebaseCard.doc(id).get();
+      CardModel cardModel =
+          CardModel.fromJson(doc.data() as Map<String, dynamic>);
+      DebitCard card = DebitCard(
+        cardNumber: cardModel.cardNumber,
+        expiryDate: cardModel.expiryDate,
+        cvv: cardModel.cvv,
+        cardHolderName: cardModel.cardHolderName,
+        bankName: cardModel.bankName,
+        cardFront: true,
+      );
+      card.id = id;
+      list.add(card);
+    }
     notifyListeners();
   }
 
-  void addCard(DebitCard card) async {
+  Future<String> addCard(DebitCard card) async {
     // Convert Card to Card Model
     var newRef = await firebaseCard.add(
       CardModel(
@@ -47,11 +64,12 @@ class CardProvider extends ChangeNotifier {
     // Add to provider
     list.add(card);
     notifyListeners();
+    return newRef.id;
   }
 
-  void deleteCard(DebitCard card) {
+  void deleteCard(DebitCard card) async {
     list.remove(card);
-    firebaseCard.doc(card.id).delete();
+    await firebaseCard.doc(card.id).delete();
     notifyListeners();
   }
 

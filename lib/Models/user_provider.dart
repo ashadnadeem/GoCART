@@ -79,9 +79,29 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  //Remove Address
   void removeAddress(oldAddressID) {
     user.addressIDs.remove(oldAddressID.toString().trim());
     print("removed address ${oldAddressID}");
+    notifyListeners();
+  }
+
+  // Add a new card
+  void addNewCard(newCardID) {
+    // user.addressIDs.add(newAddressID);
+    var ids = user.cardIDs;
+    // remove blank address initially
+    ids.remove("");
+    ids.add(newCardID);
+    user.cardIDs = ids;
+    print("added new Card ${newCardID}");
+    notifyListeners();
+  }
+
+  // Remove Card
+  void removeCard(oldCardID) {
+    user.cardIDs.remove(oldCardID.toString().trim());
+    print("removed Card ${oldCardID}");
     notifyListeners();
   }
 
@@ -97,6 +117,7 @@ class UserProvider extends ChangeNotifier {
           city: user.city,
           display: user.display,
           addresses: user.addressIDs,
+          cards: user.cardIDs,
         ).toJson());
     print("${user.email} saved in Firebase");
   }
@@ -113,6 +134,7 @@ class UserProvider extends ChangeNotifier {
             city: user.city,
             display: user.display,
             addresses: user.addressIDs,
+            cards: user.cardIDs,
           ).toJson(),
         );
     notifyListeners();
@@ -129,6 +151,7 @@ class UserProvider extends ChangeNotifier {
       user.phone = userModel.phone;
       user.display = userModel.display;
       user.addressIDs = userModel.addresses;
+      user.cardIDs = userModel.cards;
     });
     saveChanges();
     notifyListeners();

@@ -3,6 +3,7 @@ import 'package:gocart/Main%20Screen%20Pages/Widgets/brand_builder_widget.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/trending_builder_widget.dart';
 import 'package:gocart/Models/brand_model.dart';
 import 'package:gocart/Models/brand_provider.dart';
+import 'package:gocart/Models/debitcard_provider.dart';
 import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/Models/item_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,6 +20,7 @@ class Home extends StatelessWidget {
   List<Item> items = [];
   List<Brand> brands = [];
   List<String> addressIDs = [];
+  List<String> cardIDs = [];
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,9 @@ class Home extends StatelessWidget {
     // Load Saved Address
     addressIDs = context.watch<UserProvider>().user.addressIDs;
     context.read<AddressProvider>().loadAddress(addressIDs);
+    // Load Saved Cards
+    cardIDs = context.watch<UserProvider>().user.cardIDs;
+    context.read<CardProvider>().loadCard(cardIDs);
 
     return SingleChildScrollView(
       child: Center(

@@ -202,8 +202,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   // This method is only for testing purposes
   void addItemData(BuildContext context) {
-    // Load Saved Cards
-    context.read<CardProvider>().loadCard();
     // Item Adding
     context.read<ItemProvider>().addItem(
           Item(
