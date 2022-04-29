@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../Models/address_provider.dart';
+import '../../Models/user_provider.dart';
 
 // ignore: must_be_immutable
 class AddressTile extends StatelessWidget {
@@ -27,10 +28,14 @@ class AddressTile extends StatelessWidget {
 
     Widget deleteButton() {
       return IconButton(
-        icon: Icon(Icons.delete_forever_outlined,
-            color: Colors.red, size: screenSizeH * 0.03),
-        onPressed: () => context.read<AddressProvider>().deleteAddress(address),
-      );
+          icon: Icon(Icons.delete_forever_outlined,
+              color: Colors.red, size: screenSizeH * 0.03),
+          onPressed: () {
+            // Delete Address from Firebase and Delink from User
+            context.read<AddressProvider>().deleteAddress(address);
+            context.read<UserProvider>().removeAddress(address.id);
+            context.read<UserProvider>().saveChanges();
+          });
     }
 
     return Padding(

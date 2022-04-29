@@ -8,6 +8,9 @@ import 'package:gocart/Models/item_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../Models/address_provider.dart';
+import '../Models/user_provider.dart';
+
 class Home extends StatelessWidget {
   Home({
     Key? key,
@@ -15,14 +18,18 @@ class Home extends StatelessWidget {
 
   List<Item> items = [];
   List<Brand> brands = [];
+  List<String> addressIDs = [];
 
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
 
-    items = context.read<ItemProvider>().items;
-    brands = context.read<BrandProvider>().brands;
+    items = context.watch<ItemProvider>().items;
+    brands = context.watch<BrandProvider>().brands;
+    // Load Saved Address
+    addressIDs = context.watch<UserProvider>().user.addressIDs;
+    context.read<AddressProvider>().loadAddress(addressIDs);
 
     return SingleChildScrollView(
       child: Center(

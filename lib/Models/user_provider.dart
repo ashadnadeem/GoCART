@@ -67,6 +67,24 @@ class UserProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Update User Addresses
+  void addNewAddress(newAddressID) {
+    // user.addressIDs.add(newAddressID);
+    var ids = user.addressIDs;
+    // remove blank address initially
+    ids.remove("");
+    ids.add(newAddressID);
+    user.addressIDs = ids;
+    print("added new address ${newAddressID}");
+    notifyListeners();
+  }
+
+  void removeAddress(oldAddressID) {
+    user.addressIDs.remove(oldAddressID.toString().trim());
+    print("removed address ${oldAddressID}");
+    notifyListeners();
+  }
+
   // Save Changes in DB
   // Update Changes
   void saveChanges() async {
@@ -78,13 +96,9 @@ class UserProvider extends ChangeNotifier {
           address: user.address,
           city: user.city,
           display: user.display,
+          addresses: user.addressIDs,
         ).toJson());
-    print(user.id);
-    print(user.email);
-    print(user.name);
-    print(user.address);
-    print(user.city);
-    print(user.phone);
+    print("${user.email} saved in Firebase");
   }
 
   // Add a new User
@@ -98,6 +112,7 @@ class UserProvider extends ChangeNotifier {
             address: user.address,
             city: user.city,
             display: user.display,
+            addresses: user.addressIDs,
           ).toJson(),
         );
     notifyListeners();
@@ -113,6 +128,7 @@ class UserProvider extends ChangeNotifier {
       user.city = userModel.city;
       user.phone = userModel.phone;
       user.display = userModel.display;
+      user.addressIDs = userModel.addresses;
     });
     saveChanges();
     notifyListeners();

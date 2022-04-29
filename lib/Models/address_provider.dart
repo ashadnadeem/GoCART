@@ -1,3 +1,5 @@
+import 'package:gocart/Models/user_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'address_model.dart';
@@ -9,30 +11,49 @@ class AddressProvider extends ChangeNotifier {
 
   List<Address> get addresses => list;
 
-  void loadAddress() async {
+  void loadAddress(addressIDs) async {
     list = [];
-    await firebaseAddress.get().then((QuerySnapshot querySnapshot) {
-      querySnapshot.docs.forEach((doc) {
-        AddressModel addressModel =
-            AddressModel.fromJson(doc.data() as Map<String, dynamic>);
-        Address address = Address(
-          name: addressModel.name,
-          address: addressModel.address,
-          city: addressModel.city,
-          phone: addressModel.phone,
-          zip: addressModel.zip,
-          defaultAddress: addressModel.defaultAddress,
-        );
-        address.id = doc.id;
-        list.add(address);
-        // print(address.name);
-      });
-    });
+    // Get List of Address Ids from UserProfile
+    // Fetch Addresss from Firebase in each addressID
+    for (var id in addressIDs) {
+      if (id == "") continue;
+      var doc = await firebaseAddress.doc(id).get();
+      AddressModel addressModel =
+          AddressModel.fromJson(doc.data() as Map<String, dynamic>);
+
+      Address address = Address(
+        name: addressModel.name,
+        address: addressModel.address,
+        city: addressModel.city,
+        phone: addressModel.phone,
+        zip: addressModel.zip,
+        defaultAddress: addressModel.defaultAddress,
+      );
+      address.id = id;
+      list.add(address);
+    }
+    // await firebaseAddress.get().then((QuerySnapshot querySnapshot) {
+    //   querySnapshot.docs.forEach((doc) {
+    //     AddressModel addressModel =
+    //         AddressModel.fromJson(doc.data() as Map<String, dynamic>);
+    //     Address address = Address(
+    //       name: addressModel.name,
+    //       address: addressModel.address,
+    //       city: addressModel.city,
+    //       phone: addressModel.phone,
+    //       zip: addressModel.zip,
+    //       defaultAddress: addressModel.defaultAddress,
+    //     );
+    //     address.id = doc.id;
+    //     list.add(address);
+    // print(address.name);
+    // });
+    // });
     sortAddress();
     notifyListeners();
   }
 
-  void addAddress(Address address) async {
+  Future<String> addAddress(Address address) async {
     // Convert Address to Address Model
     var newRef = await firebaseAddress.add(AddressModel(
       name: address.name,
@@ -46,6 +67,7 @@ class AddressProvider extends ChangeNotifier {
     // Add to provider
     list.add(address);
     notifyListeners();
+    return newRef.id;
   }
 
   void updateDefault(Address address) {
@@ -71,9 +93,9 @@ class AddressProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteAddress(Address address) {
+  void deleteAddress(Address address) async {
     list.remove(address);
-    firebaseAddress.doc(address.id).delete();
+    await firebaseAddress.doc(address.id).delete();
     notifyListeners();
   }
 
