@@ -5,6 +5,7 @@ import 'package:gocart/Models/debitcard_model.dart';
 import 'package:provider/provider.dart';
 
 import '../../Models/debitcard_provider.dart';
+import '../../Models/user_provider.dart';
 
 // DebitCard Container
 // ignore: must_be_immutable
@@ -47,7 +48,10 @@ class BankCard extends StatelessWidget {
         icon: Icon(Icons.delete_forever_outlined,
             color: Colors.red, size: screenSizeH * 0.04),
         onPressed: () {
+          // Delete Address from Firebase and Delink from User
           context.read<CardProvider>().deleteCard(card);
+          context.read<UserProvider>().removeCard(card.id);
+          context.read<UserProvider>().saveChanges();
         },
       );
     }

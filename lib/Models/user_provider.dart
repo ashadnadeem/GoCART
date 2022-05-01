@@ -72,7 +72,7 @@ class UserProvider extends ChangeNotifier {
     // user.addressIDs.add(newAddressID);
     var ids = user.addressIDs;
     // remove blank address initially
-    ids.remove("");
+    // ids.remove("");
     ids.add(newAddressID);
     user.addressIDs = ids;
     print("added new address ${newAddressID}");
@@ -91,7 +91,7 @@ class UserProvider extends ChangeNotifier {
     // user.addressIDs.add(newAddressID);
     var ids = user.cardIDs;
     // remove blank address initially
-    ids.remove("");
+    // ids.remove("");
     ids.add(newCardID);
     user.cardIDs = ids;
     print("added new Card ${newCardID}");
