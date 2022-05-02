@@ -27,14 +27,16 @@ class Home extends StatelessWidget {
     final double screenHeight = MediaQuery.of(context).size.height;
     final double screenWidth = MediaQuery.of(context).size.width;
 
-    items = context.watch<ItemProvider>().items;
-    brands = context.watch<BrandProvider>().brands;
-    // Load Saved Address
-    addressIDs = context.watch<UserProvider>().user.addressIDs;
-    context.read<AddressProvider>().loadAddress(addressIDs);
-    // Load Saved Cards
-    cardIDs = context.watch<UserProvider>().user.cardIDs;
-    context.read<CardProvider>().loadCard(cardIDs);
+    items = context.read<ItemProvider>().items;
+    brands = context.read<BrandProvider>().brands;
+    Future.delayed(Duration.zero, () async {
+      // Load Saved Address
+      addressIDs = context.read<UserProvider>().user.addressIDs;
+      context.read<AddressProvider>().loadAddress(addressIDs);
+      // Load Saved Cards
+      cardIDs = context.read<UserProvider>().user.cardIDs;
+      context.read<CardProvider>().loadCard(cardIDs);
+    });
 
     return SingleChildScrollView(
       child: Center(
@@ -70,6 +72,7 @@ class Home extends StatelessWidget {
               screenWidth: screenWidth,
               hasSubtext: false,
               brands: brands,
+              items: items,
             ),
             SizedBox(
               height: screenHeight * 0.015,
@@ -132,6 +135,7 @@ class Home extends StatelessWidget {
               screenWidth: screenWidth,
               hasSubtext: true,
               brands: brands,
+              items: items,
             ),
           ],
         ),

@@ -1,6 +1,7 @@
 class Item {
   Item({
     required this.id,
+    required this.brandID,
     required this.name,
     required this.description,
     required this.price,
@@ -9,6 +10,7 @@ class Item {
     this.ar_link,
   });
 
+  final String brandID;
   final String id;
   final String name;
   final String description;

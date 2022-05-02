@@ -8,6 +8,7 @@ import 'package:gocart/Models/debitcard_provider.dart';
 import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/Models/item_provider.dart';
 import 'package:gocart/Models/order_history_provider.dart';
+import 'package:gocart/Models/search_provider.dart';
 import 'package:gocart/Models/total_provider.dart';
 import 'package:gocart/Models/user_model.dart';
 import 'package:gocart/Models/wishlist_provider.dart';
@@ -46,6 +47,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => WishListProvider()),
+        ChangeNotifierProvider(create: (_) => SearchProvider()),
       ],
       child: const MyApp(),
     ),
@@ -101,7 +103,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     // Load User Data
     final userAuth = Provider.of<UserAuth?>(context);
-    context.read<UserProvider>().loadUser(userAuth);
+    Future.delayed(Duration.zero, () async {
+      context.read<UserProvider>().loadUser(userAuth);
+    });
 
     return Scaffold(
       backgroundColor: Colors.yellow,
@@ -205,6 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // Item Adding
     context.read<ItemProvider>().addItem(
           Item(
+              brandID: "010",
               id: "001",
               name: "Nike",
               description: "Contour 40",
@@ -214,6 +219,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
     context.read<ItemProvider>().addItem(
           Item(
+              brandID: "011",
               id: "002",
               name: "Ray.Ban",
               description: "Sunlit",
@@ -224,6 +230,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
     context.read<ItemProvider>().addItem(
           Item(
+              brandID: "012",
               id: "003",
               name: "Outfitters",
               description: "Red Dragon",
@@ -233,6 +240,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
     context.read<ItemProvider>().addItem(
           Item(
+              brandID: "012",
               id: "004",
               name: "Outfitters",
               description: "Chill Pill",
@@ -242,6 +250,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
     context.read<ItemProvider>().addItem(
           Item(
+              brandID: "011",
               id: "005",
               name: "Ray.Ban",
               description: "Aviator",
@@ -252,6 +261,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
     context.read<ItemProvider>().addItem(
           Item(
+              brandID: "013",
               id: "006",
               name: "Khaadi",
               description: "Camo Mask",
@@ -262,6 +272,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
     context.read<ItemProvider>().addItem(
           Item(
+              brandID: "013",
               id: "007",
               name: "Khaadi",
               description: "Spring Mask",
@@ -274,6 +285,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // Brand Adding
     context.read<BrandProvider>().addItem(
           Brand(
+              id: "010",
               name: "Nike",
               address: "Karachi, Pakistan",
               image:
@@ -281,6 +293,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
     context.read<BrandProvider>().addItem(
           Brand(
+              id: "011",
               name: "Ray.Ban",
               address: "Karachi, Pakistan",
               hasAR: true,
@@ -290,6 +303,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
     context.read<BrandProvider>().addItem(
           Brand(
+              id: "012",
               name: "Outfitters",
               address: "Karachi, Pakistan",
               image:
@@ -297,6 +311,7 @@ class _MyHomePageState extends State<MyHomePage> {
         );
     context.read<BrandProvider>().addItem(
           Brand(
+              id: "013",
               name: "Khaadi",
               address: "Karachi, Pakistan",
               hasAR: true,

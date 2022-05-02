@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gocart/Main%20Screen%20Pages/BrandDetails_page.dart';
 import 'package:gocart/Main%20Screen%20Pages/ItemDetailPage.dart';
 import 'package:gocart/Models/brand_model.dart';
 import 'package:gocart/Models/item_model.dart';
@@ -10,11 +11,13 @@ class BrandListBuilder extends StatelessWidget {
     required this.screenWidth,
     required this.hasSubtext,
     required this.brands,
+    required this.items,
   }) : super(key: key);
 
   final double screenWidth;
   final bool hasSubtext;
   final List<Brand> brands;
+  final List<Item> items;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +35,12 @@ class BrandListBuilder extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  //TODO: Implement Brand page
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => BrandDetailPage(
+                      brand: brands[index],
+                      items: items,
+                    ),
+                  ));
                 },
                 child: !hasSubtext
                     ? buildCard(index)

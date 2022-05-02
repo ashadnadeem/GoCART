@@ -1,5 +1,6 @@
 class Brand {
   Brand({
+    required this.id,
     required this.name,
     required this.address,
     this.hasAR = false,
@@ -7,6 +8,7 @@ class Brand {
     this.ar_link,
   });
 
+  final String id;
   final String name;
   final String address;
   bool hasAR;
