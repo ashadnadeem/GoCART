@@ -26,11 +26,7 @@ class ItemDetail extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: screenHeight * 0.35),
-                Positioned(
-                  top: screenHeight * 0.35,
-                  left: 0,
-                  child: ProductDrawer(product: product),
-                ),
+                ProductDrawer(product: product),
               ],
             ),
           ),
