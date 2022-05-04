@@ -27,7 +27,9 @@ class _SearchListBuilderState extends State<SearchListBuilder> {
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.only(bottom: 8, top: 8),
-            child: widget.items[index].name == widget.searchQuery
+            child: (widget.items[index].name + widget.items[index].description)
+                    .toLowerCase()
+                    .contains(widget.searchQuery.toLowerCase())
                 ? ListTile(
                     leading: ItemThumbnail(item: widget.items[index]),
                     title: Text(widget.items[index].name),

@@ -170,7 +170,7 @@ class _SearchPageState extends State<SearchPage> {
             borderRadius: BorderRadius.circular(27),
           ),
         ),
-        onSubmitted: (value) {
+        onChanged: (value) {
           setState(() {});
         },
       ),

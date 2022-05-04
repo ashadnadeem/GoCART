@@ -59,7 +59,7 @@ class TrendingListBuilder extends StatelessWidget {
           ),
         ),
         Text(
-          items[index].description,
+          items[index].category,
           style: const TextStyle(
             fontWeight: FontWeight.normal,
             fontSize: 12,

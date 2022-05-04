@@ -211,8 +211,9 @@ class _MyHomePageState extends State<MyHomePage> {
           Item(
               brandID: "010",
               id: "001",
-              name: "Nike",
-              description: "Contour 40",
+              name: "Contour 40",
+              description: "Sports Shoes for ...",
+              category: 'Shoes',
               price: 1500,
               image:
                   "https://cdn.vox-cdn.com/thumbor/pjcUw1kyqVQA8sbGFd1mz2g9pog=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/22406771/Exbfpl2WgAAQkl8_resized.jpeg"),
@@ -221,8 +222,9 @@ class _MyHomePageState extends State<MyHomePage> {
           Item(
               brandID: "011",
               id: "002",
-              name: "Ray.Ban",
-              description: "Sunlit",
+              name: "Sunlit",
+              description: "Sunglasses Shades very classy.",
+              category: 'Accessories',
               price: 5000,
               image:
                   "https://i.guim.co.uk/img/media/825ada31cf787c1bd2e3051329c5829145f02d07/307_205_1429_857/master/1429.jpg?width=620&quality=85&auto=format&fit=max&s=2668748e6db848315c59748c0b35d869",
@@ -232,8 +234,9 @@ class _MyHomePageState extends State<MyHomePage> {
           Item(
               brandID: "012",
               id: "003",
-              name: "Outfitters",
-              description: "Red Dragon",
+              name: "Red Dragon",
+              description: "Classic Shirt for everyday wear.",
+              category: 'Shirts',
               price: 2500,
               image:
                   "https://cdn.shopify.com/s/files/1/2290/7887/products/F0098103302_2_1024x1024.jpg?v=1643975070"),
@@ -242,8 +245,9 @@ class _MyHomePageState extends State<MyHomePage> {
           Item(
               brandID: "012",
               id: "004",
-              name: "Outfitters",
-              description: "Chill Pill",
+              name: "Chill Pill",
+              description: "Casual Shirt for everyday wear.",
+              category: 'Shirts',
               price: 2500,
               image:
                   "https://cdn.shopify.com/s/files/1/2290/7887/products/F0071103998_3_8f63c89e-8f15-4da4-8f17-fe257221a68b_1024x1024.jpg?v=1644228010"),
@@ -252,8 +256,9 @@ class _MyHomePageState extends State<MyHomePage> {
           Item(
               brandID: "011",
               id: "005",
-              name: "Ray.Ban",
-              description: "Aviator",
+              name: "Aviator",
+              description: "Sunglasses for everyday wear.",
+              category: 'Accessories',
               price: 10000,
               image:
                   "https://www.ray-ban.com/_repository/_resources/productscatalog/optics/images/most_popular_launches_section_sunpage.jpg",
@@ -263,8 +268,9 @@ class _MyHomePageState extends State<MyHomePage> {
           Item(
               brandID: "013",
               id: "006",
-              name: "Khaadi",
-              description: "Camo Mask",
+              name: "Camo Mask",
+              description: "Styish Mask, protect your face.",
+              category: 'Accessories',
               price: 100,
               ar_link: "assets/mask_camo_green.png",
               image:
@@ -274,8 +280,9 @@ class _MyHomePageState extends State<MyHomePage> {
           Item(
               brandID: "013",
               id: "007",
-              name: "Khaadi",
-              description: "Spring Mask",
+              name: "Spring Mask",
+              description: "Styish Mask, protect your face.",
+              category: 'Accessories',
               price: 50,
               ar_link: "assets/mask_geometric.png",
               image:
@@ -288,6 +295,7 @@ class _MyHomePageState extends State<MyHomePage> {
               id: "010",
               name: "Nike",
               address: "Karachi, Pakistan",
+              website: 'https://www.nike.com/',
               image:
                   "https://cdn.britannica.com/50/213250-050-02322AA8/Nike-logo.jpg"),
         );
@@ -296,6 +304,7 @@ class _MyHomePageState extends State<MyHomePage> {
               id: "011",
               name: "Ray.Ban",
               address: "Karachi, Pakistan",
+              website: 'https://www.ray-ban.com/',
               hasAR: true,
               image:
                   "https://media.designrush.com/inspirations/129359/conversions/_1513769873_94_Ray-Ban-preview.jpg",
@@ -306,6 +315,7 @@ class _MyHomePageState extends State<MyHomePage> {
               id: "012",
               name: "Outfitters",
               address: "Karachi, Pakistan",
+              website: 'https://outfitters.com.pk/',
               image:
                   "https://cdn.shopify.com/s/files/1/2290/7887/files/1200X628_aa0ccfa6-5e3d-4788-ae21-c97f6d74ba2e.jpg?v=1597126538"),
         );
@@ -314,9 +324,11 @@ class _MyHomePageState extends State<MyHomePage> {
               id: "013",
               name: "Khaadi",
               address: "Karachi, Pakistan",
+              website: 'https://www.khaadi.com/',
               hasAR: true,
               image:
                   "https://fashiontimesmagazine.com/wp-content/uploads/2021/10/ff0fb676-bc35-4126-ab5f-ab85abd6dc1b.jpeg"),
         );
+    context.read<SearchProvider>().makeCopy(context.read<ItemProvider>().list);
   }
 }

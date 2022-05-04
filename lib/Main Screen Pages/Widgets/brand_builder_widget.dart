@@ -9,21 +9,21 @@ class BrandListBuilder extends StatelessWidget {
   const BrandListBuilder({
     Key? key,
     required this.screenWidth,
-    required this.hasSubtext,
+    required this.arCompatiblity,
     required this.brands,
-    required this.items,
+    // required this.items,
   }) : super(key: key);
 
   final double screenWidth;
-  final bool hasSubtext;
+  final bool arCompatiblity;
   final List<Brand> brands;
-  final List<Item> items;
+  // final List<Item> items;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: screenWidth * 0.92,
-      height: !hasSubtext ? 120 : 180,
+      height: !arCompatiblity ? 120 : 180,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         clipBehavior: Clip.none,
@@ -37,18 +37,16 @@ class BrandListBuilder extends StatelessWidget {
                 onTap: () {
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => BrandDetailPage(
-                      brand: brands[index],
-                      items: items,
-                    ),
+                        brand: brands[index], ar: arCompatiblity),
                   ));
                 },
-                child: !hasSubtext
+                child: !arCompatiblity
                     ? buildCard(index)
-                    : (brands[index].hasAR && hasSubtext)
+                    : (brands[index].hasAR && arCompatiblity)
                         ? buildCard(index)
                         : const SizedBox(),
               ),
-              if (hasSubtext)
+              if (arCompatiblity)
                 brands[index].hasAR ? buildARSubtext(index) : const SizedBox()
             ],
           );
@@ -80,7 +78,7 @@ class BrandListBuilder extends StatelessWidget {
               ),
             ),
           ),
-          (hasSubtext) || (brands[index].ar_link != null)
+          (arCompatiblity) || (brands[index].ar_link != null)
               ? const Positioned(
                   right: 10,
                   top: 10,

@@ -3,6 +3,7 @@ class Brand {
     required this.id,
     required this.name,
     required this.address,
+    required this.website,
     this.hasAR = false,
     required this.image,
     this.ar_link,
@@ -11,6 +12,7 @@ class Brand {
   final String id;
   final String name;
   final String address;
+  final String website;
   bool hasAR;
   final String image;
   String? ar_link;

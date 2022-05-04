@@ -37,6 +37,26 @@ class Home extends StatelessWidget {
       cardIDs = context.read<UserProvider>().user.cardIDs;
       context.read<CardProvider>().loadCard(cardIDs);
     });
+    Widget textDivider(String text) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(width: screenWidth * 0.04),
+          Text('$text  ',
+              style: GoogleFonts.poppins(
+                  color: Colors.grey,
+                  fontSize: screenHeight * 0.020,
+                  fontWeight: FontWeight.w300)),
+          Expanded(
+            child: Container(
+              height: 1,
+              color: Colors.grey,
+            ),
+          ),
+          Container(width: screenWidth * 0.04),
+        ],
+      );
+    }
 
     return SingleChildScrollView(
       child: Center(
@@ -45,56 +65,20 @@ class Home extends StatelessWidget {
             SizedBox(
               height: screenHeight * 0.03,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: screenWidth * 0.04,
-                ),
-                Text('Recomended Brands  ',
-                    style: GoogleFonts.poppins(
-                        color: Colors.grey,
-                        fontSize: screenHeight * 0.020,
-                        fontWeight: FontWeight.w300)),
-                Expanded(
-                  child: Container(
-                    height: 1,
-                    color: Colors.grey,
-                  ),
-                ),
-                Container(width: screenWidth * 0.04),
-              ],
-            ),
+            textDivider('Recomended Brands'),
             SizedBox(
               height: screenHeight * 0.015,
             ),
             BrandListBuilder(
               screenWidth: screenWidth,
-              hasSubtext: false,
+              arCompatiblity: false,
               brands: brands,
-              items: items,
+              // items: items,
             ),
             SizedBox(
               height: screenHeight * 0.015,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(width: screenWidth * 0.04),
-                Text('Trending  ',
-                    style: GoogleFonts.poppins(
-                        color: Colors.grey,
-                        fontSize: screenHeight * 0.02,
-                        fontWeight: FontWeight.w300)),
-                Expanded(
-                  child: Container(
-                    height: 1,
-                    color: Colors.grey,
-                  ),
-                ),
-                Container(width: screenWidth * 0.04),
-              ],
-            ),
+            textDivider('Trending'),
             SizedBox(
               height: screenHeight * 0.015,
             ),
@@ -110,32 +94,14 @@ class Home extends StatelessWidget {
             SizedBox(
               height: screenHeight * 0.015,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SizedBox(width: screenWidth * 0.04),
-                Text('AR Compatible  ',
-                    style: GoogleFonts.poppins(
-                        color: Colors.grey,
-                        fontSize: screenHeight * 0.020,
-                        fontWeight: FontWeight.w300)),
-                Expanded(
-                  child: Container(
-                    height: 1,
-                    color: Colors.grey,
-                  ),
-                ),
-                Container(width: screenWidth * 0.04),
-              ],
-            ),
+            textDivider('AR Compatible'),
             SizedBox(
               height: screenHeight * 0.015,
             ),
             BrandListBuilder(
               screenWidth: screenWidth,
-              hasSubtext: true,
+              arCompatiblity: true,
               brands: brands,
-              items: items,
             ),
           ],
         ),

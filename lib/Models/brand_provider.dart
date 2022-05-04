@@ -27,4 +27,13 @@ class BrandProvider extends ChangeNotifier {
     int index = list.indexOf(brand);
     return list[index].hasAR;
   }
+
+  String getBrandName(brandID) {
+    for (var brand in list) {
+      if (brand.id == brandID) {
+        return brand.name;
+      }
+    }
+    return "Not Listed";
+  }
 }

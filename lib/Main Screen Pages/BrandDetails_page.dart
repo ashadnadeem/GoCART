@@ -11,11 +11,11 @@ class BrandDetailPage extends StatefulWidget {
   BrandDetailPage({
     Key? key,
     required this.brand,
-    required this.items,
+    required this.ar,
   }) : super(key: key);
 
   Brand brand;
-  List<Item> items;
+  bool ar;
 
   @override
   State<BrandDetailPage> createState() => _BrandDetailPageState();
@@ -27,9 +27,11 @@ class _BrandDetailPageState extends State<BrandDetailPage> {
   @override
   void initState() {
     Future.delayed(Duration.zero, () async {
-      context.read<SearchProvider>().clearList();
       setState(() {
-        context.read<SearchProvider>().addItem(widget.brand, widget.items);
+        // context.read<SearchProvider>().filterByBrand(brandid: widget.brand.id);
+        context
+            .read<SearchProvider>()
+            .filterProds(brandid: widget.brand.id, ar: widget.ar);
       });
     });
     super.initState();
@@ -37,7 +39,7 @@ class _BrandDetailPageState extends State<BrandDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    searchlist = context.read<SearchProvider>().searchlist;
+    searchlist = context.watch<SearchProvider>().search;
 
     return Scaffold(
       appBar: const MyAppBar(implyLeading: true),
@@ -47,6 +49,7 @@ class _BrandDetailPageState extends State<BrandDetailPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // Brand Name
               Text(
                 widget.brand.name,
                 style: GoogleFonts.poppins(
@@ -55,6 +58,31 @@ class _BrandDetailPageState extends State<BrandDetailPage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              // Address
+              Text(
+                widget.brand.address,
+                style: GoogleFonts.poppins(
+                  color: const Color.fromARGB(255, 33, 32, 32),
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              // Website Link clickable to open in browser, color blue
+              InkWell(
+                child: Text(
+                  widget.brand.website,
+                  style: GoogleFonts.poppins(
+                    color: Colors.deepPurple,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onTap: () {
+                  // launch(widget.brand.website);
+                },
+              ),
+              const SizedBox(height: 10),
+              // GridView of Items in the brand
               Expanded(
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -94,7 +122,7 @@ class _BrandDetailPageState extends State<BrandDetailPage> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          "${searchlist[index].name} - ${searchlist[index].description}",
+          searchlist[index].name,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16,
@@ -103,7 +131,7 @@ class _BrandDetailPageState extends State<BrandDetailPage> {
         Text(
           "PKR ${searchlist[index].price.toString()}",
           style: const TextStyle(
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.normal,
             fontSize: 14,
           ),
         ),

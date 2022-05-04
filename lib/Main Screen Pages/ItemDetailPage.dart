@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/Main%20Screen%20Pages/Widgets/searchlist_builder_widget.dart';
-import 'package:gocart/Main%20Screen%20Pages/wishlist_page.dart';
 import 'package:gocart/Models/cart_provider.dart';
 import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/Models/total_provider.dart';
@@ -9,6 +7,8 @@ import 'package:gocart/product_ar.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import '../Models/brand_provider.dart';
 
 class ItemDetail extends StatelessWidget {
   const ItemDetail({required this.product, Key? key}) : super(key: key);
@@ -54,9 +54,23 @@ class BackDrop extends StatelessWidget {
   }
 }
 
-class ProductDrawer extends StatelessWidget {
+class ProductDrawer extends StatefulWidget {
   const ProductDrawer({required this.product, Key? key}) : super(key: key);
   final Item product;
+
+  @override
+  State<ProductDrawer> createState() => _ProductDrawerState();
+}
+
+class _ProductDrawerState extends State<ProductDrawer> {
+  String _color = "not selected";
+  String _size = "not selected";
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
@@ -72,9 +86,9 @@ class ProductDrawer extends StatelessWidget {
           shadowColor: Colors.grey.shade900,
         ),
         onPressed: () {
-          context.read<CartProvider>().addToCart(product);
-          context.read<TotalProvider>().add(product.price);
-          context.read<CartProvider>().incCount(product);
+          context.read<CartProvider>().addToCart(widget.product);
+          context.read<TotalProvider>().add(widget.product.price);
+          context.read<CartProvider>().incCount(widget.product);
           Navigator.of(context).pop();
         },
         child: Row(
@@ -89,6 +103,89 @@ class ProductDrawer extends StatelessWidget {
                     fontWeight: FontWeight.w500)),
           ],
         ),
+      );
+    }
+
+    // Row for colors selection with a dropdown
+    Widget colorDropdownSelection() {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            'Color : ',
+            style: GoogleFonts.poppins(
+              color: Colors.black,
+              fontSize: screenHeight * 0.02,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          // const Icon(Icons.color_lens),
+          const SizedBox(width: 20),
+          DropdownButton<String>(
+            value: widget.product.colors[0],
+            icon: const Icon(Icons.arrow_drop_down),
+            iconSize: screenHeight * 0.05,
+            dropdownColor: Colors.red.shade100,
+            elevation: 0,
+            alignment: AlignmentDirectional.topStart,
+            borderRadius: BorderRadius.circular(15),
+            style: GoogleFonts.poppins(
+              color: Colors.redAccent,
+              fontSize: screenHeight * 0.02,
+              fontWeight: FontWeight.w500,
+            ),
+            onChanged: (String? newValue) {
+              _color = newValue!;
+              setState(() {});
+            },
+            items: widget.product.colors.map((opt) {
+              return DropdownMenuItem<String>(
+                value: opt,
+                child: Text(opt),
+              );
+            }).toList(),
+          ),
+        ],
+      );
+    }
+
+// Row for size selection with a dropdown
+    Widget sizeDropdownSelection() {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            'Size :    ',
+            style: GoogleFonts.poppins(
+              color: Colors.black,
+              fontSize: screenHeight * 0.02,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          // const Icon(Icons.color_lens),
+          const SizedBox(width: 20),
+          DropdownButton<String>(
+            value: widget.product.sizes[0],
+            icon: const Icon(Icons.arrow_drop_down),
+            iconSize: screenHeight * 0.05,
+            dropdownColor: Colors.red.shade100,
+            elevation: 0,
+            alignment: AlignmentDirectional.topStart,
+            borderRadius: BorderRadius.circular(15),
+            style: GoogleFonts.poppins(
+              color: Colors.redAccent,
+              fontSize: screenHeight * 0.02,
+              fontWeight: FontWeight.w500,
+            ),
+            onChanged: (String? newValue) {
+              _color = newValue!;
+              setState(() {});
+            },
+            items: widget.product.sizes.map((opt) {
+              return DropdownMenuItem<String>(value: opt, child: Text(opt));
+            }).toList(),
+          ),
+        ],
       );
     }
 
@@ -111,7 +208,10 @@ class ProductDrawer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Brand Name
-              Text(product.name,
+              Text(
+                  context
+                      .read<BrandProvider>()
+                      .getBrandName(widget.product.brandID),
                   style: GoogleFonts.poppins(
                       fontSize: screenHeight * 0.025,
                       fontWeight: FontWeight.w300),
@@ -120,49 +220,51 @@ class ProductDrawer extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(product.description,
+                  Text(widget.product.name,
                       style: GoogleFonts.poppins(
                           fontSize: screenHeight * 0.04,
                           fontWeight: FontWeight.w600),
                       textAlign: TextAlign.center),
-                  product.ar_link != null
-                      ? ArCamButton(product: product)
+                  widget.product.ar_link != null
+                      ? ArCamButton(product: widget.product)
                       : Container(),
                 ],
               ),
               // Product Price
-              Text(product.price.toString(),
+              Text('Rs: ${widget.product.price}',
                   style: GoogleFonts.poppins(
-                      fontSize: screenHeight * 0.03,
+                      fontSize: screenHeight * 0.02,
                       fontWeight: FontWeight.w300),
                   textAlign: TextAlign.center),
-              SizedBox(height: screenHeight * 0.02),
+              SizedBox(height: screenHeight * 0.01),
+              // Category
+              Text('Category: ${widget.product.category}',
+                  style: GoogleFonts.poppins(
+                      fontSize: screenHeight * 0.02,
+                      fontWeight: FontWeight.w300),
+                  textAlign: TextAlign.center),
+              SizedBox(height: screenHeight * 0.01),
               // Product Description
-              Text('RB3200-01',
+              Text(widget.product.description,
                   maxLines: 5,
                   overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.poppins(
-                      fontSize: screenHeight * 0.03,
+                      fontSize: screenHeight * 0.025,
                       fontWeight: FontWeight.w300),
-                  textAlign: TextAlign.center),
+                  textAlign: TextAlign.start),
               // Color Selector from Filter
               // Size Selector from Filter
+              SizedBox(height: screenHeight * 0.01),
+              colorDropdownSelection(),
+              SizedBox(height: screenHeight * 0.01),
+              sizeDropdownSelection(),
               SizedBox(height: screenHeight * 0.02),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  // coolButton(
-                  //   text: 'ADD TO CART',
-                  //   functionToComply: () {
-                  //     // Add in the cart
-
-                  //     context.read<CartProvider>().addToCart(product);
-                  //     Navigator.of(context).pop();
-                  //   },
-                  // ),
                   addToCartButon(),
                   FavButton(
-                    item: product,
+                    item: widget.product,
                   ),
                 ],
               ),
@@ -199,10 +301,12 @@ class _FavButtonState extends State<FavButton> {
           ? const Icon(
               Icons.favorite_rounded,
               color: Colors.red,
+              size: 40,
             )
           : const Icon(
               Icons.favorite_border,
               color: Colors.black,
+              size: 40,
             ),
     );
   }
