@@ -177,6 +177,13 @@ class HeaderBar extends StatelessWidget {
 class dialogs {
   static Future errorDialog(
       BuildContext context, String title, String message) {
+    // Error messages Formatting
+    message = message.split(" or ")[0];
+    message = message.split(".")[0] + ".";
+    message = message.replaceAll("String", "Field");
+    message = message.replaceAll("null", "blank");
+    message = message.replaceAll("badly", "incorrectly");
+    message = message.replaceAll("identifier", "email");
     return showDialog(
       context: context,
       builder: (BuildContext context) {
