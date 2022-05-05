@@ -205,90 +205,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   // This method is only for testing purposes
-  void addItemData(BuildContext context) {
+  void addItemData(BuildContext context) async {
     // Item Adding
-    context.read<ItemProvider>().addItem(
-          Item(
-              brandID: "010",
-              id: "001",
-              name: "Contour 40",
-              description: "Sports Shoes for ...",
-              category: 'Shoes',
-              price: 1500,
-              image:
-                  "https://cdn.vox-cdn.com/thumbor/pjcUw1kyqVQA8sbGFd1mz2g9pog=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/22406771/Exbfpl2WgAAQkl8_resized.jpeg"),
-        );
-    context.read<ItemProvider>().addItem(
-          Item(
-              brandID: "011",
-              id: "002",
-              name: "Sunlit",
-              description: "Sunglasses Shades very classy.",
-              category: 'Accessories',
-              price: 5000,
-              image:
-                  "https://i.guim.co.uk/img/media/825ada31cf787c1bd2e3051329c5829145f02d07/307_205_1429_857/master/1429.jpg?width=620&quality=85&auto=format&fit=max&s=2668748e6db848315c59748c0b35d869",
-              ar_link: "assets/glasses_round_golden.png"),
-        );
-    context.read<ItemProvider>().addItem(
-          Item(
-              brandID: "012",
-              id: "003",
-              name: "Red Dragon",
-              description: "Classic Shirt for everyday wear.",
-              category: 'Shirts',
-              price: 2500,
-              image:
-                  "https://cdn.shopify.com/s/files/1/2290/7887/products/F0098103302_2_1024x1024.jpg?v=1643975070"),
-        );
-    context.read<ItemProvider>().addItem(
-          Item(
-              brandID: "012",
-              id: "004",
-              name: "Chill Pill",
-              description: "Casual Shirt for everyday wear.",
-              category: 'Shirts',
-              price: 2500,
-              image:
-                  "https://cdn.shopify.com/s/files/1/2290/7887/products/F0071103998_3_8f63c89e-8f15-4da4-8f17-fe257221a68b_1024x1024.jpg?v=1644228010"),
-        );
-    context.read<ItemProvider>().addItem(
-          Item(
-              brandID: "011",
-              id: "005",
-              name: "Aviator",
-              description: "Sunglasses for everyday wear.",
-              category: 'Accessories',
-              price: 10000,
-              image:
-                  "https://www.ray-ban.com/_repository/_resources/productscatalog/optics/images/most_popular_launches_section_sunpage.jpg",
-              ar_link: "assets/rayban_exotic_blue.png"),
-        );
-    context.read<ItemProvider>().addItem(
-          Item(
-              brandID: "013",
-              id: "006",
-              name: "Camo Mask",
-              description: "Styish Mask, protect your face.",
-              category: 'Accessories',
-              price: 100,
-              ar_link: "assets/mask_camo_green.png",
-              image:
-                  "https://image.made-in-china.com/2f0j00hjVaGiPYvIfN/Green-Camouflage-Women-Men-Face-Mask-Unisex-Outdoor-Protection-From-Dust-and-Wind.jpg"),
-        );
-    context.read<ItemProvider>().addItem(
-          Item(
-              brandID: "013",
-              id: "007",
-              name: "Spring Mask",
-              description: "Styish Mask, protect your face.",
-              category: 'Accessories',
-              price: 50,
-              ar_link: "assets/mask_geometric.png",
-              image:
-                  "https://cdn.shopify.com/s/files/1/2090/9839/products/Geometric-Pattern_face-mask-model_530x@2x.jpg?v=1603273048"),
-        );
-
+    await context.read<ItemProvider>().loadProducts();
+    // Make a copy for search
+    context.read<SearchProvider>().makeCopy(context.read<ItemProvider>().list);
     // Brand Adding
     context.read<BrandProvider>().addItem(
           Brand(
@@ -329,6 +250,5 @@ class _MyHomePageState extends State<MyHomePage> {
               image:
                   "https://fashiontimesmagazine.com/wp-content/uploads/2021/10/ff0fb676-bc35-4126-ab5f-ab85abd6dc1b.jpeg"),
         );
-    context.read<SearchProvider>().makeCopy(context.read<ItemProvider>().list);
   }
 }

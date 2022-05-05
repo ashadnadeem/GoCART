@@ -64,7 +64,7 @@ class ProductDrawer extends StatefulWidget {
 
 class _ProductDrawerState extends State<ProductDrawer> {
   String _color = "not selected";
-  String _size = "not selected";
+  String _size = "NA";
   @override
   void initState() {
     // TODO: implement initState
@@ -225,7 +225,7 @@ class _ProductDrawerState extends State<ProductDrawer> {
                           fontSize: screenHeight * 0.04,
                           fontWeight: FontWeight.w600),
                       textAlign: TextAlign.center),
-                  widget.product.ar_link != null
+                  widget.product.arLink.isNotEmpty
                       ? ArCamButton(product: widget.product)
                       : Container(),
                 ],
@@ -335,7 +335,7 @@ class ArCamButton extends StatelessWidget {
       onPressed: () {
         // Navigate to the AR Camera
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => FaceProductAR(link: product.ar_link!)));
+            builder: (context) => FaceProductAR(link: product.arLink)));
       },
     );
   }

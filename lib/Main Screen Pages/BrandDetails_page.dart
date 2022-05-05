@@ -7,6 +7,8 @@ import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import 'Widgets/item_grid_widget.dart';
+
 class BrandDetailPage extends StatefulWidget {
   BrandDetailPage({
     Key? key,
@@ -83,91 +85,10 @@ class _BrandDetailPageState extends State<BrandDetailPage> {
               ),
               const SizedBox(height: 10),
               // GridView of Items in the brand
-              Expanded(
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 200,
-                      childAspectRatio: 1,
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 20),
-                  itemCount: searchlist.length,
-                  itemBuilder: (BuildContext ctx, index) {
-                    return Column(
-                      children: [
-                        Expanded(
-                          child: InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) =>
-                                      ItemDetail(product: searchlist[index]),
-                                ));
-                              },
-                              child: buildCard(index)),
-                        ),
-                        buildSubText(index)
-                      ],
-                    );
-                  },
-                ),
-              )
+              ItemGrid(searchlist: searchlist, scrollable: true),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Column buildSubText(int index) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          searchlist[index].name,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
-        ),
-        Text(
-          "PKR ${searchlist[index].price.toString()}",
-          style: const TextStyle(
-            fontWeight: FontWeight.normal,
-            fontSize: 14,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Card buildCard(int index) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(27),
-      ),
-      child: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(27),
-              image: DecorationImage(
-                  image: NetworkImage(
-                    searchlist[index].image,
-                  ),
-                  fit: BoxFit.cover),
-            ),
-          ),
-          searchlist[index].ar_link != null
-              ? const Positioned(
-                  right: 10,
-                  top: 10,
-                  child: Icon(
-                    Icons.camera,
-                    color: Colors.white,
-                    size: 20,
-                  ),
-                )
-              : const SizedBox(),
-        ],
       ),
     );
   }

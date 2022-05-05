@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/brand_builder_widget.dart';
+import 'package:gocart/Main%20Screen%20Pages/Widgets/item_grid_widget.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/trending_builder_widget.dart';
 import 'package:gocart/Models/brand_model.dart';
 import 'package:gocart/Models/brand_provider.dart';
@@ -10,6 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../Models/address_provider.dart';
+import '../Models/search_provider.dart';
 import '../Models/user_provider.dart';
 
 class Home extends StatelessWidget {
@@ -18,6 +20,7 @@ class Home extends StatelessWidget {
   }) : super(key: key);
 
   List<Item> items = [];
+  List<Item> trending = [];
   List<Brand> brands = [];
   List<String> addressIDs = [];
   List<String> cardIDs = [];
@@ -28,6 +31,8 @@ class Home extends StatelessWidget {
     final double screenWidth = MediaQuery.of(context).size.width;
 
     items = context.read<ItemProvider>().items;
+    context.read<SearchProvider>().filterByTrending();
+    trending = context.read<SearchProvider>().search;
     brands = context.read<BrandProvider>().brands;
     Future.delayed(Duration.zero, () async {
       // Load Saved Address
@@ -58,53 +63,57 @@ class Home extends StatelessWidget {
       );
     }
 
+    Widget moreForYouBuilder() {
+      items.shuffle();
+      return GridView.count(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          childAspectRatio: screenWidth / (screenHeight * 0.65),
+          crossAxisCount: 3,
+          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+          children: [
+            for (var i = 0; i < items.length; i++)
+              ItemCard(items: items, index: i),
+          ]);
+    }
+
     return SingleChildScrollView(
-      child: Center(
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: screenHeight * 0.03,
-            ),
-            textDivider('Recomended Brands'),
-            SizedBox(
-              height: screenHeight * 0.015,
-            ),
-            BrandListBuilder(
-              screenWidth: screenWidth,
-              arCompatiblity: false,
-              brands: brands,
-              // items: items,
-            ),
-            SizedBox(
-              height: screenHeight * 0.015,
-            ),
-            textDivider('Trending'),
-            SizedBox(
-              height: screenHeight * 0.015,
-            ),
-            // ItemCardList(
-            //   screenWidth: screenWidth,
-            //   cardWidth: 100,
-            //   hasSubtext: true,
-            //   isTrending: true,
-            //   items: items,
-            //   brands: brands,
-            // ),
-            TrendingListBuilder(screenWidth: screenWidth, items: items),
-            SizedBox(
-              height: screenHeight * 0.015,
-            ),
-            textDivider('AR Compatible'),
-            SizedBox(
-              height: screenHeight * 0.015,
-            ),
-            BrandListBuilder(
-              screenWidth: screenWidth,
-              arCompatiblity: true,
-              brands: brands,
-            ),
-          ],
-        ),
+      child: Column(
+        children: <Widget>[
+          SizedBox(height: screenHeight * 0.03),
+          textDivider('Recomended Brands'),
+          SizedBox(height: screenHeight * 0.015),
+          BrandListBuilder(
+            screenWidth: screenWidth,
+            arCompatiblity: false,
+            brands: brands,
+            // items: items,
+          ),
+          SizedBox(height: screenHeight * 0.015),
+          textDivider('Trending'),
+          SizedBox(height: screenHeight * 0.015),
+          // ItemCardList(
+          //   screenWidth: screenWidth,
+          //   cardWidth: 100,
+          //   hasSubtext: true,
+          //   isTrending: true,
+          //   items: items,
+          //   brands: brands,
+          // ),
+          TrendingListBuilder(screenWidth: screenWidth, items: trending),
+          SizedBox(height: screenHeight * 0.015),
+          textDivider('AR Compatible'),
+          SizedBox(height: screenHeight * 0.015),
+          BrandListBuilder(
+            screenWidth: screenWidth,
+            arCompatiblity: true,
+            brands: brands,
+          ),
+          textDivider('More For You'),
+          SizedBox(height: screenHeight * 0.015),
+          // Item Grids
+          moreForYouBuilder(),
+        ],
       ),
     );
   }

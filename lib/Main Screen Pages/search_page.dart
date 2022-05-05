@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/searchlist_builder_widget.dart';
 import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/Models/item_provider.dart';
+import 'package:gocart/Models/search_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -15,12 +16,121 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   final TextEditingController _searchController = TextEditingController();
   List<Item> list = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<SearchProvider>().resetSearch();
+  }
 
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
 
-    list = context.watch<ItemProvider>().items;
+    list = context.watch<SearchProvider>().search;
+    // Get List of all Filters
+    List<String> allCategories = context.read<ItemProvider>().getAllCategory();
+    List<String> allColors = context.read<ItemProvider>().getAllColors();
+    List<String> allSizes = context.read<ItemProvider>().getAllSizes();
+    // Filter Button
+    Row filterButton(double screenHeight) {
+      return Row(
+        children: [
+          Expanded(
+            child: Container(
+              height: 1,
+              color: Colors.grey,
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          InkWell(
+            onTap: () async {
+              bool isFilter = false;
+              isFilter = await showDialog(
+                  barrierDismissible: false,
+                  context: context,
+                  builder: (context) {
+                    return StreamBuilder<Object>(
+                        stream: null,
+                        builder: (context, snapshot) {
+                          return SimpleDialog(
+                            title: const Text("Filter Search"),
+                            children: [
+                              FilterOptionWidget(
+                                items: allCategories,
+                                title: "Category",
+                              ),
+                              FilterOptionWidget(
+                                items: allColors,
+                                title: "Colors",
+                              ),
+                              FilterOptionWidget(
+                                items: allSizes,
+                                title: "Size",
+                              ),
+                              const FilterOptionWidget(
+                                items: <String>[
+                                  'Yes',
+                                  'No',
+                                ],
+                                title: "AR Compatible",
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 32.0, right: 32),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop(false);
+                                      },
+                                      child: const Text(
+                                        "Cancel",
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                        ),
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        // Get Filter Data based on selected filters
+                                        context
+                                            .read<SearchProvider>()
+                                            .filterProds();
+                                        Navigator.of(context).pop(true);
+                                      },
+                                      child: const Text(
+                                        "Filter",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        });
+                  });
+            },
+            child: Text(
+              'Filter Search',
+              style: GoogleFonts.poppins(
+                  color: Colors.grey,
+                  fontSize: screenHeight * 0.020,
+                  fontWeight: FontWeight.w300,
+                  decoration: TextDecoration.underline),
+            ),
+          ),
+        ],
+      );
+    }
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 32),
@@ -35,119 +145,6 @@ class _SearchPageState extends State<SearchPage> {
           SearchListBuilder(items: list, searchQuery: _searchController.text)
         ],
       ),
-    );
-  }
-
-  // Filter Button
-  Row filterButton(double screenHeight) {
-    return Row(
-      children: [
-        Expanded(
-          child: Container(
-            height: 1,
-            color: Colors.grey,
-          ),
-        ),
-        const SizedBox(
-          width: 10,
-        ),
-        InkWell(
-          onTap: () async {
-            bool isFilter = false;
-            isFilter = await showDialog(
-                barrierDismissible: false,
-                context: context,
-                builder: (context) {
-                  return StreamBuilder<Object>(
-                      stream: null,
-                      builder: (context, snapshot) {
-                        return SimpleDialog(
-                          title: const Text("Filter Search"),
-                          children: [
-                            const FilterOptionWidget(
-                              items: <String>[
-                                'T-Shirt',
-                                'Jeans',
-                                'Mask',
-                                'Specs',
-                                'Kurtis',
-                                'Shoes',
-                              ],
-                              title: "Category",
-                            ),
-                            const FilterOptionWidget(
-                              items: <String>[
-                                'Black',
-                                'Red',
-                                'Yellow',
-                                'Blue',
-                              ],
-                              title: "Colors",
-                            ),
-                            const FilterOptionWidget(
-                              items: <String>[
-                                'Small',
-                                'Medium',
-                                'Large',
-                                'Extra Large'
-                              ],
-                              title: "Size",
-                            ),
-                            const FilterOptionWidget(
-                              items: <String>[
-                                'Yes',
-                                'No',
-                              ],
-                              title: "AR Compatible",
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 32.0, right: 32),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop(false);
-                                    },
-                                    child: const Text(
-                                      "Cancel",
-                                      style: TextStyle(
-                                        color: Colors.red,
-                                      ),
-                                    ),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop(true);
-                                    },
-                                    child: const Text(
-                                      "Filter",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        );
-                      });
-                });
-          },
-          child: Text(
-            'Filter Search',
-            style: GoogleFonts.poppins(
-                color: Colors.grey,
-                fontSize: screenHeight * 0.020,
-                fontWeight: FontWeight.w300,
-                decoration: TextDecoration.underline),
-          ),
-        ),
-      ],
     );
   }
 
@@ -197,9 +194,7 @@ class FilterOptionWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text("$title: "),
-          DropDownWidget(
-            items: items,
-          ),
+          DropDownWidget(items: items),
         ],
       ),
     );

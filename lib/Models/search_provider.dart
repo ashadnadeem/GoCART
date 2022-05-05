@@ -12,6 +12,13 @@ class SearchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // Reset the search list
+  void resetSearch() {
+    search_list = [];
+    search_list.addAll(original_list);
+    notifyListeners();
+  }
+
   // search_list filters the list of products based on brandId
   void filterByBrand({brandid}) {
     search_list = [];
@@ -71,7 +78,18 @@ class SearchProvider extends ChangeNotifier {
   void filterByAR() {
     search_list = [];
     for (var item in original_list) {
-      if (item.ar_link != null) {
+      if (item.arLink.isNotEmpty) {
+        search_list.add(item);
+      }
+    }
+    notifyListeners();
+  }
+
+  // filter by is trending
+  void filterByTrending() {
+    search_list = [];
+    for (var item in original_list) {
+      if (item.isTrending) {
         search_list.add(item);
       }
     }

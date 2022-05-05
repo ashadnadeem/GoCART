@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:gocart/Models/item_model.dart';
 
@@ -5,6 +6,35 @@ class ItemProvider extends ChangeNotifier {
   List<Item> list = [];
 
   List<Item> get items => list;
+
+  CollectionReference firebaseProducts =
+      FirebaseFirestore.instance.collection('products');
+
+  Future<void> loadProducts() async {
+    await firebaseProducts.get().then((QuerySnapshot querySnapshot) {
+      querySnapshot.docs.forEach((doc) {
+        ItemModel itemModel =
+            ItemModel.fromJson(doc.data() as Map<String, dynamic>);
+        Item item = Item(
+          name: itemModel.name,
+          price: itemModel.price,
+          description: itemModel.description,
+          image: itemModel.image,
+          category: itemModel.category,
+          brandID: itemModel.brandID,
+          colors: itemModel.colors,
+          sizes: itemModel.sizes,
+          arLink: itemModel.arLink,
+          isTrending: itemModel.isTrending,
+        );
+        item.id = doc.id;
+        list.add(item);
+        print(item.name);
+        print(item.brandID);
+      });
+    });
+    notifyListeners();
+  }
 
   void addItem(Item item) {
     list.add(item);
