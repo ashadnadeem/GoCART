@@ -1,4 +1,5 @@
 import 'package:camera/camera.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/main_page.dart';
 import 'package:gocart/Models/brand_model.dart';
@@ -85,6 +86,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool _isLoading = true;
+  AuthService _auth = AuthService();
   @override
   void initState() {
     super.initState();
@@ -109,20 +111,42 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       backgroundColor: Colors.yellow,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: _isLoading ? showSplashScreen : showOnboardingScreen(context),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => tryMe()),
-          );
-        },
-        tooltip: 'Try',
-        child: const Text('Try Me Page'),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      body: StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (_isLoading) {
+              // If its loading show loading splash screen
+              return Center(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: showSplashScreen,
+              ));
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              // If its waiting to load progress Indicator
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasData) {
+              // If user is logged in (Non-null user) show main page
+              return const MainPage();
+            }
+            // Else show OnBoarding Page
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: showOnboardingScreen(context),
+            );
+          }),
+      floatingActionButton: userAuth == null
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => tryMe()),
+                );
+              },
+              tooltip: 'Try',
+              child: const Text('Try Me Page'),
+            )
+          : null,
     );
   }
 
@@ -136,13 +160,8 @@ class _MyHomePageState extends State<MyHomePage> {
           height: 250,
           width: 350,
           decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: NetworkImage(
-                  // "https://somelink",
-                  "https://cdn.dribbble.com/users/2681962/screenshots/8971020/media/b476167100a1e276339525c6e578cb70.gif",
-                ),
-                fit: BoxFit.cover),
-          ),
+              image: DecorationImage(
+                  image: AssetImage("icon/onboarding.gif"), fit: BoxFit.cover)),
         ),
       ),
       const SizedBox(
@@ -159,13 +178,10 @@ class _MyHomePageState extends State<MyHomePage> {
       coolButton(
           text: "Get Started",
           functionToComply: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      user == null ? const SignupPage() : const MainPage()),
-              // MaterialPageRoute(builder: (context) => const MainPage()),
-            );
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const SignupPage())
+                // MaterialPageRoute(builder: (context) => const MainPage()),
+                );
           }),
       const SizedBox(height: 10),
       Row(
@@ -176,6 +192,8 @@ class _MyHomePageState extends State<MyHomePage> {
           InkWell(
             child: const Text("Login",
                 style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
                   color: Colors.red,
                   decoration: TextDecoration.underline,
                 )),

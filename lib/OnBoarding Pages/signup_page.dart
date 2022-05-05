@@ -66,8 +66,7 @@ class _SignupPageState extends State<SignupPage> {
                       borderRadius: BorderRadius.circular(5),
                       color: Colors.white,
                       image: const DecorationImage(
-                        image: NetworkImage(
-                            'https://img.icons8.com/color/48/000000/google-logo.png'),
+                        image: AssetImage('icon/google-logo.png'),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -98,6 +97,8 @@ class _SignupPageState extends State<SignupPage> {
                 child: const Text("Login",
                     style: TextStyle(
                       color: Colors.red,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                       decoration: TextDecoration.underline,
                     )),
                 onTap: () {

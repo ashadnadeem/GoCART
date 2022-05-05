@@ -84,6 +84,8 @@ flutter:
     - assets/mask_iba.png
     - assets/rayban_classic_transparent.png
     - assets/rayban_exotic_blue.png
+    - icon/onboarding.gif
+    - icon/google-logo.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
