@@ -98,7 +98,7 @@ class AuthService {
       return await _auth.sendPasswordResetEmail(email: email);
     } catch (e) {
       // print(e.toString());
-      return null;
+      return e.toString();
     }
   }
 }
