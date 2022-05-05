@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 import '../Models/address_provider.dart';
 import '../Models/search_provider.dart';
 import '../Models/user_provider.dart';
+import '../Models/wishlist_provider.dart';
 
 class Home extends StatelessWidget {
   Home({
@@ -24,6 +25,7 @@ class Home extends StatelessWidget {
   List<Brand> brands = [];
   List<String> addressIDs = [];
   List<String> cardIDs = [];
+  List<String> wishlistIDs = [];
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +43,10 @@ class Home extends StatelessWidget {
       // Load Saved Cards
       cardIDs = context.read<UserProvider>().user.cardIDs;
       context.read<CardProvider>().loadCard(cardIDs);
+
+      // Load Users WishList
+      wishlistIDs = context.read<UserProvider>().user.wishListIDs;
+      context.read<WishListProvider>().loadWishListItems(items, wishlistIDs);
     });
     Widget textDivider(String text) {
       return Row(

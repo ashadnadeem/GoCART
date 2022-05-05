@@ -77,4 +77,14 @@ class ItemProvider extends ChangeNotifier {
     }
     return sizes;
   }
+
+  Item getItemByID(String id) {
+    for (var item in list) {
+      if (item.id == id) {
+        return item;
+      }
+    }
+    // If not found return first item
+    return list.first;
+  }
 }

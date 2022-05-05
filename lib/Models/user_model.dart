@@ -24,6 +24,7 @@ class UserProfile {
   String display;
   List<String> addressIDs;
   List<String> cardIDs;
+  List<String> wishListIDs;
 
   UserProfile({
     required this.id,
@@ -35,6 +36,7 @@ class UserProfile {
     this.display = 'https://img.icons8.com/bubbles/50/000000/user.png',
     this.addressIDs = const [""],
     this.cardIDs = const [""],
+    this.wishListIDs = const [""],
   });
 }
 
@@ -48,6 +50,7 @@ class UserProfileModel {
   final String display;
   final List<String> addresses;
   final List<String> cards;
+  final List<String> wishListIDs;
 
   UserProfileModel({
     required this.email,
@@ -58,18 +61,29 @@ class UserProfileModel {
     required this.display,
     required this.addresses,
     required this.cards,
+    required this.wishListIDs,
   });
 
   static fromJson(Map<String, dynamic> json) {
+    var firebase_data = [];
+
     // Convert List<dynamic> to List<String> for addresses
-    var adressids = json['addressIDs'] as List<dynamic>;
+    firebase_data = json['addressIDs'] ?? [];
+    var adressids = firebase_data as List<dynamic>;
     List<String> addressIDs = [];
     for (var id in adressids) addressIDs.add(id.toString().trim());
 
-    // Convert List<dynamic> to List<String> for addresses
-    var cardids = json['cardIDs'] as List<dynamic>;
+    // Convert List<dynamic> to List<String> for cards
+    firebase_data = json['cardIDs'] ?? [];
+    var cardids = firebase_data as List<dynamic>;
     List<String> cardIDs = [];
     for (var id in cardids) cardIDs.add(id.toString().trim());
+
+    // Convert List<dynamic> to List<String> for wishlist
+    firebase_data = json['wishlistIDs'] ?? [];
+    var favids = firebase_data as List<dynamic>;
+    List<String> favIDs = [];
+    for (var id in favids) favIDs.add(id.toString().trim());
 
     return UserProfileModel(
       email: json['email'],
@@ -80,6 +94,7 @@ class UserProfileModel {
       display: json['display'],
       addresses: addressIDs,
       cards: cardIDs,
+      wishListIDs: favIDs,
     );
   }
 
@@ -93,6 +108,7 @@ class UserProfileModel {
       'display': display,
       'addressIDs': addresses,
       'cardIDs': cards,
+      'wishlistIDs': wishListIDs,
     };
   }
 }

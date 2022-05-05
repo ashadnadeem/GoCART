@@ -118,6 +118,7 @@ class UserProvider extends ChangeNotifier {
           display: user.display,
           addresses: user.addressIDs,
           cards: user.cardIDs,
+          wishListIDs: user.wishListIDs,
         ).toJson());
     print("${user.email} saved in Firebase");
   }
@@ -135,6 +136,7 @@ class UserProvider extends ChangeNotifier {
             display: user.display,
             addresses: user.addressIDs,
             cards: user.cardIDs,
+            wishListIDs: user.wishListIDs,
           ).toJson(),
         );
     notifyListeners();
@@ -152,7 +154,24 @@ class UserProvider extends ChangeNotifier {
       user.display = userModel.display;
       user.addressIDs = userModel.addresses;
       user.cardIDs = userModel.cards;
+      user.wishListIDs = userModel.wishListIDs;
     });
+    saveChanges();
+    notifyListeners();
+  }
+
+  removeFavItem(String id) {
+    var ids = user.wishListIDs;
+    ids.remove(id);
+    user.wishListIDs = ids;
+    saveChanges();
+    notifyListeners();
+  }
+
+  addFavItem(String id) {
+    var ids = user.wishListIDs;
+    ids.add(id);
+    user.wishListIDs = ids;
     saveChanges();
     notifyListeners();
   }

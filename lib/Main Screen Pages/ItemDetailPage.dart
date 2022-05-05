@@ -9,6 +9,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../Models/brand_provider.dart';
+import '../Models/item_provider.dart';
+import '../Models/user_provider.dart';
 
 class ItemDetail extends StatelessWidget {
   const ItemDetail({required this.product, Key? key}) : super(key: key);
@@ -263,9 +265,7 @@ class _ProductDrawerState extends State<ProductDrawer> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   addToCartButon(),
-                  FavButton(
-                    item: widget.product,
-                  ),
+                  FavButton(item: widget.product),
                 ],
               ),
             ],
@@ -287,14 +287,29 @@ class FavButton extends StatefulWidget {
 
 class _FavButtonState extends State<FavButton> {
   List<Item> wishlist = [];
+  List<String> wishlistIDs = [];
+  List<Item> allItems = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // Get all items
+    allItems = context.read<ItemProvider>().items;
+  }
+
   @override
   Widget build(BuildContext context) {
-    wishlist = context.read<WishListProvider>().wishlist;
+    // Get users wishlist ie. item IDs
+    wishlistIDs = context.read<UserProvider>().user.wishListIDs;
+    // Get Wishlist items from all items and IDs
+    context.read<WishListProvider>().loadWishListItems(allItems, wishlistIDs);
+    // Get wishlist items
+    wishlist = context.watch<WishListProvider>().getWishListItems;
     return IconButton(
       onPressed: () {
         isInWishList()
-            ? context.read<WishListProvider>().removeItem(widget.item)
-            : context.read<WishListProvider>().addItem(widget.item);
+            ? context.read<UserProvider>().removeFavItem(widget.item.id)
+            : context.read<UserProvider>().addFavItem(widget.item.id);
         setState(() {});
       },
       icon: isInWishList()

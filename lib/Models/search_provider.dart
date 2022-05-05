@@ -93,7 +93,7 @@ class SearchProvider extends ChangeNotifier {
         search_list.add(item);
       }
     }
-    notifyListeners();
+    // notifyListeners();
   }
 
   // filter prods

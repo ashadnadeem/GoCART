@@ -17,7 +17,7 @@ class _WishlistPageState extends State<WishlistPage> {
 
   @override
   Widget build(BuildContext context) {
-    list = context.read<WishListProvider>().wishlist;
+    list = context.watch<WishListProvider>().getWishListItems;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 32),
       child: Column(
@@ -31,9 +31,7 @@ class _WishlistPageState extends State<WishlistPage> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          WishListBuilder(
-            wishlist: list,
-          ),
+          WishListBuilder(wishlist: list),
         ],
       ),
     );

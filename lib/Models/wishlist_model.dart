@@ -1,7 +1,5 @@
-import 'package:gocart/Models/item_model.dart';
-
 class WishListItem {
-  WishListItem({required this.item});
+  WishListItem({required this.favItemId});
 
-  final Item item;
+  final String favItemId;
 }
