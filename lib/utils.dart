@@ -312,7 +312,7 @@ class coolButton extends StatelessWidget {
 
 // GocartTextField
 // ignore: camel_case_types
-class gocartTextField extends StatelessWidget {
+class gocartTextField extends StatefulWidget {
   gocartTextField({
     required this.hint,
     required this.control,
@@ -330,26 +330,43 @@ class gocartTextField extends StatelessWidget {
   final bool? editable;
   final int? length;
   final void Function(String)? onChangedFunction;
+
+  @override
+  State<gocartTextField> createState() => _gocartTextFieldState();
+}
+
+class _gocartTextFieldState extends State<gocartTextField> {
+  late bool _obscured;
+  late IconData _suffixIcon;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // Set Initial Value
+    _obscured = widget.pswd;
+    _suffixIcon = Icons.visibility_off;
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenSizeH = MediaQuery.of(context).size.height;
     return Padding(
-      padding: EdgeInsets.only(bottom: length == null ? 20 : 0),
+      padding: EdgeInsets.only(bottom: widget.length == null ? 20 : 0),
       child: TextField(
         autofocus: false,
-        onChanged: onChangedFunction,
-        maxLength: length,
-        enabled: editable,
-        obscureText: pswd,
-        keyboardType: textType,
-        controller: control,
+        onChanged: widget.onChangedFunction,
+        maxLength: widget.length,
+        enabled: widget.editable,
+        obscureText: _obscured,
+        keyboardType: widget.textType,
+        controller: widget.control,
         decoration: InputDecoration(
           // set size of input field
           contentPadding: EdgeInsets.symmetric(
               vertical: screenSizeH * 0.000, horizontal: 20),
           filled: true,
           fillColor: Colors.grey.shade300,
-          hintText: hint,
+          hintText: widget.hint,
           hintStyle: GoogleFonts.poppins(
             color: Colors.grey,
             fontSize: screenSizeH * 0.02,
@@ -358,6 +375,20 @@ class gocartTextField extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
             borderSide: BorderSide(width: 2.0),
           ),
+          // If its a password field, show a suffix icon
+          suffixIcon: !widget.pswd
+              ? null
+              : IconButton(
+                  icon: Icon(_suffixIcon),
+                  onPressed: () {
+                    // Toggle the suffix icon
+                    _obscured = !_obscured;
+                    setState(() {
+                      _obscured
+                          ? _suffixIcon = Icons.visibility_off
+                          : _suffixIcon = Icons.visibility;
+                    });
+                  }),
         ),
         style: GoogleFonts.poppins(
           color: Colors.black,
