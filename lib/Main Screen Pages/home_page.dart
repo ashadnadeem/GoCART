@@ -78,8 +78,9 @@ class Home extends StatelessWidget {
           crossAxisCount: 3,
           padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
           children: [
-            for (var i = 0; i < items.length; i++)
-              ItemCard(items: items, index: i)
+            // Load Only first 6 items
+            for (var i = 0; i < 6; i++) ItemCard(items: items, index: i),
+            // Load More Items redirect to another page with all items categorised
           ]);
     }
 

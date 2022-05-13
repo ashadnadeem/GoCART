@@ -113,7 +113,7 @@ class _CartListWidgetState extends State<CartListWidget> {
           title: Text(widget.cart[index].name),
           isThreeLine: true,
           subtitle: Text(
-              "${widget.cart[index].description}\nPKR ${widget.cart[index].price}"),
+              "${widget.cart[index].category}\nPKR ${widget.cart[index].price}"),
           trailing: IconButton(
             onPressed: () {
               Navigator.of(context).push(

@@ -32,7 +32,7 @@ class _WishListBuilderState extends State<WishListBuilder> {
               title: Text(widget.wishlist[index].name),
               isThreeLine: true,
               subtitle: Text(
-                  "${widget.wishlist[index].description}\nPKR ${widget.wishlist[index].price.toString()}"),
+                  "${widget.wishlist[index].category}\nPKR ${widget.wishlist[index].price.toString()}"),
               trailing: ArrowButton(item: widget.wishlist[index]),
             ),
           );

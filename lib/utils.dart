@@ -4,6 +4,9 @@ import 'package:gocart/rickroll.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 
+import 'Models/address_model.dart';
+import 'Models/debitcard_model.dart';
+
 // Logo
 // ignore: camel_case_types, must_be_immutable
 class logo extends StatelessWidget {
@@ -265,6 +268,97 @@ class dialogs {
                     },
                   ),
                 ])
+          ],
+        );
+      },
+    );
+  }
+
+  // popup dialog for returning the selected debit card option
+  // takes list of debit cards and returns the selected debit card
+  static Future<Object?> showSwapDialog(
+      BuildContext context, List<Object> listObject) async {
+    // Address Tile for Address swap
+    Widget addressTile(Address address) {
+      return ListTile(
+        leading: const Icon(Icons.home, size: 30),
+        title: Text(
+          address.name,
+          style: GoogleFonts.poppins(
+            fontSize: 20,
+            fontWeight: FontWeight.w900,
+            color: const Color.fromARGB(255, 59, 59, 61),
+          ),
+        ),
+        subtitle: Text(
+          address.phone + ", " + address.city + ", " + address.zip,
+          style: GoogleFonts.poppins(
+            fontSize: 15,
+            fontWeight: FontWeight.w300,
+            color: const Color.fromARGB(255, 59, 59, 61),
+          ),
+        ),
+      );
+    }
+
+    // Card Tile for Card Swap
+    Widget cardTile(DebitCard card) {
+      return ListTile(
+        leading: const Icon(Icons.sim_card_rounded, size: 30),
+        title: Text(
+          // last 4 digits of card number
+          card.cardNumber.substring(card.cardNumber.length - 4).padLeft(8, "*"),
+          style: GoogleFonts.poppins(
+            fontSize: 20,
+            fontWeight: FontWeight.w900,
+            color: const Color.fromARGB(255, 59, 59, 61),
+          ),
+        ),
+        subtitle: Text(
+          card.bankName,
+          style: GoogleFonts.poppins(
+            fontSize: 15,
+            fontWeight: FontWeight.w300,
+            color: const Color.fromARGB(255, 59, 59, 61),
+          ),
+        ),
+      );
+    }
+
+    return showDialog<Object>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: const Color.fromARGB(255, 232, 72, 85),
+          title: Text(
+              listObject is List<DebitCard>
+                  ? "Select a Debit Card"
+                  : "Select an Address",
+              style: const TextStyle(color: Colors.white)),
+          actions: <Widget>[
+            for (int i = 0; i < listObject.length; i++)
+              TextButton(
+                child: listObject[i] is DebitCard
+                    ? cardTile(listObject[i] as DebitCard)
+                    : addressTile(listObject[i] as Address),
+                onPressed: () {
+                  Navigator.of(context).pop(listObject[i]);
+                },
+              ),
+            TextButton(
+              child: Text(
+                'Cancel',
+                style: GoogleFonts.poppins(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w900,
+                  color: const Color.fromARGB(255, 59, 59, 61),
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
           ],
         );
       },

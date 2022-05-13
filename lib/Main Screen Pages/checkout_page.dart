@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:gocart/Account%20Screen%20Pages/Widgets/address_tile_widget.dart';
 import 'package:gocart/Main%20Screen%20Pages/ItemDetailPage.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/cart_list_widget.dart';
+import 'package:gocart/Models/debitcard_model.dart';
+import 'package:gocart/Models/debitcard_provider.dart';
 import 'package:gocart/Models/total_provider.dart';
+import 'package:gocart/Models/user_provider.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +26,29 @@ class _CheckoutPageState extends State<CheckoutPage> {
   List<Item> cart = [];
 //  final TextEditingController _totalController = TextEditingController();
   int total = 0;
+  DebitCard? _card;
+  late Address _selectedAddress;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    final List<Address> _address = context.read<AddressProvider>().list;
+    if (_address.isNotEmpty) {
+      // Check if user has any address
+      _selectedAddress = _address.first;
+    } else {
+      // Use a blank address for UI to not crash
+      _selectedAddress = Address(
+          name: "name",
+          address: "address",
+          city: "city",
+          phone: "phone",
+          zip: "zip");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -58,15 +84,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
     return Column(children: <Widget>[
       dividerRow("Delivery Address", Icons.swap_horiz_rounded),
       SizedBox(height: screenHeight * 0.01),
-      AddressTile(
-          address: Address(
-        name: "My Home",
-        address: "F-67, Apartment-C",
-        city: "Karachi",
-        zip: "74100",
-        phone: "+92 346 7755530",
-        defaultAddress: true,
-      )),
+      AddressTile(address: _selectedAddress, editable: false),
       SizedBox(height: screenHeight * 0.01),
     ]);
   }
@@ -79,8 +97,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
         SizedBox(height: screenHeight * 0.02),
         // Card for payment method
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          paymentButton("COD", true),
-          paymentButton("Card", false),
+          paymentButton("COD", _card == null),
+          paymentButton(
+              _card == null
+                  ? "Card"
+                  : _card!.cardNumber.substring(12).padLeft(8, "*"),
+              _card != null),
         ]),
         SizedBox(height: screenHeight * 0.02),
       ],
@@ -156,8 +178,20 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
   Widget paymentButton(text, isSelected) {
     final double screenHeight = MediaQuery.of(context).size.height;
+    DebitCard? selectedCard;
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: text == 'COD'
+          ? () {
+              _card = null;
+              setState(() {});
+            }
+          : () async {
+              List<DebitCard> debitCards = context.read<CardProvider>().Cards;
+              selectedCard = (await dialogs.showSwapDialog(context, debitCards))
+                  as DebitCard?;
+              _card = selectedCard;
+              setState(() {});
+            },
       child: Text(text),
       style: ElevatedButton.styleFrom(
         fixedSize: Size(screenHeight * 0.2, screenHeight * 0.02),
@@ -195,8 +229,20 @@ class _CheckoutPageState extends State<CheckoutPage> {
         icon != null
             ? Padding(
                 padding: const EdgeInsets.only(right: 16.0),
-                child: Icon(icon,
-                    color: Colors.black54, size: screenHeight * 0.04),
+                child: IconButton(
+                  icon: Icon(icon),
+                  color: Colors.black54,
+                  iconSize: screenHeight * 0.04,
+                  onPressed: () async {
+                    print("Swap Address");
+                    List<Address> addresses =
+                        context.read<AddressProvider>().addresses;
+                    _selectedAddress = (await dialogs.showSwapDialog(
+                            context, addresses)) as Address? ??
+                        addresses.first;
+                    setState(() {});
+                  },
+                ),
               )
             : Container(),
       ],

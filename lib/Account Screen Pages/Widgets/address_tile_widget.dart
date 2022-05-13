@@ -9,8 +9,10 @@ import '../../Models/user_provider.dart';
 
 // ignore: must_be_immutable
 class AddressTile extends StatelessWidget {
-  AddressTile({Key? key, required this.address}) : super(key: key);
+  AddressTile({Key? key, required this.address, this.editable = true})
+      : super(key: key);
   final Address address;
+  final bool editable;
   @override
   Widget build(BuildContext context) {
     final double screenSizeH = MediaQuery.of(context).size.height;
@@ -67,7 +69,11 @@ class AddressTile extends StatelessWidget {
                       height: 2,
                     ),
                   ),
-                  address.defaultAddress ? editButton() : deleteButton(),
+                  editable
+                      ? address.defaultAddress
+                          ? editButton()
+                          : deleteButton()
+                      : Container(width: 10),
                 ],
               ),
               // AddressBody(address: address),
