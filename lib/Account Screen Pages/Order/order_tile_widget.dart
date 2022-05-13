@@ -176,7 +176,7 @@ class OrderTile extends StatelessWidget {
             // Add rounded radius corners square image
             borderRadius: BorderRadius.circular(10),
             image: DecorationImage(
-              image: NetworkImage(order.cart[0].image),
+              image: NetworkImage(order.cart[0].images.first),
               // fit: BoxFit.cover,
             ),
           ),

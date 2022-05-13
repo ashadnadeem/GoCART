@@ -18,7 +18,9 @@ class ItemGrid extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            searchlist[index].name,
+            searchlist[index].name.split(" ").first +
+                " " +
+                searchlist[index].name.split(" ").last,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
@@ -47,7 +49,7 @@ class ItemGrid extends StatelessWidget {
                 borderRadius: BorderRadius.circular(27),
                 image: DecorationImage(
                     image: NetworkImage(
-                      searchlist[index].image,
+                      searchlist[index].images.first,
                     ),
                     fit: BoxFit.cover),
               ),

@@ -74,12 +74,12 @@ class Home extends StatelessWidget {
       return GridView.count(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          childAspectRatio: screenWidth / (screenHeight * 0.65),
+          childAspectRatio: screenWidth / (screenHeight * 0.68),
           crossAxisCount: 3,
           padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
           children: [
             for (var i = 0; i < items.length; i++)
-              ItemCard(items: items, index: i),
+              ItemCard(items: items, index: i)
           ]);
     }
 

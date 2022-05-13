@@ -99,7 +99,7 @@ class _CartListWidgetState extends State<CartListWidget> {
                   color: const Color.fromARGB(255, 46, 44, 44),
                   image: DecorationImage(
                     image: NetworkImage(
-                      widget.cart[index].image,
+                      widget.cart[index].images.first,
                     ),
                     fit: BoxFit.cover,
                   ),

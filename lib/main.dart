@@ -268,5 +268,15 @@ class _MyHomePageState extends State<MyHomePage> {
               image:
                   "https://fashiontimesmagazine.com/wp-content/uploads/2021/10/ff0fb676-bc35-4126-ab5f-ab85abd6dc1b.jpeg"),
         );
+    context.read<BrandProvider>().addItem(
+          Brand(
+              id: "404",
+              name: "Un-Branded",
+              address: "Karachi, Pakistan",
+              website: 'https://www.elo.com/',
+              hasAR: false,
+              image:
+                  "https://mark.trademarkia.com/services/logo.ashx?sid=86298674"),
+        );
   }
 }

@@ -8,7 +8,7 @@ class ItemProvider extends ChangeNotifier {
   List<Item> get items => list;
 
   CollectionReference firebaseProducts =
-      FirebaseFirestore.instance.collection('products');
+      FirebaseFirestore.instance.collection('products2');
 
   Future<void> loadProducts() async {
     await firebaseProducts.get().then((QuerySnapshot querySnapshot) {
@@ -19,7 +19,7 @@ class ItemProvider extends ChangeNotifier {
           name: itemModel.name,
           price: itemModel.price,
           description: itemModel.description,
-          image: itemModel.image,
+          images: itemModel.images,
           category: itemModel.category,
           brandID: itemModel.brandID,
           colors: itemModel.colors,

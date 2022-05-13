@@ -13,6 +13,7 @@
          visible in the Google Play Store on devices that support ARCore.
     -->
     <uses-feature android:name="android.hardware.camera.ar"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
 
     <application
         android:usesCleartextTraffic="true">

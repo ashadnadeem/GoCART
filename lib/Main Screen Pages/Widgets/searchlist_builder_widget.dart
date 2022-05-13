@@ -25,21 +25,18 @@ class _SearchListBuilderState extends State<SearchListBuilder> {
       child: ListView.separated(
         itemCount: widget.items.length,
         itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 8, top: 8),
-            child: (widget.items[index].name + widget.items[index].description)
-                    .toLowerCase()
-                    .contains(widget.searchQuery.toLowerCase())
-                ? ListTile(
-                    leading: ItemThumbnail(item: widget.items[index]),
-                    title: Text(widget.items[index].name),
-                    isThreeLine: true,
-                    subtitle: Text(
-                        "${widget.items[index].description}\nPKR ${widget.items[index].price.toString()}"),
-                    trailing: ArrowButton(item: widget.items[index]),
-                  )
-                : null,
-          );
+          return (widget.items[index].name + widget.items[index].description)
+                  .toLowerCase()
+                  .contains(widget.searchQuery.toLowerCase())
+              ? ListTile(
+                  leading: ItemThumbnail(item: widget.items[index]),
+                  title: Text(widget.items[index].name),
+                  isThreeLine: true,
+                  subtitle: Text(
+                      "${widget.items[index].category}\nPKR ${widget.items[index].price.toString()}"),
+                  trailing: ArrowButton(item: widget.items[index]),
+                )
+              : Container();
         },
         separatorBuilder: (context, index) =>
             (widget.items[index].name == widget.searchQuery)
@@ -93,7 +90,7 @@ class ItemThumbnail extends StatelessWidget {
         color: const Color.fromARGB(255, 46, 44, 44),
         image: DecorationImage(
           image: NetworkImage(
-            item.image,
+            item.images.first,
           ),
           fit: BoxFit.cover,
         ),

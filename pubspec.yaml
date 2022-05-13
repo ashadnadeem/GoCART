@@ -75,6 +75,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    # AR Objects 
     - assets/fox_face_mesh_texture.png
     - assets/glasses_round_gold.png
     - assets/glasses_round_golden.png
@@ -84,6 +85,7 @@ flutter:
     - assets/mask_iba.png
     - assets/rayban_classic_transparent.png
     - assets/rayban_exotic_blue.png
+    # Icons and Logos
     - icon/onboarding.gif
     - icon/google-logo.png
   #   - images/a_dot_ham.jpeg

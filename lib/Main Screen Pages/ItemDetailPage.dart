@@ -45,12 +45,12 @@ class BackDrop extends StatelessWidget {
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
     return Container(
-      child: Image.network(product.image),
+      child: Image.network(product.images.first),
       width: double.infinity,
       height: screenHeight * 0.4,
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: NetworkImage(product.image), fit: BoxFit.cover),
+            image: NetworkImage(product.images.first), fit: BoxFit.cover),
       ),
     );
   }
@@ -222,11 +222,16 @@ class _ProductDrawerState extends State<ProductDrawer> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(widget.product.name,
-                      style: GoogleFonts.poppins(
-                          fontSize: screenHeight * 0.04,
-                          fontWeight: FontWeight.w600),
-                      textAlign: TextAlign.center),
+                  Text(
+                    widget.product.name.split(" ").first +
+                        " " +
+                        widget.product.name.split(" ").last,
+                    maxLines: 1,
+                    style: GoogleFonts.poppins(
+                        fontSize: screenHeight * 0.03,
+                        fontWeight: FontWeight.w600),
+                    textAlign: TextAlign.start,
+                  ),
                   widget.product.arLink.isNotEmpty
                       ? ArCamButton(product: widget.product)
                       : Container(),
@@ -236,22 +241,22 @@ class _ProductDrawerState extends State<ProductDrawer> {
               Text('Rs: ${widget.product.price}',
                   style: GoogleFonts.poppins(
                       fontSize: screenHeight * 0.02,
-                      fontWeight: FontWeight.w300),
+                      fontWeight: FontWeight.w600),
                   textAlign: TextAlign.center),
               SizedBox(height: screenHeight * 0.01),
               // Category
               Text('Category: ${widget.product.category}',
                   style: GoogleFonts.poppins(
                       fontSize: screenHeight * 0.02,
-                      fontWeight: FontWeight.w300),
-                  textAlign: TextAlign.center),
+                      fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.start),
               SizedBox(height: screenHeight * 0.01),
               // Product Description
               Text(widget.product.description,
                   maxLines: 5,
                   overflow: TextOverflow.ellipsis,
                   style: GoogleFonts.poppins(
-                      fontSize: screenHeight * 0.025,
+                      fontSize: screenHeight * 0.018,
                       fontWeight: FontWeight.w300),
                   textAlign: TextAlign.start),
               // Color Selector from Filter

@@ -4,7 +4,7 @@ class Item {
     required this.name,
     required this.description,
     required this.price,
-    required this.image,
+    required this.images,
     required this.category,
     this.colors = const ['not selected', 'red', 'blue', 'green'],
     this.sizes = const ['NA', 'S', 'M', 'L', 'XL'],
@@ -18,7 +18,7 @@ class Item {
   final String description;
   final String category;
   final int price;
-  final String image;
+  final List<String> images;
   final bool isTrending;
   List<String> colors;
   List<String> sizes;
@@ -35,7 +35,7 @@ class ItemModel {
   final String description;
   final String category;
   final int price;
-  final String image;
+  final List<String> images;
   final List<String> colors;
   final List<String> sizes;
   final String arLink;
@@ -45,7 +45,7 @@ class ItemModel {
     required this.name,
     required this.description,
     required this.price,
-    required this.image,
+    required this.images,
     required this.category,
     this.colors = const ['not selected', 'red', 'blue', 'green'],
     this.sizes = const ['NA', 'S', 'M', 'L', 'XL'],
@@ -57,6 +57,7 @@ class ItemModel {
     // Convert List<dynamic> to List<String> for colors
     List<String> colorList = ['not selected'];
     List<String> sizeList = ['NA'];
+    List<String> imageList = [];
     if (json['colors'] != null) {
       var colors = json['colors'] as List<dynamic>;
       for (var id in colors) colorList.add(id.toString().trim());
@@ -65,16 +66,20 @@ class ItemModel {
       var sizes = json['sizes'] as List<dynamic>;
       for (var id in sizes) sizeList.add(id.toString().trim());
     }
+    if (json['images'] != null) {
+      var images = json['images'] as List<dynamic>;
+      for (var id in images) imageList.add(id.toString().trim());
+    }
     return ItemModel(
       name: json['name'],
-      description: json['description'],
-      price: json['price'],
-      image: json['image'],
+      description: json['description'] ?? "No description",
+      price: json['price'] ?? 0,
+      images: imageList,
       category: json['category'],
       colors: colorList,
       sizes: sizeList,
       arLink: json['arLink'] ?? "",
-      brandID: json['brandID'],
+      brandID: json['brandID'] ?? "404",
       isTrending: json['isTrending'] ?? false,
     );
   }
@@ -84,7 +89,7 @@ class ItemModel {
       'name': name,
       'description': description,
       'price': price,
-      'image': image,
+      'image': images,
       'category': category,
       'colors': colors,
       'sizes': sizes,

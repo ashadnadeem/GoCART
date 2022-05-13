@@ -44,26 +44,31 @@ class ItemCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            items[index].name,
+            items[index].name.split(" ").first +
+                " " +
+                items[index].name.split(" ").last,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 16,
+              fontSize: 14,
             ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
           Text(
-            items[index].category,
+            items[index].category.split(' ').first,
             style: const TextStyle(
               fontWeight: FontWeight.normal,
               fontSize: 12,
             ),
           ),
           Text(
-            items[index].price.toString(),
+            "Rs: ${items[index].price}",
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 14,
             ),
           ),
+          const SizedBox(height: 8),
         ],
       );
     }
@@ -84,7 +89,7 @@ class ItemCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(27),
                 image: DecorationImage(
                   image: NetworkImage(
-                    items[index].image,
+                    items[index].images.first,
                   ),
                   fit: BoxFit.cover,
                 ),
@@ -107,8 +112,9 @@ class ItemCard extends StatelessWidget {
     }
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      // mainAxisSize: MainAxisSize.values[1],
       children: [
         InkWell(
           onTap: () {
@@ -121,9 +127,9 @@ class ItemCard extends StatelessWidget {
           child: buildCard(index),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: buildSubText(index),
-        )
+        ),
       ],
     );
   }

@@ -87,7 +87,7 @@ class _OrderHistoryDetailPageState extends State<OrderHistoryDetailPage> {
                         color: const Color.fromARGB(255, 46, 44, 44),
                         image: DecorationImage(
                           image: NetworkImage(
-                            widget.history.cart[index].image,
+                            widget.history.cart[index].images.first,
                           ),
                           fit: BoxFit.cover,
                         ),
