@@ -1,8 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/searchlist_builder_widget.dart';
+import 'package:gocart/Models/filter_query_model.dart';
 import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/Models/item_provider.dart';
 import 'package:gocart/Models/search_provider.dart';
+import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +20,7 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   final TextEditingController _searchController = TextEditingController();
   List<Item> list = [];
+  bool _filterPopup = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -26,12 +31,8 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-
+    _filterPopup = context.watch<SearchProvider>().getPopupOpen;
     list = context.watch<SearchProvider>().search;
-    // Get List of all Filters
-    List<String> allCategories = context.read<ItemProvider>().getAllCategory();
-    List<String> allColors = context.read<ItemProvider>().getAllColors();
-    List<String> allSizes = context.read<ItemProvider>().getAllSizes();
     // Filter Button
     Row filterButton(double screenHeight) {
       return Row(
@@ -46,78 +47,10 @@ class _SearchPageState extends State<SearchPage> {
             width: 10,
           ),
           InkWell(
-            onTap: () async {
-              bool isFilter = false;
-              isFilter = await showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (context) {
-                    return StreamBuilder<Object>(
-                        stream: null,
-                        builder: (context, snapshot) {
-                          return SimpleDialog(
-                            title: const Text("Filter Search"),
-                            children: [
-                              FilterOptionWidget(
-                                items: allCategories,
-                                title: "Category",
-                              ),
-                              FilterOptionWidget(
-                                items: allColors,
-                                title: "Colors",
-                              ),
-                              FilterOptionWidget(
-                                items: allSizes,
-                                title: "Size",
-                              ),
-                              const FilterOptionWidget(
-                                items: <String>[
-                                  'Yes',
-                                  'No',
-                                ],
-                                title: "AR Compatible",
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 32.0, right: 32),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop(false);
-                                      },
-                                      child: const Text(
-                                        "Cancel",
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        // Get Filter Data based on selected filters
-                                        context
-                                            .read<SearchProvider>()
-                                            .filterProds();
-                                        Navigator.of(context).pop(true);
-                                      },
-                                      child: const Text(
-                                        "Filter",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          );
-                        });
-                  });
+            onTap: () {
+              context.read<SearchProvider>().resetSearch();
+              context.read<SearchProvider>().openPopup();
+              setState(() {});
             },
             child: Text(
               'Filter Search',
@@ -134,17 +67,29 @@ class _SearchPageState extends State<SearchPage> {
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 32),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          searchBar(),
-          SizedBox(
-            height: screenHeight * 0.02,
-          ),
-          filterButton(screenHeight),
-          SearchListBuilder(items: list, searchQuery: _searchController.text)
-        ],
-      ),
+      child: Stack(children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            // Search Bar
+            searchBar(),
+            SizedBox(height: screenHeight * 0.02),
+            // Filter Button Divider
+            filterButton(screenHeight),
+            // Filter Results
+            SearchListBuilder(items: list, searchQuery: _searchController.text)
+          ],
+        ),
+        _filterPopup
+            ? BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                child: Container(),
+              )
+            : Container(),
+        _filterPopup
+            ? Center(heightFactor: 5.0, child: FilterMenu())
+            : Container(),
+      ]),
     );
   }
 
@@ -175,67 +120,346 @@ class _SearchPageState extends State<SearchPage> {
   }
 }
 
-class FilterOptionWidget extends StatelessWidget {
-  const FilterOptionWidget({
-    Key? key,
-    required this.items,
-    required this.title,
-  }) : super(key: key);
+class FilterMenu extends StatefulWidget {
+  FilterMenu({Key? key}) : super(key: key);
 
-  final List<String> items;
-  final String title;
+  @override
+  State<FilterMenu> createState() => _FilterMenuState();
+}
+
+class _FilterMenuState extends State<FilterMenu> {
+  int min = 0;
+  int max = 100;
+  bool isARCompatible = false;
+  late double _fontSize;
+  late List<String> allCategories;
+  late List<String> allColors;
+  late List<String> allSizes;
+  late List<int> priceRange;
+  late FilterQuery filterQuery;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    filterQuery = FilterQuery();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 32.0, right: 32),
-      child: Row(
+    final double screenHeight = MediaQuery.of(context).size.height;
+    _fontSize = screenHeight * 0.017;
+    // Fetch
+    allCategories = context.read<ItemProvider>().getAllCategory();
+    allColors = context.read<ItemProvider>().getAllColors();
+    allSizes = context.read<ItemProvider>().getAllSizes();
+    priceRange = context.read<ItemProvider>().getPriceRange();
+
+    Widget categoryDropDown() {
+      return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text("$title: "),
-          DropDownWidget(items: items),
+          Text(
+            "Category: ",
+            style: GoogleFonts.poppins(
+              color: Colors.black54,
+              fontSize: _fontSize,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          Expanded(child: Container()),
+          Container(
+            padding: const EdgeInsets.only(left: 16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: Colors.black54,
+                width: 1,
+              ),
+              color: Colors.white70,
+            ),
+            child: DropdownButton<String>(
+              value: filterQuery.category == ""
+                  ? allCategories.first
+                  : filterQuery.category,
+              icon: const Icon(Icons.arrow_drop_down),
+              iconSize: screenHeight * 0.05,
+              dropdownColor: Colors.grey.shade50,
+              elevation: 0,
+              alignment: AlignmentDirectional.centerStart,
+              borderRadius: BorderRadius.circular(15),
+              style: GoogleFonts.poppins(
+                color: Colors.black54,
+                fontSize: screenHeight * 0.015,
+                fontWeight: FontWeight.w500,
+              ),
+              onChanged: (String? newValue) {
+                filterQuery.category = newValue ?? "";
+                setState(() {});
+              },
+              items: allCategories.map((opt) {
+                return DropdownMenuItem<String>(
+                  value: opt,
+                  child: Text(opt.split(" ").first),
+                );
+              }).toList(),
+            ),
+          ),
         ],
-      ),
-    );
-  }
-}
+      );
+    }
 
-class DropDownWidget extends StatefulWidget {
-  const DropDownWidget({Key? key, required this.items}) : super(key: key);
+    Widget sizeFilter() {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            "Size: ",
+            style: GoogleFonts.poppins(
+              color: Colors.black54,
+              fontSize: _fontSize,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          Expanded(child: Container()),
+          Container(
+            padding: const EdgeInsets.only(left: 16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: Colors.black54,
+                width: 1,
+              ),
+              color: Colors.white70,
+            ),
+            child: DropdownButton<String>(
+              value: filterQuery.size == "" ? allSizes.first : filterQuery.size,
+              icon: const Icon(Icons.arrow_drop_down),
+              iconSize: screenHeight * 0.05,
+              dropdownColor: Colors.grey.shade50,
+              elevation: 0,
+              alignment: AlignmentDirectional.centerStart,
+              borderRadius: BorderRadius.circular(15),
+              style: GoogleFonts.poppins(
+                color: Colors.black54,
+                fontSize: screenHeight * 0.015,
+                fontWeight: FontWeight.w500,
+              ),
+              onChanged: (String? newValue) {
+                filterQuery.size = newValue ?? "";
+                setState(() {});
+              },
+              items: allSizes.map((opt) {
+                return DropdownMenuItem<String>(
+                  value: opt,
+                  child: Text(opt),
+                );
+              }).toList(),
+            ),
+          ),
+        ],
+      );
+    }
 
-  final List<String> items;
+    Widget colorDropDown() {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            "Color: ",
+            style: GoogleFonts.poppins(
+              color: Colors.black54,
+              fontSize: _fontSize,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          Expanded(child: Container()),
+          Container(
+            padding: const EdgeInsets.only(left: 16),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: Colors.black54,
+                width: 1,
+              ),
+              color: Colors.white70,
+            ),
+            child: DropdownButton<String>(
+              value:
+                  filterQuery.color == "" ? allColors.first : filterQuery.color,
+              icon: const Icon(Icons.arrow_drop_down),
+              iconSize: screenHeight * 0.05,
+              dropdownColor: Colors.grey.shade50,
+              elevation: 0,
+              alignment: AlignmentDirectional.centerStart,
+              borderRadius: BorderRadius.circular(15),
+              style: GoogleFonts.poppins(
+                color: Colors.black54,
+                fontSize: screenHeight * 0.015,
+                fontWeight: FontWeight.w500,
+              ),
+              onChanged: (String? newValue) {
+                filterQuery.color = newValue ?? allColors.first;
+                setState(() {});
+              },
+              items: allColors.map((opt) {
+                return DropdownMenuItem<String>(
+                  value: opt,
+                  child: Text(opt),
+                );
+              }).toList(),
+            ),
+          ),
+        ],
+      );
+    }
 
-  @override
-  State<DropDownWidget> createState() => _DropDownWidgetState();
-}
+    Widget radioButton(text, isSelected, left) {
+      return ElevatedButton(
+        onPressed: () {
+          isARCompatible = text == "Yes" ? true : false;
+          filterQuery.arCompatible = isARCompatible;
+          setState(() {});
+        },
+        child: Text(text),
+        style: ElevatedButton.styleFrom(
+          fixedSize: Size(screenHeight * 0.06, screenHeight * 0.02),
+          primary: isSelected ? Colors.grey : Colors.white,
+          onPrimary: Colors.black54,
+          shape: RoundedRectangleBorder(
+            borderRadius: left
+                ? const BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    bottomLeft: Radius.circular(20),
+                  )
+                : const BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  ),
+          ),
+          shadowColor: Colors.grey.shade900,
+          side: BorderSide(color: Colors.grey.shade900, width: 1),
+        ),
+      );
+    }
 
-class _DropDownWidgetState extends State<DropDownWidget> {
-  String dropdownValue = "";
+    Widget arCompatible() {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(
+            "AR Compatible: ",
+            style: GoogleFonts.poppins(
+              color: Colors.black54,
+              fontSize: _fontSize,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          Expanded(child: Container()),
+          radioButton("Yes", isARCompatible, true),
+          radioButton("No", !isARCompatible, false),
+        ],
+      );
+    }
 
-  @override
-  void initState() {
-    dropdownValue = widget.items.first;
-    super.initState();
-  }
+    Widget priceTextBox() {
+      int scaleFactor = ((priceRange[1] - priceRange[0]) / 100).round();
+      int priceMin = scaleFactor * min;
+      int priceMax = scaleFactor * max;
+      filterQuery.price = [priceMin, priceMax];
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(
+            "Price: ",
+            style: GoogleFonts.poppins(
+              color: Colors.black54,
+              fontSize: _fontSize,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          Expanded(child: Container()),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: Colors.black54,
+                width: 1,
+              ),
+              color: Colors.white70,
+            ),
+            child: Text("PKR $priceMin - $priceMax.".padRight(30)),
+          ),
+        ],
+      );
+    }
 
-  @override
-  Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      value: dropdownValue,
-      icon: const Icon(Icons.arrow_drop_down_rounded),
-      elevation: 16,
-      onChanged: (String? newValue) {
-        setState(() {
-          dropdownValue = newValue!;
-        });
-      },
-      items: widget.items.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: SizedBox(width: 75, child: Text(value)),
-        );
-      }).toList(),
-    );
+    Widget priceSlider() {
+      return Container(
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+            color: Colors.black54,
+            width: 1,
+          ),
+          color: Colors.white70,
+        ),
+        child: RangeSlider(
+          values: RangeValues(min * 1.0, max * 1.0),
+          max: 100.0,
+          activeColor: Colors.redAccent,
+          onChanged: (newValues) {
+            min = newValues.start.round();
+            max = newValues.end.round();
+            setState(() {});
+          },
+        ),
+      );
+    }
+
+    return Container(
+        decoration: BoxDecoration(
+          color: Colors.grey[350],
+          borderRadius: BorderRadius.circular(32),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              "Filter Products",
+              style: GoogleFonts.poppins(
+                color: Colors.black54,
+                fontSize: _fontSize * 1.5,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+            const SizedBox(height: 16),
+            categoryDropDown(),
+            const SizedBox(height: 20),
+            sizeFilter(),
+            const SizedBox(height: 20),
+            colorDropDown(),
+            const SizedBox(height: 20),
+            arCompatible(),
+            const SizedBox(height: 20),
+            priceTextBox(),
+            const SizedBox(height: 20),
+            priceSlider(),
+            const SizedBox(height: 40),
+            coolButton(
+                text: "Filter",
+                functionToComply: () {
+                  context.read<SearchProvider>().filterByQuery(filterQuery);
+                  context.read<SearchProvider>().closePopup();
+                }),
+          ],
+        ));
   }
 }

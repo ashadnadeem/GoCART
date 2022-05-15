@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/ItemDetailPage.dart';
 import 'package:gocart/Models/item_model.dart';
+import 'package:gocart/utils.dart';
 
 // Final list of items widget
 // ignore: must_be_immutable
@@ -30,7 +31,8 @@ class _SearchListBuilderState extends State<SearchListBuilder> {
                   .contains(widget.searchQuery.toLowerCase())
               ? ListTile(
                   leading: ItemThumbnail(item: widget.items[index]),
-                  title: Text(widget.items[index].name),
+                  title: Text(TextFormatter.productNameFormatter(
+                      widget.items[index].name)),
                   isThreeLine: true,
                   subtitle: Text(
                       "${widget.items[index].category}\nPKR ${widget.items[index].price.toString()}"),

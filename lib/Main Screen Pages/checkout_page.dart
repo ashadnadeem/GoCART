@@ -198,9 +198,18 @@ class _CheckoutPageState extends State<CheckoutPage> {
         primary: isSelected ? Colors.grey : Colors.white,
         onPrimary: Colors.black54,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: text == "COD"
+              ? const BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  bottomLeft: Radius.circular(20),
+                )
+              : const BorderRadius.only(
+                  topRight: Radius.circular(20),
+                  bottomRight: Radius.circular(20),
+                ),
         ),
         shadowColor: Colors.grey.shade900,
+        side: BorderSide(color: Colors.grey.shade900, width: 1),
       ),
     );
   }

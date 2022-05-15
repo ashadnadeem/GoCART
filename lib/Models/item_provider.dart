@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:gocart/Models/item_model.dart';
@@ -45,8 +47,8 @@ class ItemProvider extends ChangeNotifier {
     // Iterate through the list and get all the categories
     List<String> categories = [];
     for (var item in list) {
-      if (!categories.contains(item.category)) {
-        categories.add(item.category);
+      if (!categories.contains(item.category.split(' ')[0])) {
+        categories.add(item.category.split(' ')[0]);
       }
     }
     return categories;
@@ -76,6 +78,25 @@ class ItemProvider extends ChangeNotifier {
       }
     }
     return sizes;
+  }
+
+  List<int> getPriceRange() {
+    // Iterate through the list and get all the prices
+    // prices[0] = min price, prices[1] = max price
+    List<int> prices = [];
+    int max = 0;
+    int min = list.first.price;
+    for (var item in list) {
+      if (item.price > max) {
+        max = item.price;
+      }
+      if (item.price < min) {
+        min = item.price;
+      }
+    }
+    prices.add(min);
+    prices.add(max);
+    return prices;
   }
 
   Item getItemByID(String id) {
