@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/OnBoarding%20Pages/signup_page.dart';
 import 'package:gocart/utils.dart';
 
 import 'Services/auth.dart';
