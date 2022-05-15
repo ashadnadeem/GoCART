@@ -44,8 +44,8 @@ class _SignupPageState extends State<SignupPage> {
             ));
           } else {
             // Show error message
-            dialogs.errorDialog(
-                context, "Try again", res.toString().split("]").last.trim());
+            dialogs.errorToast(
+                error: TextFormatter.firebaseError(res.toString()));
           }
         },
         child: Padding(
@@ -144,8 +144,8 @@ class _SignupPageState extends State<SignupPage> {
             MaterialPageRoute(builder: (context) => const TellUsMorePage()));
       } else {
         // Show error
-        dialogs.errorDialog(
-            context, "Try again", result.toString().split("]").last.trim());
+        dialogs.errorToast(
+            error: TextFormatter.firebaseError(result.toString()));
       }
     }
 

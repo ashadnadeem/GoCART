@@ -3,6 +3,7 @@ import 'package:gocart/Account%20Screen%20Pages/Account%20Main/account_main_page
 import 'package:gocart/rickroll.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:progress_indicators/progress_indicators.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'Models/address_model.dart';
 import 'Models/debitcard_model.dart';
@@ -178,15 +179,22 @@ class HeaderBar extends StatelessWidget {
 // Dialog for confirm delete
 // ignore: camel_case_types
 class dialogs {
+  static errorToast({required String error}) {
+    error = TextFormatter.errorFormatter(text: error);
+    Fluttertoast.showToast(
+      msg: error,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  }
+
   static Future errorDialog(
       BuildContext context, String title, String message) {
-    // Error messages Formatting
-    message = message.split(" or ")[0];
-    message = message.split(".")[0] + ".";
-    message = message.replaceAll("String", "Field");
-    message = message.replaceAll("null", "blank");
-    message = message.replaceAll("badly", "incorrectly");
-    message = message.replaceAll("identifier", "email");
+    message = TextFormatter.errorFormatter(text: message);
     return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -557,5 +565,26 @@ class JumpingLogo extends StatelessWidget {
         ),
       ),
     ]);
+  }
+}
+
+class TextFormatter {
+  static String removeSpecialCharacters(String input) {
+    return input.replaceAll(RegExp(r'[^\w\s]+'), '');
+  }
+
+  static String firebaseError(String input) {
+    return input.toString().split("]").last.trim();
+  }
+
+  static String errorFormatter({required String text}) {
+    // Error messages Formatting
+    text = text.split(" or ")[0];
+    text = text.split(".")[0] + ".";
+    text = text.replaceAll("String", "Field");
+    text = text.replaceAll("null", "blank");
+    text = text.replaceAll("badly", "incorrectly");
+    text = text.replaceAll("identifier", "email");
+    return text;
   }
 }

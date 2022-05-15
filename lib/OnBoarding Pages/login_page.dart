@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gocart/OnBoarding%20Pages/forgotpsw.dart';
 import 'package:gocart/OnBoarding%20Pages/signup_page.dart';
 import 'package:gocart/utils.dart';
@@ -38,8 +39,8 @@ class _LoginPageState extends State<LoginPage> {
         ));
       } else {
         // Show error message
-        dialogs.errorDialog(
-            context, "Try again", result.toString().split("]").last.trim());
+        dialogs.errorToast(
+            error: TextFormatter.firebaseError(result.toString()));
       }
     }
 

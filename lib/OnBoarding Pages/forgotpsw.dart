@@ -22,8 +22,8 @@ class _forgotpswState extends State<forgotpsw> {
       if (response is String) {
         print(response);
         // Show error message
-        dialogs.errorDialog(
-            context, "Try again", response.toString().split("]").last.trim());
+        dialogs.errorToast(
+            error: TextFormatter.firebaseError(response.toString()));
       } else {
         // Navigate to Home Page
         Navigator.pop(context);
