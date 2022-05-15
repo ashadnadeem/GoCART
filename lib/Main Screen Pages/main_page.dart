@@ -5,6 +5,14 @@ import 'package:gocart/Main%20Screen%20Pages/home_page.dart';
 import 'package:gocart/Main%20Screen%20Pages/search_page.dart';
 import 'package:gocart/Main%20Screen%20Pages/wishlist_page.dart';
 import 'package:gocart/utils.dart';
+import 'package:provider/provider.dart';
+
+import '../Models/address_provider.dart';
+import '../Models/debitcard_provider.dart';
+import '../Models/item_model.dart';
+import '../Models/item_provider.dart';
+import '../Models/user_provider.dart';
+import '../Models/wishlist_provider.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -16,8 +24,30 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   List<Widget> list = [Home(), SearchPage(), WishlistPage(), CartPage()];
   int _currentIndex = 0;
+
+  // Load all the data from the Firebase for whole app
+  List<String> addressIDs = [];
+  List<String> cardIDs = [];
+  List<String> wishlistIDs = [];
   @override
   Widget build(BuildContext context) {
+    Future.delayed(const Duration(seconds: 1), () async {
+      List<Item> items = context.read<ItemProvider>().items;
+      print("ITEMS Loaded: ${items.length}");
+      // Load Saved Address
+      addressIDs = context.read<UserProvider>().user.addressIDs;
+      context.read<AddressProvider>().loadAddress(addressIDs);
+      print("ADDRESSES Loaded: ${addressIDs.length}");
+      // Load Saved Cards
+      cardIDs = context.read<UserProvider>().user.cardIDs;
+      context.read<CardProvider>().loadCard(cardIDs);
+      print("CARDS Loaded: ${cardIDs.length}");
+      // Load Users WishList
+      wishlistIDs = context.read<UserProvider>().user.wishListIDs;
+      context.read<WishListProvider>().loadWishListItems(items, wishlistIDs);
+      print("WISHLIST Loaded: ${wishlistIDs.length}");
+    });
+
     return Scaffold(
       appBar: const MyAppBar(implyLeading: false),
       body: list[_currentIndex],

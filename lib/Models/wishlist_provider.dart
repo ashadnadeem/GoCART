@@ -15,4 +15,18 @@ class WishListProvider extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void addToWishList(Item item) {
+    wishlistItems.add(item);
+    notifyListeners();
+  }
+
+  void removeFromWishList(Item item) {
+    wishlistItems.remove(item);
+    notifyListeners();
+  }
+
+  bool isInWishList(Item item) {
+    return wishlistItems.contains(item);
+  }
 }

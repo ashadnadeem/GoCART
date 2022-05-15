@@ -23,9 +23,6 @@ class Home extends StatelessWidget {
   List<Item> items = [];
   List<Item> trending = [];
   List<Brand> brands = [];
-  List<String> addressIDs = [];
-  List<String> cardIDs = [];
-  List<String> wishlistIDs = [];
 
   @override
   Widget build(BuildContext context) {
@@ -36,18 +33,7 @@ class Home extends StatelessWidget {
     context.read<SearchProvider>().filterByTrending();
     trending = context.read<SearchProvider>().search;
     brands = context.read<BrandProvider>().brands;
-    Future.delayed(Duration.zero, () async {
-      // Load Saved Address
-      addressIDs = context.read<UserProvider>().user.addressIDs;
-      context.read<AddressProvider>().loadAddress(addressIDs);
-      // Load Saved Cards
-      cardIDs = context.read<UserProvider>().user.cardIDs;
-      context.read<CardProvider>().loadCard(cardIDs);
 
-      // Load Users WishList
-      wishlistIDs = context.read<UserProvider>().user.wishListIDs;
-      context.read<WishListProvider>().loadWishListItems(items, wishlistIDs);
-    });
     Widget textDivider(String text) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.start,

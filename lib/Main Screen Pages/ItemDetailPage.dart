@@ -67,7 +67,6 @@ class BackDrop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenHeight = MediaQuery.of(context).size.height;
-    print(product.images);
     Widget imageCarousel() {
       return CarouselSlider(
           items: product.images.map((url) {
@@ -174,7 +173,7 @@ class _ProductDrawerState extends State<ProductDrawer> {
           // const Icon(Icons.color_lens),
           const SizedBox(width: 20),
           DropdownButton<String>(
-            value: widget.product.colors[0],
+            value: _color,
             icon: const Icon(Icons.arrow_drop_down),
             iconSize: screenHeight * 0.05,
             dropdownColor: Colors.red.shade100,
@@ -187,7 +186,7 @@ class _ProductDrawerState extends State<ProductDrawer> {
               fontWeight: FontWeight.w500,
             ),
             onChanged: (String? newValue) {
-              _color = newValue!;
+              _color = newValue ?? "not selected";
               setState(() {});
             },
             items: widget.product.colors.map((opt) {
@@ -217,7 +216,7 @@ class _ProductDrawerState extends State<ProductDrawer> {
           // const Icon(Icons.color_lens),
           const SizedBox(width: 20),
           DropdownButton<String>(
-            value: widget.product.sizes[0],
+            value: _size,
             icon: const Icon(Icons.arrow_drop_down),
             iconSize: screenHeight * 0.05,
             dropdownColor: Colors.red.shade100,
@@ -230,7 +229,7 @@ class _ProductDrawerState extends State<ProductDrawer> {
               fontWeight: FontWeight.w500,
             ),
             onChanged: (String? newValue) {
-              _color = newValue!;
+              _size = newValue ?? "NA";
               setState(() {});
             },
             items: widget.product.sizes.map((opt) {
@@ -317,7 +316,7 @@ class _ProductDrawerState extends State<ProductDrawer> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 addToCartButon(),
-                // FavButton(item: widget.product),
+                FavButton(item: widget.product),
               ],
             ),
           ],
@@ -337,33 +336,41 @@ class FavButton extends StatefulWidget {
 }
 
 class _FavButtonState extends State<FavButton> {
-  List<Item> wishlist = [];
-  List<String> wishlistIDs = [];
-  List<Item> allItems = [];
+  bool isFav = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // Get all items
-    allItems = context.read<ItemProvider>().items;
+    // Check if item is in fav list
+    isFav = context.read<WishListProvider>().isInWishList(widget.item);
   }
 
   @override
   Widget build(BuildContext context) {
-    // Get users wishlist ie. item IDs
-    wishlistIDs = context.read<UserProvider>().user.wishListIDs;
-    // Get Wishlist items from all items and IDs
-    context.read<WishListProvider>().loadWishListItems(allItems, wishlistIDs);
-    // Get wishlist items
-    wishlist = context.watch<WishListProvider>().getWishListItems;
+    void addFav() {
+      // Add to users wishlist list
+      context.read<UserProvider>().addFavItem(widget.item.id);
+      // Add to wishlist provider
+      context.read<WishListProvider>().addToWishList(widget.item);
+      isFav = true;
+      print('Added to wishlist');
+    }
+
+    void removeFav() {
+      // Remove from users wishlist list
+      context.read<UserProvider>().removeFavItem(widget.item.id);
+      // Remove from wishlist provider
+      context.read<WishListProvider>().removeFromWishList(widget.item);
+      isFav = false;
+      print('Removed from wishlist');
+    }
+
     return IconButton(
       onPressed: () {
-        isInWishList()
-            ? context.read<UserProvider>().removeFavItem(widget.item.id)
-            : context.read<UserProvider>().addFavItem(widget.item.id);
+        isFav ? removeFav() : addFav();
         setState(() {});
       },
-      icon: isInWishList()
+      icon: isFav
           ? const Icon(
               Icons.favorite_rounded,
               color: Colors.red,
@@ -375,17 +382,6 @@ class _FavButtonState extends State<FavButton> {
               size: 40,
             ),
     );
-  }
-
-  bool isInWishList() {
-    bool flag = false;
-    for (Item i in wishlist) {
-      if (i.id == widget.item.id) {
-        flag = true;
-        break;
-      }
-    }
-    return flag;
   }
 }
 
