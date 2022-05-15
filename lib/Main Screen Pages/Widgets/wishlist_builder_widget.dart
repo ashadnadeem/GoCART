@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/ItemDetailPage.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/searchlist_builder_widget.dart';
 import 'package:gocart/Models/item_model.dart';
+import 'package:gocart/utils.dart';
 
 class WishListBuilder extends StatefulWidget {
   WishListBuilder({Key? key, required this.wishlist}) : super(key: key);
@@ -29,7 +30,8 @@ class _WishListBuilderState extends State<WishListBuilder> {
                   ItemThumbnail(item: widget.wishlist[index]),
                 ],
               ),
-              title: Text(widget.wishlist[index].name),
+              title: Text(TextFormatter.productNameFormatter(
+                  widget.wishlist[index].name)),
               isThreeLine: true,
               subtitle: Text(
                   "${widget.wishlist[index].category}\nPKR ${widget.wishlist[index].price.toString()}"),

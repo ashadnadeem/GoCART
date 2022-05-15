@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/ItemDetailPage.dart';
 import 'package:gocart/Models/item_model.dart';
+import 'package:gocart/utils.dart';
 
 class TrendingListBuilder extends StatelessWidget {
   const TrendingListBuilder({
@@ -44,9 +45,7 @@ class ItemCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            items[index].name.split(" ").first +
-                " " +
-                items[index].name.split(" ").last,
+            TextFormatter.productNameFormatter(items[index].name),
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 14,

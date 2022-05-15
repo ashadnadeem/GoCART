@@ -587,4 +587,17 @@ class TextFormatter {
     text = text.replaceAll("identifier", "email");
     return text;
   }
+
+  static productNameFormatter(String name) {
+    name = name.split(" ").first + " " + name.split(" ").last;
+    // if both first and last name are same, remove last name
+    if (name.split(" ").first == name.split(" ").last) {
+      name = name.split(" ").first;
+    }
+    // capetalise first letter
+    name = name.split(" ").map((e) {
+      return e.substring(0, 1).toUpperCase() + e.substring(1);
+    }).join(" ");
+    return name;
+  }
 }

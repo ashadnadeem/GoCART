@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gocart/utils.dart';
 
 import '../../Models/item_model.dart';
 import '../ItemDetailPage.dart';
@@ -18,9 +19,7 @@ class ItemGrid extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            searchlist[index].name.split(" ").first +
-                " " +
-                searchlist[index].name.split(" ").last,
+            TextFormatter.productNameFormatter(searchlist[index].name),
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,

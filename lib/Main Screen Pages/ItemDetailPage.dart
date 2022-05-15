@@ -271,9 +271,7 @@ class _ProductDrawerState extends State<ProductDrawer> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  widget.product.name.split(" ").first +
-                      " " +
-                      widget.product.name.split(" ").last,
+                  TextFormatter.productNameFormatter(widget.product.name),
                   maxLines: 1,
                   style: GoogleFonts.poppins(
                       fontSize: screenHeight * 0.03,
