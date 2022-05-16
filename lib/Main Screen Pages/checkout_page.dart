@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gocart/Account%20Screen%20Pages/Widgets/address_tile_widget.dart';
 import 'package:gocart/Main%20Screen%20Pages/ItemDetailPage.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/cart_list_widget.dart';
+import 'package:gocart/Models/cart_model.dart';
 import 'package:gocart/Models/debitcard_model.dart';
 import 'package:gocart/Models/debitcard_provider.dart';
 import 'package:gocart/Models/total_provider.dart';
@@ -23,7 +24,7 @@ class CheckoutPage extends StatefulWidget {
 }
 
 class _CheckoutPageState extends State<CheckoutPage> {
-  List<Item> cart = [];
+  late Cart cart;
 //  final TextEditingController _totalController = TextEditingController();
   int total = 0;
   DebitCard? _card;

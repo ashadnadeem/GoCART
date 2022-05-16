@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/ItemDetailPage.dart';
 import 'package:gocart/Main%20Screen%20Pages/checkout_page.dart';
 import 'package:gocart/Main%20Screen%20Pages/main_page.dart';
+import 'package:gocart/Models/cart_model.dart';
 import 'package:gocart/Models/cart_provider.dart';
 import 'package:gocart/Models/item_model.dart';
+import 'package:gocart/Models/item_provider.dart';
 import 'package:gocart/Models/order_history_model.dart';
 import 'package:gocart/Models/order_history_provider.dart';
 import 'package:gocart/Models/total_provider.dart';
@@ -13,24 +15,29 @@ import 'package:provider/provider.dart';
 import 'dart:math';
 
 class CartListWidget extends StatefulWidget {
-  const CartListWidget({
+  CartListWidget({
     Key? key,
     required this.cart,
   }) : super(key: key);
 
-  final List<Item> cart;
+  Cart cart;
 
   @override
   State<CartListWidget> createState() => _CartListWidgetState();
 }
 
 class _CartListWidgetState extends State<CartListWidget> {
+  // late listOfItems = context.read()
+  Item getItemFromID(String prodID) {
+    return context.read<ItemProvider>().getItemByID(prodID);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.separated(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 34),
-        itemCount: widget.cart.length,
+        itemCount: widget.cart.productID.length,
         itemBuilder: (context, index) => ListTile(
           leading: Row(
             mainAxisSize: MainAxisSize.min,
@@ -45,14 +52,18 @@ class _CartListWidgetState extends State<CartListWidget> {
                     flex: 1,
                     child: InkWell(
                       onTap: () {
-                        context
-                            .read<CartProvider>()
-                            .incCount(widget.cart[index]);
+                        context.read<CartProvider>().addToCart(
+                            getItemFromID(widget.cart.productID[index]),
+                            "",
+                            "");
+                        // context
+                        //     .read<CartProvider>()
+                        //     .incCount(widget.cart[index]);
                         // total = total + (cart[index].price);
-                        context
-                            .read<TotalProvider>()
-                            .add(widget.cart[index].price);
-                        // _totalController.text = total.toString();
+                        // context
+                        //     .read<TotalProvider>()
+                        //     .add(widget.cart[index].price);
+                        // // _totalController.text = total.toString();
                         setState(() {});
                       },
                       child: const Icon(
@@ -63,7 +74,7 @@ class _CartListWidgetState extends State<CartListWidget> {
                   Expanded(
                     flex: 0,
                     child: Text(
-                      widget.cart[index].itemCount.toString(),
+                      widget.cart.qty[index].toString(),
                       // _totalController.text,
                     ),
                   ),
@@ -71,13 +82,15 @@ class _CartListWidgetState extends State<CartListWidget> {
                     flex: 1,
                     child: InkWell(
                       onTap: () {
-                        context
-                            .read<CartProvider>()
-                            .decCount(widget.cart[index]);
+                        context.read<CartProvider>().removeFromCart(
+                            getItemFromID(widget.cart.productID[index]));
+                        // context
+                        //     .read<CartProvider>()
+                        //     .decCount(widget.cart[index]);
                         // total = total - (cart[index].price);
-                        context
-                            .read<TotalProvider>()
-                            .sub(widget.cart[index].price);
+                        // context
+                        //     .read<TotalProvider>()
+                        //     .sub(widget.cart[index].price);
                         // _totalController.text = total.toString();
                         setState(() {});
                       },
@@ -99,7 +112,7 @@ class _CartListWidgetState extends State<CartListWidget> {
                   color: const Color.fromARGB(255, 46, 44, 44),
                   image: DecorationImage(
                     image: NetworkImage(
-                      widget.cart[index].images.first,
+                      getItemFromID(widget.cart.productID[index]).images.first,
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -110,15 +123,16 @@ class _CartListWidgetState extends State<CartListWidget> {
               // ),
             ],
           ),
-          title: Text(widget.cart[index].name),
+          title: Text(getItemFromID(widget.cart.productID[index]).name),
           isThreeLine: true,
           subtitle: Text(
-              "${widget.cart[index].category}\nPKR ${widget.cart[index].price}"),
+              "${getItemFromID(widget.cart.productID[index]).category}\nPKR ${getItemFromID(widget.cart.productID[index]).price}"),
           trailing: IconButton(
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => ItemDetail(product: widget.cart[index]),
+                  builder: (context) => ItemDetail(
+                      product: getItemFromID(widget.cart.productID[index])),
                 ),
               );
             },
@@ -148,7 +162,7 @@ class CartTotalWidget extends StatelessWidget {
 
   final int total;
   final String text;
-  final List<Item> cart;
+  final Cart cart;
 
   @override
   Widget build(BuildContext context) {
@@ -164,7 +178,7 @@ class CartTotalWidget extends StatelessWidget {
           ),
         ),
         Text(
-          total.toString(),
+          cart.total.toString(),
           style: GoogleFonts.poppins(
             fontSize: 22,
           ),
@@ -186,27 +200,27 @@ class CartTotalWidget extends StatelessWidget {
                     builder: (context) => const CheckoutPage(),
                   ),
                 );
-              } else {
-                int count = 0;
-                for (Item i in cart) {
-                  count = count + i.itemCount;
-                }
-                context.read<OrderHistoryProvider>().addItem(
-                      OrderHistory(
-                          orderID: (Random().nextInt(10000000)).toString(),
-                          status: "Booked",
-                          quantity: count,
-                          total: total,
-                          cart: cart),
-                    );
-                context.read<CartProvider>().clearCart();
-                context.read<TotalProvider>().clearTotal();
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        const SuccessScreen(nextPage: MainPage()),
-                  ),
-                );
+                // } else {
+                //   int count = 0;
+                //   for (Item i in cart) {
+                //     count = count + i.itemCount;
+                //   }
+                //   context.read<OrderHistoryProvider>().addItem(
+                //         OrderHistory(
+                //             orderID: (Random().nextInt(10000000)).toString(),
+                //             status: "Booked",
+                //             quantity: count,
+                //             total: total,
+                //             cart: cart),
+                //       );
+                //   // context.read<CartProvider>().clearCart();
+                //   context.read<TotalProvider>().clearTotal();
+                //   Navigator.of(context).push(
+                //     MaterialPageRoute(
+                //       builder: (context) =>
+                //           const SuccessScreen(nextPage: MainPage()),
+                //     ),
+                //   );
               }
             },
             child: Text(

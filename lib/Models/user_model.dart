@@ -22,6 +22,7 @@ class UserProfile {
   String address;
   String city;
   String display;
+  String cartID;
   List<String> addressIDs;
   List<String> cardIDs;
   List<String> wishListIDs;
@@ -33,6 +34,7 @@ class UserProfile {
     this.phone = '',
     this.address = '',
     this.city = '',
+    this.cartID = '',
     this.display = 'https://img.icons8.com/bubbles/50/000000/user.png',
     this.addressIDs = const [""],
     this.cardIDs = const [""],
@@ -48,6 +50,7 @@ class UserProfileModel {
   final String address;
   final String city;
   final String display;
+  final String cartID;
   final List<String> addresses;
   final List<String> cards;
   final List<String> wishListIDs;
@@ -62,6 +65,7 @@ class UserProfileModel {
     required this.addresses,
     required this.cards,
     required this.wishListIDs,
+    required this.cartID,
   });
 
   static fromJson(Map<String, dynamic> json) {
@@ -92,6 +96,7 @@ class UserProfileModel {
       address: json['address'],
       city: json['city'],
       display: json['display'],
+      cartID: json['cartID'] ?? "",
       addresses: addressIDs,
       cards: cardIDs,
       wishListIDs: favIDs,
@@ -109,6 +114,7 @@ class UserProfileModel {
       'addressIDs': addresses,
       'cardIDs': cards,
       'wishlistIDs': wishListIDs,
+      'cartID': cartID,
     };
   }
 }

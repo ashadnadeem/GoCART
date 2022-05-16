@@ -137,9 +137,9 @@ class _ProductDrawerState extends State<ProductDrawer> {
           shadowColor: Colors.grey.shade900,
         ),
         onPressed: () {
-          context.read<CartProvider>().addToCart(widget.product);
+          context.read<CartProvider>().addToCart(widget.product, _color, _size);
           context.read<TotalProvider>().add(widget.product.price);
-          context.read<CartProvider>().incCount(widget.product);
+          // context.read<CartProvider>().incCount(widget.product);
           Navigator.of(context).pop();
         },
         child: Row(

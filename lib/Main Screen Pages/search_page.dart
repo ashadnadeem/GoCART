@@ -25,7 +25,10 @@ class _SearchPageState extends State<SearchPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    context.read<SearchProvider>().resetSearch();
+    Future.delayed(const Duration(seconds: 6), () {
+      context.read<SearchProvider>().resetSearch();
+      setState(() {});
+    });
   }
 
   @override

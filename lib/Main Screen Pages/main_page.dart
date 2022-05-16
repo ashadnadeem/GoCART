@@ -4,6 +4,7 @@ import 'package:gocart/Main%20Screen%20Pages/CartPage.dart';
 import 'package:gocart/Main%20Screen%20Pages/home_page.dart';
 import 'package:gocart/Main%20Screen%20Pages/search_page.dart';
 import 'package:gocart/Main%20Screen%20Pages/wishlist_page.dart';
+import 'package:gocart/Models/cart_provider.dart';
 import 'package:gocart/utils.dart';
 import 'package:provider/provider.dart';
 
@@ -46,6 +47,9 @@ class _MainPageState extends State<MainPage> {
       wishlistIDs = context.read<UserProvider>().user.wishListIDs;
       context.read<WishListProvider>().loadWishListItems(items, wishlistIDs);
       print("WISHLIST Loaded: ${wishlistIDs.length}");
+
+      context.read<CartProvider>().initCart(context.read<UserProvider>().user);
+      print("Cart Loaded: ${wishlistIDs.length}");
     });
 
     return Scaffold(

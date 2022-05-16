@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/cart_list_widget.dart';
 import 'package:gocart/Main%20Screen%20Pages/checkout_page.dart';
+import 'package:gocart/Models/cart_model.dart';
 import 'package:gocart/Models/cart_provider.dart';
 import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/Models/total_provider.dart';
@@ -15,7 +16,7 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  List<Item> cart = [];
+  late Cart cart;
 //  final TextEditingController _totalController = TextEditingController();
   int total = 0;
 

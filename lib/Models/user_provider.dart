@@ -119,6 +119,7 @@ class UserProvider extends ChangeNotifier {
           addresses: user.addressIDs,
           cards: user.cardIDs,
           wishListIDs: user.wishListIDs,
+          cartID: user.id,
         ).toJson());
     print("${user.email} saved in Firebase");
   }
@@ -137,12 +138,14 @@ class UserProvider extends ChangeNotifier {
             addresses: user.addressIDs,
             cards: user.cardIDs,
             wishListIDs: user.wishListIDs,
+            cartID: user.id,
           ).toJson(),
         );
     notifyListeners();
   }
 
   void loadUserFromFirebase() async {
+    print(user.id);
     await firebaseUser.doc(user.id).get().then((doc) {
       // Load User from Firebase to User Provider
       UserProfileModel userModel =
@@ -155,6 +158,7 @@ class UserProvider extends ChangeNotifier {
       user.addressIDs = userModel.addresses;
       user.cardIDs = userModel.cards;
       user.wishListIDs = userModel.wishListIDs;
+      user.cartID = userModel.cartID;
     });
     saveChanges();
     notifyListeners();

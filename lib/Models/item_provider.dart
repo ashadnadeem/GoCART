@@ -31,8 +31,8 @@ class ItemProvider extends ChangeNotifier {
         );
         item.id = doc.id;
         list.add(item);
-        print(item.name);
-        print(item.brandID);
+        // print(item.name);
+        // print(item.brandID);
       });
     });
     notifyListeners();
