@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gocart/OnBoarding%20Pages/forgotpsw.dart';
 import 'package:gocart/OnBoarding%20Pages/signup_page.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../Entities/user_auth_entity.dart';
 import '../Main Screen Pages/main_page.dart';
-import '../Models/user_model.dart';
 import '../Services/auth.dart';
 import '../success_screen.dart';
 

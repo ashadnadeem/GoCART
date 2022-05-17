@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gocart/Models/user_model.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../Entities/user_auth_entity.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;

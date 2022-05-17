@@ -9,7 +9,6 @@ import 'package:gocart/Models/debitcard_provider.dart';
 import 'package:gocart/Models/item_provider.dart';
 import 'package:gocart/Models/order_history_provider.dart';
 import 'package:gocart/Models/search_provider.dart';
-import 'package:gocart/Models/user_model.dart';
 import 'package:gocart/Models/wishlist_provider.dart';
 import 'package:gocart/Services/auth.dart';
 import 'package:gocart/tryFile.dart';
@@ -17,6 +16,7 @@ import 'package:gocart/utils.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
+import 'Entities/user_auth_entity.dart';
 import 'Models/address_provider.dart';
 import 'Models/user_provider.dart';
 import 'OnBoarding Pages/login_page.dart';
