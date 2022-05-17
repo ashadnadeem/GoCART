@@ -2,6 +2,8 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:gocart/Entities/user_auth_entity.dart';
+import 'package:gocart/Entities/user_entity.dart';
 import 'package:gocart/Models/user_model.dart';
 import 'package:gocart/utils.dart';
 import 'package:provider/provider.dart';

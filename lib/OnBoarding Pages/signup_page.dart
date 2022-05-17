@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gocart/Entities/user_auth_entity.dart';
 import 'package:gocart/Models/user_model.dart';
 import 'package:gocart/OnBoarding%20Pages/tellusmore_page.dart';
 import 'package:gocart/Services/auth.dart';

@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:gocart/Entities/user_auth_entity.dart';
+import 'package:gocart/Entities/user_entity.dart';
 import 'package:gocart/Models/user_model.dart';
 
 // Stream Provider for Authentication
