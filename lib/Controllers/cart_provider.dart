@@ -127,4 +127,14 @@ class CartProvider extends ChangeNotifier {
 
     return cart.qty[index];
   }
+
+  void clearCart() {
+    cart.color = [];
+    cart.qty = [];
+    cart.size = [];
+    cart.productID = [];
+    cart.total = 0;
+    saveChanges();
+    notifyListeners();
+  }
 }

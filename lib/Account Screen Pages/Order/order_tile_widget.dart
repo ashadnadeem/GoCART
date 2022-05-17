@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gocart/Controllers/item_provider.dart';
+import 'package:gocart/Entities/item_entity.dart';
 import 'package:gocart/Models/order_history_model.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import 'order_history_details_page.dart';
 
@@ -128,7 +131,7 @@ class OrderTile extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    order.quantity.toString(),
+                    order.cart.qty.toString(),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: GoogleFonts.poppins(
@@ -151,7 +154,7 @@ class OrderTile extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  order.total.toString(),
+                  order.cart.total.toString(),
                   style: GoogleFonts.poppins(
                     fontSize: fontsize,
                     fontWeight: FontWeight.w300,
@@ -165,6 +168,9 @@ class OrderTile extends StatelessWidget {
     }
 
     Widget orderImage() {
+      Item item =
+          context.read<ItemProvider>().getItemByID(order.cart.productID.first);
+      print(item.name);
       return Padding(
         padding: const EdgeInsets.only(left: 8),
         child: Container(
@@ -174,8 +180,8 @@ class OrderTile extends StatelessWidget {
             // Add rounded radius corners square image
             borderRadius: BorderRadius.circular(10),
             image: DecorationImage(
-              image: NetworkImage(order.cart[0].images.first),
-              // fit: BoxFit.cover,
+              image: NetworkImage(item.images.first),
+              fit: BoxFit.cover,
             ),
           ),
         ),

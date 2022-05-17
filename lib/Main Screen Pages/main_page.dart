@@ -5,6 +5,7 @@ import 'package:gocart/Main%20Screen%20Pages/home_page.dart';
 import 'package:gocart/Main%20Screen%20Pages/search_page.dart';
 import 'package:gocart/Main%20Screen%20Pages/wishlist_page.dart';
 import 'package:gocart/Controllers/cart_provider.dart';
+import 'package:gocart/Models/order_history_provider.dart';
 import 'package:gocart/utils.dart';
 import 'package:provider/provider.dart';
 
@@ -30,6 +31,7 @@ class _MainPageState extends State<MainPage> {
   List<String> addressIDs = [];
   List<String> cardIDs = [];
   List<String> wishlistIDs = [];
+  List<String> orderHistoryIDs = [];
   @override
   Widget build(BuildContext context) {
     Future.delayed(const Duration(seconds: 1), () async {
@@ -50,6 +52,10 @@ class _MainPageState extends State<MainPage> {
 
       context.read<CartProvider>().initCart(context.read<UserProvider>().user);
       print("Cart Loaded: ${wishlistIDs.length}");
+      // Load Users OrderHistory
+      orderHistoryIDs = context.read<UserProvider>().user.orderHistoryIDs;
+      context.read<OrderHistoryProvider>().loadHistory(orderHistoryIDs);
+      print("Order History Loaded: ${orderHistoryIDs.length}");
     });
 
     return Scaffold(

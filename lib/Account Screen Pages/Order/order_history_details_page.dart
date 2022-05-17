@@ -54,7 +54,7 @@ class _OrderHistoryDetailPageState extends State<OrderHistoryDetailPage> {
           Expanded(
             child: ListView.separated(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 34),
-              itemCount: widget.history.cart.length,
+              itemCount: widget.history.cart.productID.length,
               itemBuilder: (context, index) => ListTile(
                 leading: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -69,7 +69,7 @@ class _OrderHistoryDetailPageState extends State<OrderHistoryDetailPage> {
                           Expanded(
                             flex: 0,
                             child: Text(
-                              "x${widget.history.cart[index].itemCount.toString()}",
+                              "x${widget.history.cart.qty[index].toString()}",
                               // _totalController.text,
                             ),
                           ),
@@ -87,7 +87,8 @@ class _OrderHistoryDetailPageState extends State<OrderHistoryDetailPage> {
                         color: const Color.fromARGB(255, 46, 44, 44),
                         image: DecorationImage(
                           image: NetworkImage(
-                            widget.history.cart[index].images.first,
+                            "",
+                            // widget.history.cart[index].images.first ,
                           ),
                           fit: BoxFit.cover,
                         ),
@@ -98,19 +99,21 @@ class _OrderHistoryDetailPageState extends State<OrderHistoryDetailPage> {
                     // ),
                   ],
                 ),
-                title: Text(widget.history.cart[index].name),
+                title: Text(widget.history.cart.color[index]),
+                // title: Text(widget.history.cart[index].name),
                 isThreeLine: true,
                 subtitle: Text(
-                    "${widget.history.cart[index].description}\n${widget.history.cart[index].price}"),
+                    "${widget.history.cart.qty[index]}\n${widget.history.cart.qty[index]}"),
+                // "${widget.history.cart[index].description}\n${widget.history.cart[index].price}"),
                 trailing: IconButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            ItemDetail(product: widget.history.cart[index]),
-                      ),
-                    );
-                  },
+                  onPressed: () {},
+                  //   Navigator.of(context).push(
+                  //     MaterialPageRoute(
+                  //       builder: (context) {}
+                  //          // ItemDetail(product: widget.history.cart.productID[index]),
+                  //     ),
+                  //   );
+                  // },
                   icon: const Icon(Icons.arrow_forward_ios_rounded),
                 ),
               ),
@@ -137,7 +140,7 @@ class _OrderHistoryDetailPageState extends State<OrderHistoryDetailPage> {
                 ),
               ),
               Text(
-                "PKR ${widget.history.total.toString()}",
+                "PKR ${widget.history.cart.total.toString()}",
                 style: GoogleFonts.poppins(
                   fontSize: 22,
                 ),

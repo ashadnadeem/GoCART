@@ -150,6 +150,7 @@ class UserProvider extends ChangeNotifier {
       user.cardIDs = userModel.cards;
       user.wishListIDs = userModel.wishListIDs;
       user.cartID = userModel.cartID;
+      user.orderHistoryIDs = userModel.orderHistoryIDs;
     });
     saveChanges();
     notifyListeners();
@@ -168,6 +169,17 @@ class UserProvider extends ChangeNotifier {
     ids.add(id);
     user.wishListIDs = ids;
     saveChanges();
+    notifyListeners();
+  }
+
+  void addNewOrder(orderid) {
+    List<String> ids = [];
+    for (var id in user.orderHistoryIDs) ids.add(id);
+    // remove blank address initially
+    // ids.remove("");
+    ids.add(orderid);
+    user.orderHistoryIDs = ids;
+    print("added new Order ${orderid}");
     notifyListeners();
   }
 }

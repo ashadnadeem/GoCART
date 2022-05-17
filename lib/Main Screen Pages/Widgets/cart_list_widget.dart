@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:gocart/Entities/address_entity.dart';
+import 'package:gocart/Entities/debitcard_entity.dart';
 import 'package:gocart/Main%20Screen%20Pages/ItemDetailPage.dart';
 import 'package:gocart/Main%20Screen%20Pages/checkout_page.dart';
 import 'package:gocart/Entities/cart_entity.dart';
 import 'package:gocart/Controllers/cart_provider.dart';
 import 'package:gocart/Controllers/item_provider.dart';
+import 'package:gocart/Models/order_history_model.dart';
+import 'package:gocart/Models/order_history_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../../Controllers/user_provider.dart';
 import '../../Entities/item_entity.dart';
 
 class CartListWidget extends StatefulWidget {
@@ -131,19 +136,40 @@ class _CartListWidgetState extends State<CartListWidget> {
 }
 
 class CartTotalWidget extends StatelessWidget {
-  const CartTotalWidget({
+  CartTotalWidget({
     Key? key,
     required this.total,
     required this.text,
     required this.cart,
+    required this.address,
+    this.card,
   }) : super(key: key);
 
   final int total;
   final String text;
   final Cart cart;
+  final DebitCard? card;
+  final String address;
 
   @override
   Widget build(BuildContext context) {
+    void saveMyOrder() async {
+      var order = OrderHistory(
+          cart: cart,
+          status: "Pending",
+          paymentMethod: card == null ? "COD" : card!.id,
+          deliveryAddress: address);
+      // Add a new order
+      var orderid =
+          await context.read<OrderHistoryProvider>().addOrderToHistory(order);
+      // Link the card to the user
+      context.read<UserProvider>().addNewOrder(orderid);
+      // Save changes to the user
+      context.read<UserProvider>().saveChanges();
+      context.read<CartProvider>().clearCart();
+      Navigator.of(context).pop();
+    }
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -178,6 +204,8 @@ class CartTotalWidget extends StatelessWidget {
                     builder: (context) => const CheckoutPage(),
                   ),
                 );
+              } else if (text == "Confirm") {
+                saveMyOrder();
               }
             },
             child: Text(

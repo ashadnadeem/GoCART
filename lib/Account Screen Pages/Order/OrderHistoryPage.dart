@@ -121,6 +121,7 @@
 // }
 import 'package:flutter/material.dart';
 import 'package:gocart/Account%20Screen%20Pages/Order/order_tile_widget.dart';
+import 'package:gocart/Controllers/user_provider.dart';
 import 'package:gocart/utils.dart';
 import 'package:provider/provider.dart';
 import '../../Models/order_history_model.dart';
@@ -129,18 +130,23 @@ import '../../Models/order_history_provider.dart';
 class OrderHistoryPage extends StatelessWidget {
   OrderHistoryPage({Key? key}) : super(key: key);
   List<OrderHistory> history = [];
+  // List<String> id = [];
   @override
   Widget build(BuildContext context) {
     // Get the Order history from the provider
-    history = context.read<OrderHistoryProvider>().items;
+    history = context.watch<OrderHistoryProvider>().hisotry;
+    // id = context.read<UserProvider>().userProfile.orderHistoryIDs;
     final double screenHeight = MediaQuery.of(context).size.height;
     Widget MyOrderList() {
+      print(history.length);
       return Column(
         children: <Widget>[
           // OrderTile for each order in the history
           // This is Equalent to ListView.builder
           // ie: just making a list of OrderTile
           for (var item in history) OrderTile(order: item),
+          for (var item in history) Text(item.orderID),
+          Text("Hot reload check"),
         ],
       );
     }

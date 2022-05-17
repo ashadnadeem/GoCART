@@ -17,6 +17,7 @@ class CardProvider extends ChangeNotifier {
     for (var id in cardIDs) {
       if (id == "") continue;
       var doc = await firebaseCard.doc(id).get();
+      if (doc.data() == null) continue;
       CardModel cardModel =
           CardModel.fromJson(doc.data() as Map<String, dynamic>);
       DebitCard card = DebitCard(

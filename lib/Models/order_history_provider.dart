@@ -6,7 +6,7 @@ import 'package:gocart/Models/order_history_model.dart';
 class OrderHistoryProvider extends ChangeNotifier {
   List<OrderHistory> list = [];
   CollectionReference firebaseHistory =
-      FirebaseFirestore.instance.collection('orderhisory');
+      FirebaseFirestore.instance.collection('orderhistory');
   List<OrderHistory> get hisotry => list;
 
   void loadHistory(orderIDs) async {
@@ -27,11 +27,11 @@ class OrderHistoryProvider extends ChangeNotifier {
             color: orderHistoryModel.color,
             size: orderHistoryModel.size,
             total: orderHistoryModel.total),
-        orderID: id,
         status: orderHistoryModel.status,
         paymentMethod: orderHistoryModel.paymentMethod,
         deliveryAddress: orderHistoryModel.deliveryAddress,
       );
+      order.orderID = id;
       list.add(order);
     }
     notifyListeners();
@@ -56,6 +56,16 @@ class OrderHistoryProvider extends ChangeNotifier {
     list.add(order);
     notifyListeners();
     return newRef.id;
+  }
+
+  Cart getOrderByID(String id) {
+    for (var item in list) {
+      if (item.orderID == id) {
+        return item.cart;
+      }
+    }
+    // If not found return first item
+    return list.first.cart;
   }
 
   // List<OrderHistory> list = [];
