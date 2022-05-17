@@ -5,6 +5,7 @@ import 'package:gocart/Controllers/item_provider.dart';
 import 'package:gocart/Controllers/user_provider.dart';
 import 'package:gocart/Entities/item_entity.dart';
 import 'package:gocart/Models/order_history_model.dart';
+import 'package:gocart/Models/order_history_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +22,6 @@ class OrderTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final double screenSizeH = MediaQuery.of(context).size.height;
     final double fontsize = screenSizeH * 0.015;
-
     var orderNums = context.read<UserProvider>().userProfile.orderHistoryIDs;
 
     int getIndex() {

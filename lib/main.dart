@@ -139,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ? FloatingActionButton(
               onPressed: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => TryMe()),
+                  MaterialPageRoute(builder: (context) => const TryMe()),
                 );
               },
               tooltip: 'Try',

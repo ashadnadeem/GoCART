@@ -197,6 +197,19 @@ class dialogs {
     );
   }
 
+  static messageToast({required String error}) {
+    error = TextFormatter.errorFormatter(text: error);
+    Fluttertoast.showToast(
+      msg: error,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.green,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  }
+
   static Future errorDialog(
       BuildContext context, String title, String message) {
     message = TextFormatter.errorFormatter(text: message);

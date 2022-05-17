@@ -7,7 +7,7 @@ class OrderHistoryProvider extends ChangeNotifier {
   List<OrderHistory> list = [];
   CollectionReference firebaseHistory =
       FirebaseFirestore.instance.collection('orderhistory');
-  List<OrderHistory> get hisotry => list;
+  List<OrderHistory> get history => list;
 
   void loadHistory(orderIDs) async {
     list = [];
@@ -16,7 +16,7 @@ class OrderHistoryProvider extends ChangeNotifier {
       if (id == "") continue;
 
       var doc = await firebaseHistory.doc(id).get();
-
+      if (doc.data() == null) continue;
       OrderHistoryModel orderHistoryModel =
           OrderHistoryModel.fromJson(doc.data() as Map<String, dynamic>);
       OrderHistory order = OrderHistory(
@@ -66,5 +66,15 @@ class OrderHistoryProvider extends ChangeNotifier {
     }
     // If not found return first item
     return list.first.cart;
+  }
+
+  OrderHistory getOrder(String orderid) {
+    for (var item in list) {
+      if (item.orderID == orderid) {
+        return item;
+      }
+    }
+    // If not found return first item
+    return list.first;
   }
 }

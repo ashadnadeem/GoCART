@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -32,11 +33,14 @@ class AddressTile extends StatelessWidget {
       return IconButton(
           icon: Icon(Icons.delete_forever_outlined,
               color: Colors.red, size: screenSizeH * 0.03),
-          onPressed: () {
+          onPressed: () async {
             // Delete Address from Firebase and Delink from User
-            context.read<AddressProvider>().deleteAddress(address);
-            context.read<UserProvider>().removeAddress(address.id);
-            context.read<UserProvider>().saveChanges();
+            bool opt = await dialogs.showDeleteConfirmationDialog(context);
+            if (opt) {
+              context.read<AddressProvider>().deleteAddress(address);
+              context.read<UserProvider>().removeAddress(address.id);
+              context.read<UserProvider>().saveChanges();
+            }
           });
     }
 

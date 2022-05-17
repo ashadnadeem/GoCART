@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:gocart/Controllers/user_provider.dart';
 import 'package:gocart/utils.dart';
 import 'package:provider/provider.dart';
 
@@ -9,17 +10,22 @@ import '../../../Models/order_history_provider.dart';
 import 'order_tile_widget.dart';
 
 // ignore: must_be_immutable
-class OrderHistoryPage extends StatelessWidget {
+class OrderHistoryPage extends StatefulWidget {
   OrderHistoryPage({Key? key}) : super(key: key);
+
+  @override
+  State<OrderHistoryPage> createState() => _OrderHistoryPageState();
+}
+
+class _OrderHistoryPageState extends State<OrderHistoryPage> {
   List<OrderHistory> history = [];
-  // List<String> id = [];
+
   @override
   Widget build(BuildContext context) {
     // Get the Order history from the provider
-    // history = context.read<OrderHistoryProvider>().items;
-    history = context.watch<OrderHistoryProvider>().hisotry;
-    // id = context.read<UserProvider>().userProfile.orderHistoryIDs;
-
+    // Load Users OrderHistory
+    history = context.watch<OrderHistoryProvider>().history;
+    print("ORDER HISTORY Loaded: ${history.length}");
     final double screenHeight = MediaQuery.of(context).size.height;
     // ignore: non_constant_identifier_names
     Widget MyOrderList() {

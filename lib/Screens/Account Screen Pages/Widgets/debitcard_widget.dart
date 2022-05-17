@@ -1,5 +1,6 @@
 import 'package:awesome_card/awesome_card.dart';
 import 'package:flutter/material.dart';
+import 'package:gocart/utils.dart';
 import 'package:provider/provider.dart';
 
 import '../../../Controllers/debitcard_provider.dart';
@@ -47,11 +48,14 @@ class BankCard extends StatelessWidget {
       return IconButton(
         icon: Icon(Icons.delete_forever_outlined,
             color: Colors.red, size: screenSizeH * 0.04),
-        onPressed: () {
+        onPressed: () async {
           // Delete Address from Firebase and Delink from User
-          context.read<CardProvider>().deleteCard(card);
-          context.read<UserProvider>().removeCard(card.id);
-          context.read<UserProvider>().saveChanges();
+          bool opt = await dialogs.showDeleteConfirmationDialog(context);
+          if (opt) {
+            context.read<CardProvider>().deleteCard(card);
+            context.read<UserProvider>().removeCard(card.id);
+            context.read<UserProvider>().saveChanges();
+          }
         },
       );
     }

@@ -331,11 +331,15 @@ class _OrderHistoryDetailPageState extends State<OrderHistoryDetailPage> {
                 color: Colors.black54,
               ),
             ),
-            Text(
-              widget.history.deliveryAddress,
-              style: GoogleFonts.poppins(
-                fontSize: fontsize,
-                fontWeight: FontWeight.w300,
+            Expanded(
+              child: Text(
+                widget.history.deliveryAddress,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: GoogleFonts.poppins(
+                  fontSize: fontsize,
+                  fontWeight: FontWeight.w300,
+                ),
               ),
             ),
           ],

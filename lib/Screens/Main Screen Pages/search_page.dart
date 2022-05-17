@@ -432,48 +432,53 @@ class _FilterMenuState extends State<FilterMenu> {
           borderRadius: BorderRadius.circular(32),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Row(
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.arrow_back_ios),
-                  iconSize: screenHeight * 0.03,
-                  onPressed: () {
-                    context.read<SearchProvider>().closePopup();
-                  },
-                ),
-                Text(
-                  "Filter Products",
-                  style: GoogleFonts.poppins(
-                    color: Colors.black54,
-                    fontSize: _fontSize * 1.5,
-                    fontWeight: FontWeight.w800,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back_ios),
+                    iconSize: screenHeight * 0.03,
+                    onPressed: () {
+                      context.read<SearchProvider>().closePopup();
+                    },
                   ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            categoryDropDown(),
-            const SizedBox(height: 20),
-            sizeFilter(),
-            const SizedBox(height: 20),
-            colorDropDown(),
-            const SizedBox(height: 20),
-            arCompatible(),
-            const SizedBox(height: 20),
-            priceTextBox(),
-            const SizedBox(height: 20),
-            priceSlider(),
-            const SizedBox(height: 40),
-            coolButton(
-                text: "Filter",
-                functionToComply: () {
-                  context.read<SearchProvider>().filterByQuery(filterQuery);
-                  context.read<SearchProvider>().closePopup();
-                }),
-          ],
+                  Text(
+                    "Filter Products",
+                    style: GoogleFonts.poppins(
+                      color: Colors.black54,
+                      fontSize: _fontSize * 1.5,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              categoryDropDown(),
+              const SizedBox(height: 20),
+              sizeFilter(),
+              const SizedBox(height: 20),
+              colorDropDown(),
+              const SizedBox(height: 20),
+              arCompatible(),
+              const SizedBox(height: 20),
+              priceTextBox(),
+              const SizedBox(height: 20),
+              priceSlider(),
+              const SizedBox(height: 40),
+              coolButton(
+                  text: "Filter",
+                  functionToComply: () {
+                    context.read<SearchProvider>().filterByQuery(filterQuery);
+                    context.read<SearchProvider>().closePopup();
+                    dialogs.messageToast(
+                        error:
+                            "Showing ${context.read<SearchProvider>().search_list.length}/${context.read<SearchProvider>().original_list.length} total products.");
+                  }),
+            ],
+          ),
         ));
   }
 }

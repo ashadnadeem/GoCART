@@ -5,6 +5,10 @@ import 'package:gocart/Controllers/cart_provider.dart';
 import 'package:gocart/Controllers/item_provider.dart';
 import 'package:gocart/Models/order_history_model.dart';
 import 'package:gocart/Models/order_history_provider.dart';
+import 'package:gocart/Screens/Main%20Screen%20Pages/home_page.dart';
+import 'package:gocart/Screens/Main%20Screen%20Pages/main_page.dart';
+import 'package:gocart/Screens/success_screen.dart';
+import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -167,7 +171,10 @@ class CartTotalWidget extends StatelessWidget {
       // Save changes to the user
       context.read<UserProvider>().saveChanges();
       context.read<CartProvider>().clearCart();
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop();
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => const SuccessScreen(nextPage: MainPage()),
+      ));
     }
 
     return Row(
@@ -199,13 +206,23 @@ class CartTotalWidget extends StatelessWidget {
             ),
             onPressed: () {
               if (text == "Checkout") {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const CheckoutPage(),
-                  ),
-                );
+                if (cart.total == 0) {
+                  dialogs.errorDialog(
+                      context, "Invalid Cart", "Cart can not be empty.");
+                } else {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const CheckoutPage(),
+                    ),
+                  );
+                }
               } else if (text == "Confirm") {
-                saveMyOrder();
+                if (cart.total == 0) {
+                  dialogs.errorDialog(
+                      context, "Invalid Cart", "Cart can not be empty.");
+                } else {
+                  saveMyOrder();
+                }
               }
             },
             child: Text(
