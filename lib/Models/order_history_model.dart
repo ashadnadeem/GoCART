@@ -3,7 +3,6 @@ import '../Entities/cart_entity.dart';
 class OrderHistory {
   OrderHistory({
     required this.cart,
-    required this.orderID,
     required this.status,
     required this.paymentMethod,
     required this.deliveryAddress,
@@ -15,7 +14,7 @@ class OrderHistory {
   });
 
   Cart cart;
-  String orderID;
+  late final String orderID;
   String status;
   String paymentMethod;
   String deliveryAddress;
