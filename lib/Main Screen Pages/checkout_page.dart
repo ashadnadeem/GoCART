@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:gocart/Account%20Screen%20Pages/Widgets/address_tile_widget.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/cart_list_widget.dart';
 import 'package:gocart/Entities/cart_entity.dart';
-import 'package:gocart/Models/debitcard_provider.dart';
+import 'package:gocart/Controllers/debitcard_provider.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../Entities/address_entity.dart';
 import '../Entities/debitcard_entity.dart';
-import '../Models/address_provider.dart';
-import '../Models/cart_provider.dart';
+import '../Controllers/address_provider.dart';
+import '../Controllers/cart_provider.dart';
 
 class CheckoutPage extends StatefulWidget {
   const CheckoutPage({Key? key}) : super(key: key);

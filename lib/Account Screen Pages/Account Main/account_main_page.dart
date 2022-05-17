@@ -9,7 +9,7 @@ import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../../Models/user_provider.dart';
+import '../../Controllers/user_provider.dart';
 
 class AccountMain extends StatefulWidget {
   const AccountMain({Key? key}) : super(key: key);

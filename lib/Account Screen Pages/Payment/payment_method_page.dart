@@ -4,7 +4,7 @@ import 'package:gocart/Account%20Screen%20Pages/Widgets/debitcard_widget.dart';
 import 'package:gocart/utils.dart';
 import 'package:provider/provider.dart';
 import '../../Entities/debitcard_entity.dart';
-import '../../Models/debitcard_provider.dart';
+import '../../Controllers/debitcard_provider.dart';
 
 class PaymentMethods extends StatefulWidget {
   const PaymentMethods({Key? key}) : super(key: key);

@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../Main Screen Pages/main_page.dart';
-import '../Models/user_provider.dart';
+import '../Controllers/user_provider.dart';
 import '../success_screen.dart';
 import '../utils.dart';
 

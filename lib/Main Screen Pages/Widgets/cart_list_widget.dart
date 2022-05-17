@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/ItemDetailPage.dart';
 import 'package:gocart/Main%20Screen%20Pages/checkout_page.dart';
 import 'package:gocart/Entities/cart_entity.dart';
-import 'package:gocart/Models/cart_provider.dart';
-import 'package:gocart/Models/item_provider.dart';
+import 'package:gocart/Controllers/cart_provider.dart';
+import 'package:gocart/Controllers/item_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 

@@ -4,16 +4,16 @@ import 'package:gocart/Main%20Screen%20Pages/CartPage.dart';
 import 'package:gocart/Main%20Screen%20Pages/home_page.dart';
 import 'package:gocart/Main%20Screen%20Pages/search_page.dart';
 import 'package:gocart/Main%20Screen%20Pages/wishlist_page.dart';
-import 'package:gocart/Models/cart_provider.dart';
+import 'package:gocart/Controllers/cart_provider.dart';
 import 'package:gocart/utils.dart';
 import 'package:provider/provider.dart';
 
 import '../Entities/item_entity.dart';
-import '../Models/address_provider.dart';
-import '../Models/debitcard_provider.dart';
-import '../Models/item_provider.dart';
-import '../Models/user_provider.dart';
-import '../Models/wishlist_provider.dart';
+import '../Controllers/address_provider.dart';
+import '../Controllers/debitcard_provider.dart';
+import '../Controllers/item_provider.dart';
+import '../Controllers/user_provider.dart';
+import '../Controllers/wishlist_provider.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);

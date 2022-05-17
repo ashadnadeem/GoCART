@@ -4,7 +4,7 @@ import 'package:gocart/Account%20Screen%20Pages/Widgets/address_tile_widget.dart
 import 'package:gocart/utils.dart';
 import 'package:provider/provider.dart';
 import '../../Entities/address_entity.dart';
-import '../../Models/address_provider.dart';
+import '../../Controllers/address_provider.dart';
 
 class SavedAddress extends StatefulWidget {
   const SavedAddress({Key? key}) : super(key: key);

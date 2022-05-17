@@ -4,19 +4,6 @@ import 'package:gocart/Entities/user_auth_entity.dart';
 import 'package:gocart/Entities/user_entity.dart';
 import 'package:gocart/Models/user_model.dart';
 
-// Stream Provider for Authentication
-class AuthProvider extends ChangeNotifier {
-  // Will be initialized to when the user is logged in
-  late UserAuth userAuth;
-
-  UserAuth get user => userAuth;
-
-  void initUser(UserAuth userAuth) {
-    this.userAuth = userAuth;
-    notifyListeners();
-  }
-}
-
 // Provider for User Collection
 class UserProvider extends ChangeNotifier {
   // Will be initialized to when the user is logged in

@@ -1,15 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:gocart/Models/cart_provider.dart';
-import 'package:gocart/Models/wishlist_provider.dart';
+import 'package:gocart/Controllers/cart_provider.dart';
+import 'package:gocart/Controllers/wishlist_provider.dart';
 import 'package:gocart/product_ar.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../Entities/item_entity.dart';
-import '../Models/brand_provider.dart';
-import '../Models/user_provider.dart';
+import '../Controllers/brand_provider.dart';
+import '../Controllers/user_provider.dart';
 
 class ItemDetail extends StatelessWidget {
   const ItemDetail({required this.product, Key? key}) : super(key: key);

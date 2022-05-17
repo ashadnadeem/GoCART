@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../Entities/address_entity.dart';
-import 'address_model.dart';
+import '../Models/address_model.dart';
 
 class AddressProvider extends ChangeNotifier {
   List<Address> list = [];

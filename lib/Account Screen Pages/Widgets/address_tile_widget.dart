@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../../Entities/address_entity.dart';
-import '../../Models/address_provider.dart';
-import '../../Models/user_provider.dart';
+import '../../Controllers/address_provider.dart';
+import '../../Controllers/user_provider.dart';
 
 // ignore: must_be_immutable
 class AddressTile extends StatelessWidget {

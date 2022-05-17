@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/wishlist_builder_widget.dart';
-import 'package:gocart/Models/wishlist_provider.dart';
+import 'package:gocart/Controllers/wishlist_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 

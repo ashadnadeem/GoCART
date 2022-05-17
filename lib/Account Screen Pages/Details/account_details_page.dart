@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-import '../../Models/user_provider.dart';
+import '../../Controllers/user_provider.dart';
 
 class AccountDetails extends StatefulWidget {
   UserProfile userProfile;

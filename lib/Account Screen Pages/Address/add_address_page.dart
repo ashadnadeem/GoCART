@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/Models/address_provider.dart';
-import 'package:gocart/Models/user_provider.dart';
+import 'package:gocart/Controllers/address_provider.dart';
+import 'package:gocart/Controllers/user_provider.dart';
 import 'package:gocart/utils.dart';
 import 'package:provider/provider.dart';
 
