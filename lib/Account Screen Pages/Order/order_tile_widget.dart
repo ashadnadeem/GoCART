@@ -131,11 +131,7 @@ class OrderTile extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-<<<<<<< HEAD
-                    "", // order.quantity.toString(),
-=======
                     order.cart.qty.toString(),
->>>>>>> 31cf9f6848b6d47592c2c96855c4475cb8d4c8e9
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: GoogleFonts.poppins(
@@ -158,11 +154,7 @@ class OrderTile extends StatelessWidget {
                   ),
                 ),
                 Text(
-<<<<<<< HEAD
-                  "", // order.total.toString(),
-=======
                   order.cart.total.toString(),
->>>>>>> 31cf9f6848b6d47592c2c96855c4475cb8d4c8e9
                   style: GoogleFonts.poppins(
                     fontSize: fontsize,
                     fontWeight: FontWeight.w300,
@@ -187,17 +179,10 @@ class OrderTile extends StatelessWidget {
           decoration: BoxDecoration(
             // Add rounded radius corners square image
             borderRadius: BorderRadius.circular(10),
-<<<<<<< HEAD
-            // image: DecorationImage(
-            //   image: NetworkImage(order.cart[0].images.first),
-            //   // fit: BoxFit.cover,
-            // ),
-=======
             image: DecorationImage(
               image: NetworkImage(item.images.first),
               fit: BoxFit.cover,
             ),
->>>>>>> 31cf9f6848b6d47592c2c96855c4475cb8d4c8e9
           ),
         ),
       );
