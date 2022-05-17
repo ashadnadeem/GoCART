@@ -70,19 +70,10 @@ class _BrandDetailPageState extends State<BrandDetailPage> {
                 ),
               ),
               // Website Link clickable to open in browser, color blue
-              InkWell(
-                child: Text(
-                  widget.brand.website,
-                  style: GoogleFonts.poppins(
-                    color: Colors.deepPurple,
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                onTap: () {
-                  // launch(widget.brand.website);
-                },
-              ),
+              OpenURL(
+                  webURL: widget.brand.website
+                      .substring(8, widget.brand.website.length - 1)),
+
               const SizedBox(height: 10),
               // GridView of Items in the brand
               ItemGrid(searchlist: searchlist, scrollable: true),
