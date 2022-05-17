@@ -72,4 +72,22 @@ class CardProvider extends ChangeNotifier {
         );
     notifyListeners();
   }
+
+  String getCardNumFromID(String cardID) {
+    for (var card in list) {
+      if (card.id == cardID) {
+        return card.cardNumber;
+      }
+    }
+    return "Not Listed";
+  }
+
+  String getBankFromID(String cardID) {
+    for (var card in list) {
+      if (card.id == cardID) {
+        return card.bankName;
+      }
+    }
+    return "Not Listed";
+  }
 }

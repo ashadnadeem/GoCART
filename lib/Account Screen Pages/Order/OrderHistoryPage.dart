@@ -134,12 +134,10 @@ class OrderHistoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Get the Order history from the provider
-<<<<<<< HEAD
     // history = context.read<OrderHistoryProvider>().items;
-=======
     history = context.watch<OrderHistoryProvider>().hisotry;
     // id = context.read<UserProvider>().userProfile.orderHistoryIDs;
->>>>>>> 31cf9f6848b6d47592c2c96855c4475cb8d4c8e9
+
     final double screenHeight = MediaQuery.of(context).size.height;
     Widget MyOrderList() {
       print(history.length);
@@ -149,23 +147,26 @@ class OrderHistoryPage extends StatelessWidget {
           // This is Equalent to ListView.builder
           // ie: just making a list of OrderTile
           for (var item in history) OrderTile(order: item),
-          for (var item in history) Text(item.orderID),
-          Text("Hot reload check"),
         ],
       );
     }
 
     return Scaffold(
       appBar: const MyAppBar(implyLeading: false),
-      body: Column(
-        children: <Widget>[
-          const HeaderBar(title: "Order History"),
-          SizedBox(height: screenHeight * 0.05),
-          SingleChildScrollView(
-            // Build a List of the Orders
-            child: MyOrderList(),
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: screenHeight * 0.03,
+            ),
+            const HeaderBar(title: "Order History"),
+            SizedBox(height: screenHeight * 0.03),
+            SingleChildScrollView(
+              // Build a List of the Orders
+              child: MyOrderList(),
+            ),
+          ],
+        ),
       ),
     );
   }

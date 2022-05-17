@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Controllers/item_provider.dart';
+import 'package:gocart/Controllers/user_provider.dart';
 import 'package:gocart/Entities/item_entity.dart';
 import 'package:gocart/Models/order_history_model.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,10 +20,17 @@ class OrderTile extends StatelessWidget {
     final double screenSizeH = MediaQuery.of(context).size.height;
     final double fontsize = screenSizeH * 0.015;
 
+    var orderNums = context.read<UserProvider>().userProfile.orderHistoryIDs;
+
+    int getIndex() {
+      int index = orderNums.indexOf(order.orderID);
+      return index;
+    }
+
     Widget veiwDetailsButton(screenH, funct) {
       return InkWell(
         child: Text(
-          "View Details",
+          "  View Details",
           style: TextStyle(
             fontSize: screenH * 0.015,
             color: Colors.grey,
@@ -39,7 +47,7 @@ class OrderTile extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Text(
-              'Order: ${order.orderID}',
+              'Order Number ${getIndex()}   ',
               style: GoogleFonts.poppins(
                 fontSize: screenSizeH * 0.02,
                 fontWeight: FontWeight.w400,
@@ -51,14 +59,29 @@ class OrderTile extends StatelessWidget {
                 height: 2,
               ),
             ),
-            veiwDetailsButton(screenSizeH, () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => OrderHistoryDetailPage(history: order),
-              ));
-            }),
+            veiwDetailsButton(
+              screenSizeH,
+              () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        OrderHistoryDetailPage(history: order),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       );
+    }
+
+    int sumAll() {
+      int sum = 0;
+      for (int i in order.cart.qty) {
+        sum += i;
+      }
+
+      return sum;
     }
 
     Widget orderBody() {
@@ -111,11 +134,13 @@ class OrderTile extends StatelessWidget {
                   ),
                 ),
                 Expanded(child: Container()),
-                Icon(
-                  order.status == "Shipped"
-                      ? Icons.local_shipping_outlined
-                      : Icons.shopify_outlined,
-                ),
+                Icon(order.status == "Pending"
+                    ? Icons.pending_actions_rounded
+                    : order.status == "Booked"
+                        ? Icons.check_box_outlined
+                        : order.status == "Shipped"
+                            ? Icons.local_shipping_rounded
+                            : Icons.check_box),
               ],
             ),
             Row(
@@ -131,7 +156,7 @@ class OrderTile extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    order.cart.qty.toString(),
+                    sumAll().toString(),
                     overflow: TextOverflow.ellipsis,
                     maxLines: 1,
                     style: GoogleFonts.poppins(

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:gocart/Controllers/brand_provider.dart';
+import 'package:gocart/Controllers/debitcard_provider.dart';
+import 'package:gocart/Controllers/item_provider.dart';
+import 'package:gocart/Entities/item_entity.dart';
 
 import 'package:gocart/Main%20Screen%20Pages/ItemDetailPage.dart';
 import 'package:gocart/Models/order_history_model.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class OrderHistoryDetailPage extends StatefulWidget {
   OrderHistoryDetailPage({Key? key, required this.history}) : super(key: key);
@@ -29,6 +34,8 @@ class _OrderHistoryDetailPageState extends State<OrderHistoryDetailPage> {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
+    final double fontsize = screenHeight * 0.015;
+
     // wigdet.cart = context.watch<CartProvider>().cart;
     // total = context.read<TotalProvider>().total;
 
@@ -39,10 +46,64 @@ class _OrderHistoryDetailPageState extends State<OrderHistoryDetailPage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(
-            height: screenHeight * 0.05,
+            height: screenHeight * 0.03,
           ),
           HeaderBar(title: "Order Details"),
-
+          SizedBox(
+            height: screenHeight * 0.02,
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Order Details   ',
+                  style: GoogleFonts.poppins(
+                    fontSize: screenHeight * 0.02,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    color: Colors.black54,
+                    height: 2,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          orderDetailsbuild(screenHeight, fontsize),
+          const SizedBox(
+            height: 16,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Product List   ',
+                  style: GoogleFonts.poppins(
+                    fontSize: screenHeight * 0.02,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    color: Colors.black54,
+                    height: 2,
+                  ),
+                ),
+              ],
+            ),
+          ),
           // Text(
           //   "Order Details",
           //   style: GoogleFonts.poppins(
@@ -86,10 +147,7 @@ class _OrderHistoryDetailPageState extends State<OrderHistoryDetailPage> {
                         borderRadius: BorderRadius.circular(13.5),
                         color: const Color.fromARGB(255, 46, 44, 44),
                         image: DecorationImage(
-                          image: NetworkImage(
-                            "",
-                            // widget.history.cart[index].images.first ,
-                          ),
+                          image: imageLoader(index),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -99,21 +157,23 @@ class _OrderHistoryDetailPageState extends State<OrderHistoryDetailPage> {
                     // ),
                   ],
                 ),
-                title: Text(widget.history.cart.color[index]),
+                title: Text(
+                  getBrandName(getItem(index).brandID),
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
                 // title: Text(widget.history.cart[index].name),
                 isThreeLine: true,
-                subtitle: Text(
-                    "${widget.history.cart.qty[index]}\n${widget.history.cart.qty[index]}"),
+                subtitle:
+                    Text("${getItem(index).name}\nPKR ${getItem(index).price}"),
                 // "${widget.history.cart[index].description}\n${widget.history.cart[index].price}"),
                 trailing: IconButton(
-                  onPressed: () {},
-                  //   Navigator.of(context).push(
-                  //     MaterialPageRoute(
-                  //       builder: (context) {}
-                  //          // ItemDetail(product: widget.history.cart.productID[index]),
-                  //     ),
-                  //   );
-                  // },
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ItemDetail(product: getItem(index))),
+                    );
+                  },
                   icon: const Icon(Icons.arrow_forward_ios_rounded),
                 ),
               ),
@@ -151,5 +211,187 @@ class _OrderHistoryDetailPageState extends State<OrderHistoryDetailPage> {
         ],
       ),
     );
+  }
+
+  Column orderDetailsbuild(double screenHeight, double fontsize) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          children: <Widget>[
+            Container(width: screenHeight * 0.03),
+            Text(
+              'Order ID:      ',
+              style: GoogleFonts.poppins(
+                fontSize: fontsize,
+                fontWeight: FontWeight.w300,
+                color: Colors.black54,
+              ),
+            ),
+            Expanded(
+              child: Text(
+                widget.history.orderID,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: GoogleFonts.poppins(
+                  fontSize: fontsize,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            Container(width: screenHeight * 0.03),
+            Text(
+              'Status:          ',
+              style: GoogleFonts.poppins(
+                fontSize: fontsize,
+                fontWeight: FontWeight.w300,
+                color: Colors.black54,
+              ),
+            ),
+            Text(
+              widget.history.status,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: GoogleFonts.poppins(
+                fontSize: fontsize,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            Container(width: screenHeight * 0.03),
+            Text(
+              'Quantity:      ',
+              style: GoogleFonts.poppins(
+                fontSize: fontsize,
+                fontWeight: FontWeight.w300,
+                color: Colors.black54,
+              ),
+            ),
+            Expanded(
+              child: Text(
+                sumAll().toString(),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: GoogleFonts.poppins(
+                  fontSize: fontsize,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
+            Expanded(child: Container()),
+            Padding(
+              padding: const EdgeInsets.only(right: 64.0),
+              child: Icon(widget.history.status == "Pending"
+                  ? Icons.pending_actions_rounded
+                  : widget.history.status == "Booked"
+                      ? Icons.check_box_outlined
+                      : widget.history.status == "Shipped"
+                          ? Icons.local_shipping_rounded
+                          : Icons.check_box),
+            ),
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            Container(width: screenHeight * 0.03),
+            Text(
+              'Total:             PKR ',
+              style: GoogleFonts.poppins(
+                fontSize: fontsize,
+                fontWeight: FontWeight.w300,
+                color: Colors.black54,
+              ),
+            ),
+            Text(
+              widget.history.cart.total.toString(),
+              style: GoogleFonts.poppins(
+                fontSize: fontsize,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            Container(width: screenHeight * 0.03),
+            Text(
+              'Delivery Address:   ',
+              style: GoogleFonts.poppins(
+                fontSize: fontsize,
+                fontWeight: FontWeight.w300,
+                color: Colors.black54,
+              ),
+            ),
+            Text(
+              widget.history.deliveryAddress,
+              style: GoogleFonts.poppins(
+                fontSize: fontsize,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            Container(width: screenHeight * 0.03),
+            Text(
+              'Payment Method:   ',
+              style: GoogleFonts.poppins(
+                fontSize: fontsize,
+                fontWeight: FontWeight.w300,
+                color: Colors.black54,
+              ),
+            ),
+            Text(
+              widget.history.paymentMethod == "COD"
+                  ? "COD"
+                  : "${getBankName(widget.history.paymentMethod)} - ${getCardNum(widget.history.paymentMethod).substring(12).padLeft(8, "*")}",
+              style: GoogleFonts.poppins(
+                fontSize: fontsize,
+                fontWeight: FontWeight.w300,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  int sumAll() {
+    int sum = 0;
+    for (int i in widget.history.cart.qty) {
+      sum += i;
+    }
+
+    return sum;
+  }
+
+  String getBankName(String cardID) {
+    return context.read<CardProvider>().getBankFromID(cardID);
+  }
+
+  String getCardNum(String cardID) {
+    return context.read<CardProvider>().getCardNumFromID(cardID);
+  }
+
+  String getBrandName(String brandID) {
+    return context.read<BrandProvider>().getBrandName(brandID);
+  }
+
+  Item getItem(int index) {
+    return context
+        .read<ItemProvider>()
+        .getItemByID(widget.history.cart.productID[index]);
+  }
+
+  NetworkImage imageLoader(int index) {
+    return NetworkImage(getItem(index).images.first);
   }
 }
