@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/BrandDetails_page.dart';
-import 'package:gocart/Main%20Screen%20Pages/ItemDetailPage.dart';
 import 'package:gocart/Models/brand_model.dart';
-import 'package:gocart/Models/item_model.dart';
 
 //Homepage Item Card
 class BrandListBuilder extends StatelessWidget {

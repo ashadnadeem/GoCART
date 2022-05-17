@@ -119,6 +119,7 @@ class UserProvider extends ChangeNotifier {
           addresses: user.addressIDs,
           cards: user.cardIDs,
           wishListIDs: user.wishListIDs,
+          orderHistoryIDs: user.orderHistoryIDs,
           cartID: user.id,
         ).toJson());
     print("${user.email} saved in Firebase");
@@ -138,6 +139,7 @@ class UserProvider extends ChangeNotifier {
             addresses: user.addressIDs,
             cards: user.cardIDs,
             wishListIDs: user.wishListIDs,
+            orderHistoryIDs: user.orderHistoryIDs,
             cartID: user.id,
           ).toJson(),
         );

@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
-import 'package:gocart/Models/item_model.dart';
+import 'package:flutter/material.dart';
+
+import '../Entities/item_entity.dart';
 
 class WishListProvider extends ChangeNotifier {
   List<Item> wishlistItems = [];

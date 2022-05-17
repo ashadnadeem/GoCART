@@ -3,6 +3,8 @@ import 'package:gocart/Main%20Screen%20Pages/ItemDetailPage.dart';
 import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/utils.dart';
 
+import '../../Entities/item_entity.dart';
+
 // Final list of items widget
 // ignore: must_be_immutable
 class SearchListBuilder extends StatefulWidget {

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gocart/Models/address_model.dart';
 import 'package:gocart/Models/address_provider.dart';
 import 'package:gocart/Models/user_provider.dart';
 import 'package:gocart/utils.dart';
 import 'package:provider/provider.dart';
+
+import '../../Entities/address_entity.dart';
 
 class AddAddress extends StatefulWidget {
   AddAddress({this.address, Key? key}) : super(key: key);

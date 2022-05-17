@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gocart/Entities/item_entity.dart';
 import 'package:gocart/Models/filter_query_model.dart';
-import 'package:gocart/Models/item_model.dart';
 
 class SearchProvider extends ChangeNotifier {
   List<Item> original_list = [];
@@ -19,7 +19,7 @@ class SearchProvider extends ChangeNotifier {
   void resetSearch() {
     search_list = [];
     search_list.addAll(original_list);
-    notifyListeners();
+    // notifyListeners();
   }
 
   // search_list filters the list of products based on brandId

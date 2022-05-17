@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'debitcard_model.dart';
+import 'package:gocart/Models/debitcard_model.dart';
+
+import '../Entities/debitcard_entity.dart';
 
 class CardProvider extends ChangeNotifier {
   List<DebitCard> list = [];
@@ -11,23 +13,6 @@ class CardProvider extends ChangeNotifier {
 
   void loadCard(cardIDs) async {
     list = [];
-    // await firebaseCard.get().then((QuerySnapshot querySnapshot) {
-    //   querySnapshot.docs.forEach((doc) {
-    //     CardModel cardModel =
-    //         CardModel.fromJson(doc.data() as Map<String, dynamic>);
-    //     DebitCard card = DebitCard(
-    //       cardNumber: cardModel.cardNumber,
-    //       expiryDate: cardModel.expiryDate,
-    //       cvv: cardModel.cvv,
-    //       cardHolderName: cardModel.cardHolderName,
-    //       bankName: cardModel.bankName,
-    //       cardFront: true,
-    //     );
-    //     card.id = doc.id;
-    //     list.add(card);
-    //     print(card.cardHolderName);
-    //   });
-    // });
     // Get List of Cards from User Profile
     for (var id in cardIDs) {
       if (id == "") continue;

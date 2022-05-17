@@ -1,5 +1,6 @@
-import 'package:gocart/Models/cart_model.dart';
-import 'package:gocart/Models/item_model.dart';
+import 'package:gocart/Entities/cart_entity.dart';
+
+import '../Entities/item_entity.dart';
 
 class OrderHistory {
   OrderHistory({

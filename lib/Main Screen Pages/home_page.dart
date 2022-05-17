@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/brand_builder_widget.dart';
-import 'package:gocart/Main%20Screen%20Pages/Widgets/item_grid_widget.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/trending_builder_widget.dart';
 import 'package:gocart/Models/brand_model.dart';
 import 'package:gocart/Models/brand_provider.dart';
-import 'package:gocart/Models/debitcard_provider.dart';
-import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/Models/item_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../Models/address_provider.dart';
+import '../Entities/item_entity.dart';
 import '../Models/search_provider.dart';
-import '../Models/user_provider.dart';
-import '../Models/wishlist_provider.dart';
 
 class Home extends StatelessWidget {
   Home({

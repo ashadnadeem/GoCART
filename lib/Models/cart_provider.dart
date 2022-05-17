@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+
 import 'package:gocart/Models/cart_model.dart';
-import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/Models/user_model.dart';
+
+import '../Entities/cart_entity.dart';
+import '../Entities/item_entity.dart';
 
 class CartProvider extends ChangeNotifier {
   // List<Item> list = [];

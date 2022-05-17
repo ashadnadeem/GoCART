@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/utils.dart';
 
-import '../../Models/item_model.dart';
+import '../../Entities/item_entity.dart';
 import '../ItemDetailPage.dart';
 
 class ItemGrid extends StatelessWidget {

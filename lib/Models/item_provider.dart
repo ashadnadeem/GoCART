@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:gocart/Models/item_model.dart';
 
+import '../Entities/item_entity.dart';
+
 class ItemProvider extends ChangeNotifier {
   List<Item> list = [];
 

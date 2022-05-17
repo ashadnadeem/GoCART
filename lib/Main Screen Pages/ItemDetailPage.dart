@@ -1,16 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:gocart/Models/cart_provider.dart';
-import 'package:gocart/Models/item_model.dart';
-import 'package:gocart/Models/total_provider.dart';
 import 'package:gocart/Models/wishlist_provider.dart';
 import 'package:gocart/product_ar.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../Entities/item_entity.dart';
 import '../Models/brand_provider.dart';
-import '../Models/item_provider.dart';
 import '../Models/user_provider.dart';
 
 class ItemDetail extends StatelessWidget {
@@ -138,7 +136,6 @@ class _ProductDrawerState extends State<ProductDrawer> {
         ),
         onPressed: () {
           context.read<CartProvider>().addToCart(widget.product, _color, _size);
-          context.read<TotalProvider>().add(widget.product.price);
           // context.read<CartProvider>().incCount(widget.product);
           Navigator.of(context).pop();
         },

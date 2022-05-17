@@ -1,7 +1,6 @@
-import 'package:gocart/Models/user_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import '../Entities/address_entity.dart';
 import 'address_model.dart';
 
 class AddressProvider extends ChangeNotifier {
@@ -32,23 +31,6 @@ class AddressProvider extends ChangeNotifier {
       address.id = id;
       list.add(address);
     }
-    // await firebaseAddress.get().then((QuerySnapshot querySnapshot) {
-    //   querySnapshot.docs.forEach((doc) {
-    //     AddressModel addressModel =
-    //         AddressModel.fromJson(doc.data() as Map<String, dynamic>);
-    //     Address address = Address(
-    //       name: addressModel.name,
-    //       address: addressModel.address,
-    //       city: addressModel.city,
-    //       phone: addressModel.phone,
-    //       zip: addressModel.zip,
-    //       defaultAddress: addressModel.defaultAddress,
-    //     );
-    //     address.id = doc.id;
-    //     list.add(address);
-    // print(address.name);
-    // });
-    // });
     sortAddress();
     notifyListeners();
   }

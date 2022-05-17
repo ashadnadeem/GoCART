@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/ItemDetailPage.dart';
-import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/utils.dart';
+
+import '../../Entities/item_entity.dart';
 
 class TrendingListBuilder extends StatelessWidget {
   const TrendingListBuilder({

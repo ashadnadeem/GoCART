@@ -26,6 +26,7 @@ class UserProfile {
   List<String> addressIDs;
   List<String> cardIDs;
   List<String> wishListIDs;
+  List<String> orderHistoryIDs;
 
   UserProfile({
     required this.id,
@@ -39,6 +40,7 @@ class UserProfile {
     this.addressIDs = const [""],
     this.cardIDs = const [""],
     this.wishListIDs = const [""],
+    this.orderHistoryIDs = const [""],
   });
 }
 
@@ -54,6 +56,7 @@ class UserProfileModel {
   final List<String> addresses;
   final List<String> cards;
   final List<String> wishListIDs;
+  final List<String> orderHistoryIDs;
 
   UserProfileModel({
     required this.email,
@@ -66,6 +69,7 @@ class UserProfileModel {
     required this.cards,
     required this.wishListIDs,
     required this.cartID,
+    required this.orderHistoryIDs,
   });
 
   static fromJson(Map<String, dynamic> json) {
@@ -89,6 +93,12 @@ class UserProfileModel {
     List<String> favIDs = [];
     for (var id in favids) favIDs.add(id.toString().trim());
 
+    // Convert List<dynamic> to List<String> for order history
+    firebase_data = json['orderIDs'] ?? [];
+    var orderids = firebase_data as List<dynamic>;
+    List<String> orderIDs = [];
+    for (var id in orderids) orderIDs.add(id.toString().trim());
+
     return UserProfileModel(
       email: json['email'],
       name: json['name'],
@@ -100,6 +110,7 @@ class UserProfileModel {
       addresses: addressIDs,
       cards: cardIDs,
       wishListIDs: favIDs,
+      orderHistoryIDs: orderIDs,
     );
   }
 
@@ -115,6 +126,7 @@ class UserProfileModel {
       'cardIDs': cards,
       'wishlistIDs': wishListIDs,
       'cartID': cartID,
+      'orderIDs': orderHistoryIDs,
     };
   }
 }

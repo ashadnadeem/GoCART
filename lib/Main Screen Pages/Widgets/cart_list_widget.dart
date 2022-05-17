@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/ItemDetailPage.dart';
 import 'package:gocart/Main%20Screen%20Pages/checkout_page.dart';
-import 'package:gocart/Main%20Screen%20Pages/main_page.dart';
-import 'package:gocart/Models/cart_model.dart';
+import 'package:gocart/Entities/cart_entity.dart';
 import 'package:gocart/Models/cart_provider.dart';
-import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/Models/item_provider.dart';
-import 'package:gocart/Models/order_history_model.dart';
-import 'package:gocart/Models/order_history_provider.dart';
-import 'package:gocart/Models/total_provider.dart';
-import 'package:gocart/success_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'dart:math';
+
+import '../../Entities/item_entity.dart';
 
 class CartListWidget extends StatefulWidget {
   CartListWidget({
@@ -56,14 +51,6 @@ class _CartListWidgetState extends State<CartListWidget> {
                             getItemFromID(widget.cart.productID[index]),
                             "",
                             "");
-                        // context
-                        //     .read<CartProvider>()
-                        //     .incCount(widget.cart[index]);
-                        // total = total + (cart[index].price);
-                        // context
-                        //     .read<TotalProvider>()
-                        //     .add(widget.cart[index].price);
-                        // // _totalController.text = total.toString();
                         setState(() {});
                       },
                       child: const Icon(
@@ -75,7 +62,6 @@ class _CartListWidgetState extends State<CartListWidget> {
                     flex: 0,
                     child: Text(
                       widget.cart.qty[index].toString(),
-                      // _totalController.text,
                     ),
                   ),
                   Expanded(
@@ -84,14 +70,6 @@ class _CartListWidgetState extends State<CartListWidget> {
                       onTap: () {
                         context.read<CartProvider>().removeFromCart(
                             getItemFromID(widget.cart.productID[index]));
-                        // context
-                        //     .read<CartProvider>()
-                        //     .decCount(widget.cart[index]);
-                        // total = total - (cart[index].price);
-                        // context
-                        //     .read<TotalProvider>()
-                        //     .sub(widget.cart[index].price);
-                        // _totalController.text = total.toString();
                         setState(() {});
                       },
                       child: const Icon(
@@ -200,27 +178,6 @@ class CartTotalWidget extends StatelessWidget {
                     builder: (context) => const CheckoutPage(),
                   ),
                 );
-                // } else {
-                //   int count = 0;
-                //   for (Item i in cart) {
-                //     count = count + i.itemCount;
-                //   }
-                //   context.read<OrderHistoryProvider>().addItem(
-                //         OrderHistory(
-                //             orderID: (Random().nextInt(10000000)).toString(),
-                //             status: "Booked",
-                //             quantity: count,
-                //             total: total,
-                //             cart: cart),
-                //       );
-                //   // context.read<CartProvider>().clearCart();
-                //   context.read<TotalProvider>().clearTotal();
-                //   Navigator.of(context).push(
-                //     MaterialPageRoute(
-                //       builder: (context) =>
-                //           const SuccessScreen(nextPage: MainPage()),
-                //     ),
-                //   );
               }
             },
             child: Text(

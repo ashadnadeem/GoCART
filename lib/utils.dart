@@ -5,8 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'Models/address_model.dart';
-import 'Models/debitcard_model.dart';
+import 'Entities/address_entity.dart';
+import 'Entities/debitcard_entity.dart';
 
 // Logo
 // ignore: camel_case_types, must_be_immutable

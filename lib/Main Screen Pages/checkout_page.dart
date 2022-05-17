@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Account%20Screen%20Pages/Widgets/address_tile_widget.dart';
-import 'package:gocart/Main%20Screen%20Pages/ItemDetailPage.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/cart_list_widget.dart';
-import 'package:gocart/Models/cart_model.dart';
-import 'package:gocart/Models/debitcard_model.dart';
+import 'package:gocart/Entities/cart_entity.dart';
 import 'package:gocart/Models/debitcard_provider.dart';
-import 'package:gocart/Models/total_provider.dart';
-import 'package:gocart/Models/user_provider.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import '../Models/address_model.dart';
+import '../Entities/address_entity.dart';
+import '../Entities/debitcard_entity.dart';
 import '../Models/address_provider.dart';
 import '../Models/cart_provider.dart';
-import '../Models/item_model.dart';
 
 class CheckoutPage extends StatefulWidget {
   const CheckoutPage({Key? key}) : super(key: key);
@@ -54,7 +50,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     cart = context.watch<CartProvider>().cart;
-    total = context.read<TotalProvider>().total;
 
     return Scaffold(
       appBar: const MyAppBar(implyLeading: false),
@@ -109,73 +104,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
       ],
     );
   }
-
-  // Widget orderDetailsCard() {
-  //   List<Item> items = context.watch<CartProvider>().list;
-  //   return SingleChildScrollView(
-  //     child: Column(children: [
-  //       dividerRow("Order Details", null),
-  //       Container(height: 8),
-  //       for (Item item in items) OrderTile(item),
-  //     ]),
-  //   );
-  // }
-
-  // Widget OrderTile(Item item) {
-  //   return Padding(
-  //     padding: const EdgeInsets.symmetric(horizontal: 20),
-  //     child: Column(
-  //       children: [
-  //         Container(height: 2, color: Colors.black26),
-  //         Container(height: 8),
-  //         Row(
-  //           children: [
-  //             // Circle avatar of items image
-  //             CircleAvatar(
-  //               backgroundImage: NetworkImage(item.image),
-  //               radius: 20,
-  //             ),
-  //             // Small Gap
-  //             const SizedBox(width: 15),
-  //             // Column for item name and Description
-  //             Column(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 Text(
-  //                   item.name,
-  //                   style: GoogleFonts.poppins(
-  //                     fontSize: 18,
-  //                     fontWeight: FontWeight.w500,
-  //                   ),
-  //                 ),
-  //                 Text(
-  //                   item.description,
-  //                   style: GoogleFonts.poppins(
-  //                     fontSize: 14,
-  //                     fontWeight: FontWeight.w400,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             // Expanded Container
-  //             Expanded(child: Container()),
-  //             // Price Text
-  //             Text(
-  //               "PKR ${item.price}",
-  //               style: GoogleFonts.poppins(
-  //                 fontSize: 18,
-  //                 fontWeight: FontWeight.w500,
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //         Container(),
-  //         Container(height: 1, color: Colors.black26),
-  //         // Container(height: 8),
-  //       ],
-  //     ),
-  //   );
-  // }
 
   Widget paymentButton(text, isSelected) {
     final double screenHeight = MediaQuery.of(context).size.height;

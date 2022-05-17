@@ -3,12 +3,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/Widgets/searchlist_builder_widget.dart';
 import 'package:gocart/Models/filter_query_model.dart';
-import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/Models/item_provider.dart';
 import 'package:gocart/Models/search_provider.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import '../Entities/item_entity.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({Key? key}) : super(key: key);
@@ -25,10 +26,7 @@ class _SearchPageState extends State<SearchPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.delayed(const Duration(seconds: 6), () {
-      context.read<SearchProvider>().resetSearch();
-      setState(() {});
-    });
+    context.read<SearchProvider>().resetSearch();
   }
 
   @override

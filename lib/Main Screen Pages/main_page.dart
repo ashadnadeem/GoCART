@@ -8,9 +8,9 @@ import 'package:gocart/Models/cart_provider.dart';
 import 'package:gocart/utils.dart';
 import 'package:provider/provider.dart';
 
+import '../Entities/item_entity.dart';
 import '../Models/address_provider.dart';
 import '../Models/debitcard_provider.dart';
-import '../Models/item_model.dart';
 import '../Models/item_provider.dart';
 import '../Models/user_provider.dart';
 import '../Models/wishlist_provider.dart';

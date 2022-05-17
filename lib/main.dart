@@ -6,11 +6,9 @@ import 'package:gocart/Models/brand_model.dart';
 import 'package:gocart/Models/brand_provider.dart';
 import 'package:gocart/Models/cart_provider.dart';
 import 'package:gocart/Models/debitcard_provider.dart';
-import 'package:gocart/Models/item_model.dart';
 import 'package:gocart/Models/item_provider.dart';
 import 'package:gocart/Models/order_history_provider.dart';
 import 'package:gocart/Models/search_provider.dart';
-import 'package:gocart/Models/total_provider.dart';
 import 'package:gocart/Models/user_model.dart';
 import 'package:gocart/Models/wishlist_provider.dart';
 import 'package:gocart/Services/auth.dart';
@@ -44,7 +42,6 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (_) => CardProvider()),
         ChangeNotifierProvider(create: (_) => ItemProvider()),
         ChangeNotifierProvider(create: (_) => OrderHistoryProvider()),
-        ChangeNotifierProvider(create: (_) => TotalProvider()),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => WishListProvider()),

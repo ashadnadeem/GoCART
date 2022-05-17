@@ -1,9 +1,9 @@
 import 'package:awesome_card/awesome_card.dart';
 import 'package:flutter/material.dart';
 import 'package:gocart/Account%20Screen%20Pages/Payment/add_card_page.dart';
-import 'package:gocart/Models/debitcard_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../Entities/debitcard_entity.dart';
 import '../../Models/debitcard_provider.dart';
 import '../../Models/user_provider.dart';
 
