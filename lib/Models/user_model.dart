@@ -1,4 +1,6 @@
 // Model for Firebase
+// ignore_for_file: curly_braces_in_flow_control_structures
+
 class UserProfileModel {
   final String email;
   final String name;
@@ -27,31 +29,27 @@ class UserProfileModel {
   });
 
   static fromJson(Map<String, dynamic> json) {
-    var firebase_data = [];
+    var firebaseData = [];
 
     // Convert List<dynamic> to List<String> for addresses
-    firebase_data = json['addressIDs'] ?? [];
-    var adressids = firebase_data as List<dynamic>;
+    firebaseData = json['addressIDs'] ?? [];
     List<String> addressIDs = [];
-    for (var id in adressids) addressIDs.add(id.toString().trim());
+    for (var id in firebaseData) addressIDs.add(id.toString().trim());
 
     // Convert List<dynamic> to List<String> for cards
-    firebase_data = json['cardIDs'] ?? [];
-    var cardids = firebase_data as List<dynamic>;
+    firebaseData = json['cardIDs'] ?? [];
     List<String> cardIDs = [];
-    for (var id in cardids) cardIDs.add(id.toString().trim());
+    for (var id in firebaseData) cardIDs.add(id.toString().trim());
 
     // Convert List<dynamic> to List<String> for wishlist
-    firebase_data = json['wishlistIDs'] ?? [];
-    var favids = firebase_data as List<dynamic>;
+    firebaseData = json['wishlistIDs'] ?? [];
     List<String> favIDs = [];
-    for (var id in favids) favIDs.add(id.toString().trim());
+    for (var id in firebaseData) favIDs.add(id.toString().trim());
 
     // Convert List<dynamic> to List<String> for order history
-    firebase_data = json['orderIDs'] ?? [];
-    var orderids = firebase_data as List<dynamic>;
+    firebaseData = json['orderIDs'] ?? [];
     List<String> orderIDs = [];
-    for (var id in orderids) orderIDs.add(id.toString().trim());
+    for (var id in firebaseData) orderIDs.add(id.toString().trim());
 
     return UserProfileModel(
       email: json['email'],

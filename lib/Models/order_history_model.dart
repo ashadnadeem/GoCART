@@ -1,3 +1,5 @@
+// ignore_for_file: curly_braces_in_flow_control_structures
+
 import '../Entities/cart_entity.dart';
 
 class OrderHistory {
@@ -48,31 +50,27 @@ class OrderHistoryModel {
   String deliveryAddress;
 
   static fromJson(Map<String, dynamic> json) {
-    var firebase_data = [];
+    var firebaseData = [];
 
     // Convert List<dynamic> to List<String> for colors
-    firebase_data = json['color'] ?? [];
-    var colors = firebase_data as List<dynamic>;
+    firebaseData = json['color'] ?? [];
     List<String> colorsIDs = [];
-    for (var id in colors) colorsIDs.add(id.toString().trim());
+    for (var id in firebaseData) colorsIDs.add(id.toString().trim());
 
     // Convert List<dynamic> to List<String> for product IDs
-    firebase_data = json['productID'] ?? [];
-    var prods = firebase_data as List<dynamic>;
+    firebaseData = json['productID'] ?? [];
     List<String> prodsID = [];
-    for (var id in prods) prodsID.add(id.toString().trim());
+    for (var id in firebaseData) prodsID.add(id.toString().trim());
 
     // Convert List<dynamic> to List<String> for quantities
-    firebase_data = json['qty'] ?? [];
-    var quantities = firebase_data as List<dynamic>;
+    firebaseData = json['qty'] ?? [];
     List<int> quants = [];
-    for (var id in quantities) quants.add(id);
+    for (var id in firebaseData) quants.add(id);
 
     // Convert List<dynamic> to List<String> for sizes
-    firebase_data = json['size'] ?? [];
-    var sizeids = firebase_data as List<dynamic>;
+    firebaseData = json['size'] ?? [];
     List<String> sizeIDs = [];
-    for (var id in sizeids) sizeIDs.add(id);
+    for (var id in firebaseData) sizeIDs.add(id);
 
     return OrderHistoryModel(
       color: colorsIDs,

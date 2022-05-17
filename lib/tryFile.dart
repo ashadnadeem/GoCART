@@ -1,15 +1,17 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:gocart/Main%20Screen%20Pages/checkout_page.dart';
 import 'package:gocart/utils.dart';
 
-class tryMe extends StatefulWidget {
-  tryMe({Key? key}) : super(key: key);
+import 'Screens/Main Screen Pages/checkout_page.dart';
+
+class TryMe extends StatefulWidget {
+  const TryMe({Key? key}) : super(key: key);
 
   @override
-  State<tryMe> createState() => _tryMeState();
+  State<TryMe> createState() => _TryMeState();
 }
 
-class _tryMeState extends State<tryMe> {
+class _TryMeState extends State<TryMe> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

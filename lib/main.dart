@@ -1,7 +1,8 @@
+// ignore_for_file: avoid_print
+
 import 'package:camera/camera.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gocart/Main%20Screen%20Pages/main_page.dart';
 import 'package:gocart/Models/brand_model.dart';
 import 'package:gocart/Controllers/brand_provider.dart';
 import 'package:gocart/Controllers/cart_provider.dart';
@@ -20,8 +21,9 @@ import 'Controllers/user_auth_provider.dart';
 import 'Entities/user_auth_entity.dart';
 import 'Controllers/address_provider.dart';
 import 'Controllers/user_provider.dart';
-import 'OnBoarding Pages/login_page.dart';
-import 'OnBoarding Pages/signup_page.dart';
+import 'Screens/Main Screen Pages/main_page.dart';
+import 'Screens/OnBoarding Pages/login_page.dart';
+import 'Screens/OnBoarding Pages/signup_page.dart';
 
 late List<CameraDescription> cameras;
 Future<void> main() async {
@@ -84,7 +86,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool _isLoading = true;
-  AuthService _auth = AuthService();
   @override
   void initState() {
     super.initState();
@@ -138,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ? FloatingActionButton(
               onPressed: () {
                 Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => tryMe()),
+                  MaterialPageRoute(builder: (context) => TryMe()),
                 );
               },
               tooltip: 'Try',
@@ -149,7 +150,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Widget> showOnboardingScreen(BuildContext context) {
-    final user = Provider.of<UserAuth?>(context);
     return <Widget>[
       Hero(tag: 'logo', child: logo()),
       Padding(

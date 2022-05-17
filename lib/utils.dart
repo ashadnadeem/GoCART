@@ -1,5 +1,8 @@
+// ignore: duplicate_ignore
+// ignore: duplicate_ignore
+// ignore_for_file: camel_case_types, duplicate_ignore
+
 import 'package:flutter/material.dart';
-import 'package:gocart/Account%20Screen%20Pages/Account%20Main/account_main_page.dart';
 import 'package:gocart/rickroll.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:progress_indicators/progress_indicators.dart';
@@ -7,6 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import 'Entities/address_entity.dart';
 import 'Entities/debitcard_entity.dart';
+import 'Screens/Account Screen Pages/Account Main/account_main_page.dart';
 
 // Logo
 // ignore: camel_case_types, must_be_immutable
@@ -147,7 +151,7 @@ class HeaderBar extends StatelessWidget {
     double screenSizeW = MediaQuery.of(context).size.width;
     double screenSizeH = MediaQuery.of(context).size.height;
     // returns a container with a back button and a title
-    return Container(
+    return SizedBox(
         width: screenSizeW,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -377,7 +381,7 @@ class dialogs {
 // Elevted Button Template
 // ignore: camel_case_types
 class coolButton extends StatelessWidget {
-  coolButton({
+  const coolButton({
     required this.text,
     required this.functionToComply,
     this.primaryColor = Colors.redAccent,
@@ -415,7 +419,7 @@ class coolButton extends StatelessWidget {
 // GocartTextField
 // ignore: camel_case_types
 class gocartTextField extends StatefulWidget {
-  gocartTextField({
+  const gocartTextField({
     required this.hint,
     required this.control,
     this.pswd = false,
@@ -442,6 +446,7 @@ class _gocartTextFieldState extends State<gocartTextField> {
   late IconData _suffixIcon;
   @override
   void initState() {
+    // ignore: todo
     // TODO: implement initState
     super.initState();
     // Set Initial Value

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gocart/Entities/user_auth_entity.dart';
@@ -64,14 +66,14 @@ class UserProvider extends ChangeNotifier {
     // ids.remove("");
     ids.add(newAddressID);
     user.addressIDs = ids;
-    print("added new address ${newAddressID}");
+    print("added new address $newAddressID");
     notifyListeners();
   }
 
   //Remove Address
   void removeAddress(oldAddressID) {
     user.addressIDs.remove(oldAddressID.toString().trim());
-    print("removed address ${oldAddressID}");
+    print("removed address $oldAddressID");
     notifyListeners();
   }
 
@@ -83,14 +85,14 @@ class UserProvider extends ChangeNotifier {
     // ids.remove("");
     ids.add(newCardID);
     user.cardIDs = ids;
-    print("added new Card ${newCardID}");
+    print("added new Card $newCardID");
     notifyListeners();
   }
 
   // Remove Card
   void removeCard(oldCardID) {
     user.cardIDs.remove(oldCardID.toString().trim());
-    print("removed Card ${oldCardID}");
+    print("removed Card $oldCardID");
     notifyListeners();
   }
 
@@ -174,12 +176,14 @@ class UserProvider extends ChangeNotifier {
 
   void addNewOrder(orderid) {
     List<String> ids = [];
-    for (var id in user.orderHistoryIDs) ids.add(id);
+    for (var id in user.orderHistoryIDs) {
+      ids.add(id);
+    }
     // remove blank address initially
     // ids.remove("");
     ids.add(orderid);
     user.orderHistoryIDs = ids;
-    print("added new Order ${orderid}");
+    print("added new Order $orderid");
     notifyListeners();
   }
 }

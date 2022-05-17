@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:gocart/Entities/item_entity.dart';
 import 'package:gocart/Models/filter_query_model.dart';
@@ -162,7 +164,6 @@ class SearchProvider extends ChangeNotifier {
   }
 
   void filterByQuery(FilterQuery filterQuery) {
-    List<Item> common = [];
     print("filterByCategory : ${filterQuery.category}");
     print("filterByColor : ${filterQuery.color}");
     print("filterBySize : ${filterQuery.size}");

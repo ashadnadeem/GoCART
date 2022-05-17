@@ -1,4 +1,6 @@
 // Item Model Class
+// ignore_for_file: curly_braces_in_flow_control_structures
+
 class ItemModel {
   final String brandID;
   final String name;
@@ -28,6 +30,7 @@ class ItemModel {
     List<String> colorList = ['not selected'];
     List<String> sizeList = ['NA'];
     List<String> imageList = [];
+
     if (json['colors'] != null) {
       var colors = json['colors'] as List<dynamic>;
       for (var id in colors) colorList.add(id.toString().trim());
