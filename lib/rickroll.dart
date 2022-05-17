@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/utils.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import 'Services/auth.dart';
 
-class RickRoll extends StatelessWidget {
+class RickRoll extends StatefulWidget {
   const RickRoll({Key? key}) : super(key: key);
 
+  @override
+  State<RickRoll> createState() => _RickRollState();
+}
+
+class _RickRollState extends State<RickRoll> {
   @override
   Widget build(BuildContext context) {
     final _auth = AuthService();

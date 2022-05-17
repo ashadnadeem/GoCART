@@ -279,12 +279,12 @@ class _MyHomePageState extends State<MyHomePage> {
     context.read<BrandProvider>().addItem(
           Brand(
               id: "014",
-              name: "Tasche/Kelly",
+              name: "Hermes",
               address: "Karachi, Pakistan",
-              website: 'https://www.facebook.com/TascheDesigns/',
+              website: 'https://www.hermes.com/',
               hasAR: false,
               image:
-                  "https://scontent.fkhi10-1.fna.fbcdn.net/v/t1.18169-9/67983_581977701820285_1642664385_n.jpg?_nc_cat=101&ccb=1-6&_nc_sid=09cbfe&_nc_ohc=-asLeN176qoAX8dTplF&_nc_ht=scontent.fkhi10-1.fna&oh=00_AT_jgtIPq7Wj2EvQrLn5oaandgqhu2MFBKtYCUxoMPWvBQ&oe=62AA29EA"),
+                  "https://logowik.com/content/uploads/images/489_hermesparis.jpg"),
         );
   }
 }

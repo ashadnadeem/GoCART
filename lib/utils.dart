@@ -4,6 +4,7 @@ import 'package:gocart/rickroll.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'Entities/address_entity.dart';
 import 'Entities/debitcard_entity.dart';
@@ -599,5 +600,38 @@ class TextFormatter {
       return e.substring(0, 1).toUpperCase() + e.substring(1);
     }).join(" ");
     return name;
+  }
+}
+
+class OpenURL extends StatefulWidget {
+  const OpenURL({Key? key, required this.webURL}) : super(key: key);
+
+  final String webURL;
+
+  @override
+  State<OpenURL> createState() => _OpenURLState();
+}
+
+class _OpenURLState extends State<OpenURL> {
+  Future<void>? _launched;
+
+  Future<void> _launchInBrowser(Uri url) async {
+    if (!await launchUrl(
+      url,
+      mode: LaunchMode.externalApplication,
+    )) {
+      throw 'Could not launch $url';
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final Uri toLaunch = Uri(scheme: 'https', host: widget.webURL, path: '/');
+    return TextButton(
+      onPressed: () => setState(() {
+        _launched = _launchInBrowser(toLaunch);
+      }),
+      child: Text(widget.webURL),
+    );
   }
 }
