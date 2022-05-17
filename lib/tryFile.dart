@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/Main%20Screen%20Pages/checkout_page.dart';
-import 'package:gocart/augmented_faces.dart';
-import 'package:gocart/cameraScreen.dart';
-import 'package:gocart/custom_object.dart';
 import 'package:gocart/utils.dart';
 
 class tryMe extends StatefulWidget {
@@ -33,29 +30,7 @@ class _tryMeState extends State<tryMe> {
               },
               child: const Text('Try Dialog'),
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => CameraApp()),
-                );
-              },
-              child: const Text('Try AR CAMERA'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const AugmentedFacesScreen()));
-              },
-              child: const Text("Augmented Faces"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => CustomObject()));
-              },
-              child: const Text("Custom Anchored Object with onTap"),
-            ),
+
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(

@@ -67,7 +67,7 @@ class _SearchPageState extends State<SearchPage> {
     }
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 32),
+      padding: const EdgeInsets.only(top: 32, left: 32, right: 32),
       child: Stack(children: [
         Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -433,13 +433,24 @@ class _FilterMenuState extends State<FilterMenu> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              "Filter Products",
-              style: GoogleFonts.poppins(
-                color: Colors.black54,
-                fontSize: _fontSize * 1.5,
-                fontWeight: FontWeight.w800,
-              ),
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back_ios),
+                  iconSize: screenHeight * 0.03,
+                  onPressed: () {
+                    context.read<SearchProvider>().closePopup();
+                  },
+                ),
+                Text(
+                  "Filter Products",
+                  style: GoogleFonts.poppins(
+                    color: Colors.black54,
+                    fontSize: _fontSize * 1.5,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 16),
             categoryDropDown(),

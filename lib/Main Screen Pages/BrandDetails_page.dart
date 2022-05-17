@@ -56,7 +56,7 @@ class _BrandDetailPageState extends State<BrandDetailPage> {
                 widget.brand.name,
                 style: GoogleFonts.poppins(
                   color: const Color.fromARGB(255, 33, 32, 32),
-                  fontSize: 50,
+                  fontSize: 40,
                   fontWeight: FontWeight.bold,
                 ),
               ),

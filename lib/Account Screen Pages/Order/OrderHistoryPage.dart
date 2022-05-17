@@ -132,7 +132,7 @@ class OrderHistoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Get the Order history from the provider
-    history = context.read<OrderHistoryProvider>().items;
+    // history = context.read<OrderHistoryProvider>().items;
     final double screenHeight = MediaQuery.of(context).size.height;
     Widget MyOrderList() {
       return Column(

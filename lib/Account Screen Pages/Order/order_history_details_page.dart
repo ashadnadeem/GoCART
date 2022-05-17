@@ -54,7 +54,7 @@ class _OrderHistoryDetailPageState extends State<OrderHistoryDetailPage> {
           Expanded(
             child: ListView.separated(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 34),
-              itemCount: widget.history.cart.length,
+              itemCount: 0, //widget.history.cart.length,
               itemBuilder: (context, index) => ListTile(
                 leading: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -69,7 +69,7 @@ class _OrderHistoryDetailPageState extends State<OrderHistoryDetailPage> {
                           Expanded(
                             flex: 0,
                             child: Text(
-                              "x${widget.history.cart[index].itemCount.toString()}",
+                              "", // "x${widget.history.cart[index].itemCount.toString()}",
                               // _totalController.text,
                             ),
                           ),
@@ -85,12 +85,12 @@ class _OrderHistoryDetailPageState extends State<OrderHistoryDetailPage> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(13.5),
                         color: const Color.fromARGB(255, 46, 44, 44),
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            widget.history.cart[index].images.first,
-                          ),
-                          fit: BoxFit.cover,
-                        ),
+                        // image: DecorationImage(
+                        //   image: NetworkImage(
+                        //     widget.history.cart[index].images.first,
+                        //   ),
+                        //   fit: BoxFit.cover,
+                        // ),
                       ),
                     ),
                     // const SizedBox(
@@ -98,16 +98,16 @@ class _OrderHistoryDetailPageState extends State<OrderHistoryDetailPage> {
                     // ),
                   ],
                 ),
-                title: Text(widget.history.cart[index].name),
+                // title: Text(widget.history.cart[index].name),
                 isThreeLine: true,
-                subtitle: Text(
-                    "${widget.history.cart[index].description}\n${widget.history.cart[index].price}"),
+                // subtitle: Text(
+                //     "${widget.history.cart[index].description}\n${widget.history.cart[index].price}"),
                 trailing: IconButton(
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) =>
-                            ItemDetail(product: widget.history.cart[index]),
+                            Container(), // ItemDetail(product: widget.history.cart[index]),
                       ),
                     );
                   },
@@ -136,12 +136,12 @@ class _OrderHistoryDetailPageState extends State<OrderHistoryDetailPage> {
                   fontSize: 24,
                 ),
               ),
-              Text(
-                "PKR ${widget.history.total.toString()}",
-                style: GoogleFonts.poppins(
-                  fontSize: 22,
-                ),
-              ),
+              // Text(
+              //   "PKR ${widget.history.total.toString()}",
+              //   style: GoogleFonts.poppins(
+              //     fontSize: 22,
+              //   ),
+              // ),
             ],
           ),
           // CartTotalWidget(total: total, text: "Checkout", cart: cart)
