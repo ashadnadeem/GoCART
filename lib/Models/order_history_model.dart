@@ -1,32 +1,4 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
-
-import '../Entities/cart_entity.dart';
-
-class OrderHistory {
-  OrderHistory({
-    required this.cart,
-    required this.status,
-    required this.paymentMethod,
-    required this.deliveryAddress,
-    // required this.orderID,
-    // required this.status,
-    // required this.quantity,
-    // required this.total,
-    // required this.cart,
-  });
-
-  Cart cart;
-  late final String orderID;
-  String status;
-  String paymentMethod;
-  String deliveryAddress;
-  // final String orderID;
-  // final String status;
-  // final int quantity;
-  // final int total;
-  // final List<Item> cart;
-}
-
 class OrderHistoryModel {
   OrderHistoryModel({
     required this.status,

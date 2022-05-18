@@ -3,9 +3,7 @@ import 'package:gocart/Entities/debitcard_entity.dart';
 import 'package:gocart/Entities/cart_entity.dart';
 import 'package:gocart/Controllers/cart_provider.dart';
 import 'package:gocart/Controllers/item_provider.dart';
-import 'package:gocart/Models/order_history_model.dart';
-import 'package:gocart/Models/order_history_provider.dart';
-import 'package:gocart/Screens/Main%20Screen%20Pages/home_page.dart';
+import 'package:gocart/Controllers/order_history_provider.dart';
 import 'package:gocart/Screens/Main%20Screen%20Pages/main_page.dart';
 import 'package:gocart/Screens/success_screen.dart';
 import 'package:gocart/utils.dart';
@@ -14,6 +12,7 @@ import 'package:provider/provider.dart';
 
 import '../../../Controllers/user_provider.dart';
 import '../../../Entities/item_entity.dart';
+import '../../../Entities/order_history_entity.dart';
 import '../ItemDetailPage.dart';
 import '../checkout_page.dart';
 

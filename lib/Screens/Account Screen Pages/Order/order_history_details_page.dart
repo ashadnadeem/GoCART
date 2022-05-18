@@ -4,11 +4,11 @@ import 'package:gocart/Controllers/debitcard_provider.dart';
 import 'package:gocart/Controllers/item_provider.dart';
 import 'package:gocart/Entities/item_entity.dart';
 
-import 'package:gocart/Models/order_history_model.dart';
 import 'package:gocart/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../../../Entities/order_history_entity.dart';
 import '../../Main Screen Pages/ItemDetailPage.dart';
 
 class OrderHistoryDetailPage extends StatefulWidget {
@@ -20,26 +20,13 @@ class OrderHistoryDetailPage extends StatefulWidget {
 }
 
 class _OrderHistoryDetailPageState extends State<OrderHistoryDetailPage> {
-//  final TextEditingController _totalController = TextEditingController();
   int total = 0;
-
-  // @override
-  // void initState() {
-  //   for (Item index in cart) {
-  //     total = total + index.price * index.itemCount;
-  //     _totalController.text = total.toString();
-  //   }
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
     final double fontsize = screenHeight * 0.015;
-
-    // wigdet.cart = context.watch<CartProvider>().cart;
-    // total = context.read<TotalProvider>().total;
 
     return Scaffold(
       appBar: const MyAppBar(implyLeading: false),
@@ -106,14 +93,6 @@ class _OrderHistoryDetailPageState extends State<OrderHistoryDetailPage> {
               ],
             ),
           ),
-          // Text(
-          //   "Order Details",
-          //   style: GoogleFonts.poppins(
-          //     color: const Color.fromARGB(255, 33, 32, 32),
-          //     fontSize: 50,
-          //     fontWeight: FontWeight.bold,
-          //   ),
-          // ),
           Expanded(
             child: ListView.separated(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 34),
@@ -165,8 +144,8 @@ class _OrderHistoryDetailPageState extends State<OrderHistoryDetailPage> {
                 ),
                 // title: Text(widget.history.cart[index].name),
                 isThreeLine: true,
-                subtitle:
-                    Text("${getItem(index).name}\nPKR ${getItem(index).price}"),
+                subtitle: Text(
+                    "${TextFormatter.productNameFormatter(getItem(index).name)}\n ${widget.history.cart.size[index]} | ${widget.history.cart.color[index]}\nPKR ${getItem(index).price}"),
                 // "${widget.history.cart[index].description}\n${widget.history.cart[index].price}"),
                 trailing: IconButton(
                   onPressed: () {
@@ -209,7 +188,6 @@ class _OrderHistoryDetailPageState extends State<OrderHistoryDetailPage> {
               ),
             ],
           ),
-          // CartTotalWidget(total: total, text: "Checkout", cart: cart)
         ],
       ),
     );

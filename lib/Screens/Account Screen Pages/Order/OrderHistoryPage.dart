@@ -1,17 +1,16 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:gocart/Controllers/user_provider.dart';
 import 'package:gocart/utils.dart';
 import 'package:provider/provider.dart';
 
-import '../../../Models/order_history_model.dart';
-import '../../../Models/order_history_provider.dart';
+import '../../../Entities/order_history_entity.dart';
+import '../../../Controllers/order_history_provider.dart';
 import 'order_tile_widget.dart';
 
 // ignore: must_be_immutable
 class OrderHistoryPage extends StatefulWidget {
-  OrderHistoryPage({Key? key}) : super(key: key);
+  const OrderHistoryPage({Key? key}) : super(key: key);
 
   @override
   State<OrderHistoryPage> createState() => _OrderHistoryPageState();

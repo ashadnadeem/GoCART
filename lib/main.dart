@@ -8,7 +8,7 @@ import 'package:gocart/Controllers/brand_provider.dart';
 import 'package:gocart/Controllers/cart_provider.dart';
 import 'package:gocart/Controllers/debitcard_provider.dart';
 import 'package:gocart/Controllers/item_provider.dart';
-import 'package:gocart/Models/order_history_provider.dart';
+import 'package:gocart/Controllers/order_history_provider.dart';
 import 'package:gocart/Controllers/search_provider.dart';
 import 'package:gocart/Controllers/wishlist_provider.dart';
 import 'package:gocart/Services/auth.dart';

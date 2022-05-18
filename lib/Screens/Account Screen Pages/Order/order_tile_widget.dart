@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:gocart/Controllers/item_provider.dart';
 import 'package:gocart/Controllers/user_provider.dart';
 import 'package:gocart/Entities/item_entity.dart';
-import 'package:gocart/Models/order_history_model.dart';
-import 'package:gocart/Models/order_history_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../../../Entities/order_history_entity.dart';
 import 'order_history_details_page.dart';
 
 class OrderTile extends StatelessWidget {

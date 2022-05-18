@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gocart/utils.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'Services/auth.dart';
 
 class RickRoll extends StatefulWidget {
@@ -15,7 +14,7 @@ class _RickRollState extends State<RickRoll> {
   Widget build(BuildContext context) {
     final _auth = AuthService();
     return Scaffold(
-      appBar: MyAppBar(implyLeading: true),
+      appBar: const MyAppBar(implyLeading: true),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

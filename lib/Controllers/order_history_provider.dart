@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:gocart/Entities/cart_entity.dart';
-import 'package:gocart/Models/order_history_model.dart';
+
+import '../Entities/order_history_entity.dart';
+import '../Models/order_history_model.dart';
 
 class OrderHistoryProvider extends ChangeNotifier {
   List<OrderHistory> list = [];
